@@ -1,0 +1,43 @@
+.detail{
+    max-width: 750px;
+    text-align: justify;
+    margin: 0 auto;
+    margin-top: 1em;
+    box-shadow: 0 0 10px 1px rgb(197, 196, 196);
+}
+.detailImage{
+    width: 100%;
+    margin: 0 auto;
+    object-fit: cover;
+}
+.detailImage img{
+    width: 100%;
+}
+
+.detail h3{
+    text-align: center;
+    color:rgb(20, 17, 57);
+}
+.detailDesc{
+ padding: 1em;
+ border-bottom: 1px solid gray;
+}
+.rating{
+    max-width:fit-content;
+    padding: .5em;
+    color: green;
+    box-shadow: 0 0 10px 1px rgb(209, 208, 208);
+    border-radius: .5em;
+}
+.rating svg{
+    width: 1em;
+    height: 1em;
+    fill: green;
+}
+
+.detailMenu{
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+}

@@ -1,0 +1,36 @@
+
+.form{
+    background: rgba(174, 170, 170, 0.3);
+    max-width: 500px;
+    margin: 0 auto;
+    margin-top: 10%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    padding:3em;
+    box-sizing: border-box;
+    border-radius: 10em;
+    text-align: center;
+}
+
+
+ .form_input{
+    opacity: 1;
+    padding:1em;
+    border: none;
+    outline: none;
+    border-radius: 10em;
+ }
+
+
+ .form_button{
+    margin:1em;
+    padding:.5em;
+    width: 40%;
+    background-color:rgb(220, 144, 91);
+    color:rgb(255, 255, 255);
+    border:.1em solid rgb(0, 0, 0);
+    border-radius: 10em;
+    box-shadow: .1em .1em black;
+ }

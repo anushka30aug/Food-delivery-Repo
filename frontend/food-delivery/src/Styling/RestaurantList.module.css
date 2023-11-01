@@ -1,0 +1,51 @@
+.heading{
+    text-align: center;
+    color: rgb(20, 17, 57);
+  }
+
+  .utilities{
+    max-width: 500px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+    margin: 0 auto;
+  }
+
+.searchbar{
+  text-align: center;
+  max-width: 350px;
+}
+.searchbar input{
+  padding:1em;
+  margin: .5em;
+  border: .1em solid rgb(20, 17, 57) ;
+  border-radius: .5em;
+}
+.searchbar button{
+  padding: 1em;
+  margin: .5em;
+  border: none;
+  border-radius: .3em;
+  background-color: rgb(20, 17, 57);
+  color: white;
+}
+
+.filter{
+  padding:1em;
+  margin:.5em;
+  border:.1em solid rgb(20, 17, 57);
+  border-radius: .3em;
+  outline: none;
+  background-color: rgb(237, 235, 235);
+  color:rgb(20, 17, 57);
+
+}
+
+
+.restaurantList{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+    max-width: 1500px;
+    margin: 0 auto;
+}
