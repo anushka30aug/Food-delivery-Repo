@@ -1,11 +1,11 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import toast from "react-hot-toast";
-
+const host = process.env.REACT_APP_API_IP_ADDRESS;
 export const fetchData = createAsyncThunk(
     '/fetchData',
     async (_, { getState }) => {
         const state = getState();
-        const response = await fetch(`http://192.168.109.74:5000/delivery/data/fetchData?category=${state.data.category}&page=${state.data.page}&city=${state.userCity.city}&filter=${state.data.filter}&sub_category=${state.data.sub_category}&name=${state.data.name}&seller_Id=${state.data.seller_Id}`,
+        const response = await fetch(`${host}/delivery/data/fetchData?category=${state.data.category}&page=${state.data.page}&city=${state.userCity.city}&state=${state.userCity.state}&filter=${state.data.filter}&sub_category=${state.data.sub_category}&name=${state.data.name}&seller_Id=${state.data.seller_Id}`,
             {
                 method: 'GET',
                 headers: {
@@ -35,7 +35,6 @@ const dataSlice = createSlice({
         resetValues(state) {
             state.error = null;
             state.page = 1;
-            state.sub_category = 'none';
             state.name = 'none';
             state.filter = 'default';
             state.seller_Id = 'none';
@@ -63,6 +62,7 @@ const dataSlice = createSlice({
         },
         changeCategory(state, action) {
             state.category = action.payload;
+            state.sub_category='none';
             state.seller_Id= 'none';
         },
         setSellerId(state,action){
@@ -88,13 +88,11 @@ const dataSlice = createSlice({
                 state.loading = false;
                 state.totalResults = action.payload.totalResults;
                 state.data = [...state.data, ...action.payload.data];
-                console.log(state.data)
             }
             )
             .addCase(fetchData.rejected, (state, action) => {
                 state.loading = false;
                 toast.error('kuch to locha hai');
-                console.log(action.error.message)
                 state.error = action.error.message;
             })
     }

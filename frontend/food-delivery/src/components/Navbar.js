@@ -1,52 +1,36 @@
 import '../Styling/Navbar.css';
 import { useNavigate } from 'react-router-dom';
-import { useDispatch, useSelector } from 'react-redux';
-import { Location } from './Icon';
-import { useState } from 'react';
-import { changeCity } from '../Redux/userCityState';
+import { useSelector } from 'react-redux';
+import { Position, ProfileIcon, Cart } from './Icon';
+
 const Navbar = () => {
-    const [city, setCity] = useState('');
-    const [search, setSearch] = useState(false);
-    const dispatch = useDispatch();
     const location = useSelector(state => state.userCity.city)
+    const state = useSelector(state => state.userCity.state)
     const navigate = useNavigate();
     const logOutClick = () => {
         localStorage.removeItem('token');
         navigate('/login');
     }
     const signupClick = () => {
-        navigate('/signup')
+        navigate('/signup');
     }
 
-    const searchState = () => {
-        setSearch(!search);
-    }
-
-    const handleChange = (e) => {
-        setCity(e.target.value)
-    }
-
-    const handleSubmit = (e) => {
-        e.preventDefault();
-        setCity('');
-        setSearch(!search)
-        dispatch(changeCity(city));
+    const goToCart = () => {
+        navigate('/cart')
     }
 
     return (
-        <div>
+        <div className='navigation-menu'>
             <nav className='navbar'>
                 <h2>Trofi</h2>
                 <div className='navbar-activities'>
                     {localStorage.getItem('token') ? (
-                        <div>
-                            <div className='nav-location' onClick={searchState}>
-                                <Location />
-                                <b>Other</b>
-                            </div>
-                            {location}
+                        <div className='icons'>
+                            {/* <button className='cart'> */}
+                            <button onClick={goToCart}><Cart /></button>
+                            {/* </button> */}
+                            <button><ProfileIcon /></button>
                         </div>
-
                     ) : (
                         // Token doesn't exist, render Sign Up and Login buttons
                         <>
@@ -56,10 +40,12 @@ const Navbar = () => {
                     )}
                 </div>
             </nav>
-            <div className='search-location' style={{ display: search ? 'flex' : 'none' }}>
-                <input type="search" placeholder="enter city e.g. Delhi" value={city} onInput={handleChange}/>
-                <button onClick={handleSubmit}>Search</button>
-            </div>
+            {localStorage.getItem('token') ? (
+                <div className='location' onClick={()=>{console.log('navigating'); navigate('/location')}}>
+                    <Position /> Delivery in {location},{state}
+                </div>) : (<></>)
+            }
+          
         </div>
     )
 }

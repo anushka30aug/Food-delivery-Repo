@@ -7,7 +7,7 @@ const jwt = require('jsonwebtoken');
 route.get('/fetchData', async (req, res) => {
     try {
         var data, totalResults;
-        const { category, city, page, filter, sub_category, seller_Id } = req.query;
+        const { category, city, state, page, filter, sub_category, seller_Id } = req.query;
         if (seller_Id !== 'none') {
             data = await Product.find({ seller_Id: seller_Id });
             totalResults = await Product.countDocuments({ seller_Id: seller_Id });
@@ -17,7 +17,9 @@ route.get('/fetchData', async (req, res) => {
             if (filter === 'ascending') {
                 if (sub_category !== 'none') {
                     data = await Product.find({
-                        seller_City: { "$regex": city, "$options": "i" }, "$or": [
+                        seller_City: { "$regex": city, "$options": "i" },
+                        seller_State: { "$regex": state, "$options": "i" },
+                        "$or": [
                             { "name": { "$regex": sub_category, "$options": "i" } },
                             { "sub_category": { "$regex": sub_category, "$options": "i" } },
                             { 'category': { "$regex": sub_category, "$options": "i" } }
@@ -25,7 +27,8 @@ route.get('/fetchData', async (req, res) => {
                     }).sort({ price: 1 }).skip((page - 1) * 10).limit(10)
 
                     totalResults = await Product.countDocuments({
-                        seller_City: { "$regex": city, "$options": "i" }, "$or": [
+                        seller_City: { "$regex": city, "$options": "i" },
+                        seller_State: { "$regex": state, "$options": "i" }, "$or": [
                             { "name": { "$regex": sub_category, "$options": "i" } },
                             { "sub_category": { "$regex": sub_category, "$options": "i" } },
                             { 'category': { "$regex": sub_category, "$options": "i" } }
@@ -35,26 +38,28 @@ route.get('/fetchData', async (req, res) => {
 
                 else {
                     data = await Product.find({
-                        category: category, seller_City: { "$regex": city, "$options": "i" },
+                        category: category, seller_City: { "$regex": city, "$options": "i" }, seller_State: { "$regex": state, "$options": "i" },
                     }).sort({ price: 1 }).skip((page - 1) * 10).limit(10)
 
                     totalResults = await Product.countDocuments({
-                        category: category, seller_City: { "$regex": city, "$options": "i" },
+                        category: category, seller_City: { "$regex": city, "$options": "i" }, seller_State: { "$regex": state, "$options": "i" },
                     })
                 }
             }
             else if (filter === 'descending') {
                 if (sub_category !== 'none') {
                     data = await Product.find({
-                        seller_City: { "$regex": city, "$options": "i" }, "$or": [
+                        seller_City: { "$regex": city, "$options": "i" },
+                        seller_State: { "$regex": state, "$options": "i" }, "$or": [
                             { "name": { "$regex": sub_category, "$options": "i" } },
-                            { "sub_category": { "$regex": sub_category, "$options": "i" } },
+                            { "sub_category": { "$regex": sub_category, "$options": "i" }},
                             { 'category': { "$regex": sub_category, "$options": "i" } }
                         ]
                     }).sort({ price: -1 }).skip((page - 1) * 10).limit(10);
 
                     totalResults = await Product.countDocuments({
-                        seller_City: { "$regex": city, "$options": "i" }, "$or": [
+                        seller_City: { "$regex": city, "$options": "i" },
+                        seller_State: { "$regex": state, "$options": "i" }, "$or": [
                             { "name": { "$regex": sub_category, "$options": "i" } },
                             { "sub_category": { "$regex": sub_category, "$options": "i" } },
                             { 'category': { "$regex": sub_category, "$options": "i" } }
@@ -64,11 +69,11 @@ route.get('/fetchData', async (req, res) => {
 
                 else {
                     data = await Product.find({
-                        category: category, seller_City: { "$regex": city, "$options": "i" },
+                        category: category, seller_City: { "$regex": city, "$options": "i" }, seller_State: { "$regex": state, "$options": "i" },
                     }).sort({ price: -1 }).skip((page - 1) * 10).limit(10)
 
                     totalResults = await Product.countDocuments({
-                        category: category, seller_City: { "$regex": city, "$options": "i" },
+                        category: category, seller_City: { "$regex": city, "$options": "i" }, seller_State: { "$regex": state, "$options": "i" },
                     })
                 }
 
@@ -77,7 +82,8 @@ route.get('/fetchData', async (req, res) => {
             else {
                 if (sub_category !== 'none') {
                     data = await Product.find({
-                        seller_City: { "$regex": city, "$options": "i" }, "$or": [
+                        seller_City: { "$regex": city, "$options": "i" },
+                        seller_State: { "$regex": state, "$options": "i" }, "$or": [
                             { "name": { "$regex": sub_category, "$options": "i" } },
                             { "sub_category": { "$regex": sub_category, "$options": "i" } },
                             { 'category': { "$regex": sub_category, "$options": "i" } }
@@ -86,7 +92,8 @@ route.get('/fetchData', async (req, res) => {
                     }).skip((page - 1) * 10).limit(10);
 
                     totalResults = await Product.countDocuments({
-                        seller_City: { "$regex": city, "$options": "i" }, "$or": [
+                        seller_City: { "$regex": city, "$options": "i" },
+                        seller_State: { "$regex": state, "$options": "i" }, "$or": [
                             { "name": { "$regex": sub_category, "$options": "i" } },
                             { "sub_category": { "$regex": sub_category, "$options": "i" } },
                             { 'category': { "$regex": sub_category, "$options": "i" } }
@@ -95,11 +102,11 @@ route.get('/fetchData', async (req, res) => {
                 }
                 else {
                     data = await Product.find({
-                        category: category, seller_City: { "$regex": city, "$options": "i" },
+                        category: category, seller_City: { "$regex": city, "$options": "i" }, seller_State: { "$regex": state, "$options": "i" },
                     }).skip((page - 1) * 10).limit(10)
 
                     totalResults = await Product.countDocuments({
-                        category: category, seller_City: { "$regex": city, "$options": "i" },
+                        category: category, seller_City: { "$regex": city, "$options": "i" }, seller_State: { "$regex": state, "$options": "i" },
                     })
                 }
             }

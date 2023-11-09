@@ -19,7 +19,7 @@ export default function Footer() {
     }
 
     const handleSearch = (e) => {
-        dispatch(setSubCategory(searchItem));
+        dispatch(setSubCategory(searchItem.trim()));
         dispatch(fetchData());
         setSearchState(false);
         navigate('/productList');

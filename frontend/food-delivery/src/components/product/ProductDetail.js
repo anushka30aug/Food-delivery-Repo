@@ -2,8 +2,9 @@ import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 import { useNavigate } from "react-router";
 import { setModal,setProductDetail } from "../../Redux/Detailing";
-import { addItem,calculateTotals } from "../../Redux/cartSlice";
-import style from '../../Styling/ProductDetail.module.css'
+import { calculateAmount } from "../../Redux/cartSlice";
+import style from '../../Styling/ProductDetail.module.css';
+import { addToCart } from "../../Redux/cartSlice";
 
 export default function ProductDetail() {
     const navigate = useNavigate();
@@ -13,6 +14,7 @@ export default function ProductDetail() {
         if (localStorage.getItem('token') === null || undefined) {
             return navigate('/login')
         }
+        console.log('inside product detail')
     });
 
     const handleExit=()=>{
@@ -20,11 +22,10 @@ export default function ProductDetail() {
       dispatch(setProductDetail({}));
     }
 
-    const addToCart=(e)=>{
+    const add=(e)=>{
         e.preventDefault();
-        const item = {...detail,amount:1}
-        dispatch(addItem(item))
-        dispatch(calculateTotals());
+        dispatch(addToCart(detail))
+        dispatch(calculateAmount());
     }
 
     return (
@@ -36,7 +37,7 @@ export default function ProductDetail() {
                     <h1>{detail.name}</h1>
                     <p>{detail.description}</p>
                     <h3>₹{detail.price}</h3>
-                    <button onClick={addToCart}>+ ADD</button>
+                    <button onClick={add}>+ ADD</button>
                 </div>
             </div>
         </div>

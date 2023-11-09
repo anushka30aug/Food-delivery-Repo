@@ -1,14 +1,18 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import toast from "react-hot-toast";
+const host = process.env.REACT_APP_API_IP_ADDRESS;
+
 export const fetchRestaurants = createAsyncThunk('/fetch/restaurants',async(_,{getState})=>{
     const state=getState();
-    const resp = await fetch(`http://192.168.109.74:5000/delivery/data/fetchRestaurant?city=${state.userCity.city}&rating=${state.restaurantData.rating}&name=${state.restaurantData.name}&page=${state.restaurantData.page}`,
+    const api = `${host}/delivery/data/fetchRestaurant?city=${state.userCity.city}&rating=${state.restaurantData.rating}&name=${state.restaurantData.name}&page=${state.restaurantData.page}`
+    const resp = await fetch(api,
     {
         method: 'GET',
         headers: {
             'Content-Type': 'application/json',
         }
     });
+    
      const data= await resp.json();
      return data;
 })

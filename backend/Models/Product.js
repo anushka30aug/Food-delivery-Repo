@@ -34,6 +34,10 @@ const productSchema = new Schema({
     seller_City: {
         type: String, 
         required: true
+    },
+    seller_State: {
+        type: String, 
+        required: true
     }
 });
 

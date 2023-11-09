@@ -1,0 +1,49 @@
+.location {
+    min-height: 400px;
+    max-width: 500px;
+    margin: 1em auto;
+    padding: .5em;
+    padding-top: 0;
+    box-shadow: 0 0 1em 1px gainsboro;
+    display: flex;
+    align-items: normal;
+    flex-direction: column;
+    justify-content:space-evenly;
+}
+
+.form input {
+    width: 70%;
+    min-width: 200px;
+    padding: 1em;
+    margin-top: 0;
+    border: none;
+    border-radius: .5em;
+    /* box-shadow: 0 0 1em 1px gainsboro; */
+    border:.2em double orange;
+    outline: none;
+}
+
+.form button {
+    width: 20%;
+    min-width: 70px;
+    max-width: 100px;
+    padding: 1em;
+    color: white;
+    background-color: rgb(235, 165, 36);
+    border:.2em double orange;
+    border-radius: .5em;
+    margin-left: .2em;
+}
+
+.gps {
+    font-size: large;
+    /* font-weight: bold; */
+    color: orange;
+    width: 70%;
+    max-width: 400px;
+    padding: .5em;
+    border-radius:.5em ;
+    box-sizing: border-box;
+    box-shadow: 0 4px 4px -2px gainsboro, 0 0 0 0 gainsboro, 4px 0 4px -2px gainsboro, -4px 0 4px -2px gainsboro;
+   margin-bottom: 1em;
+}

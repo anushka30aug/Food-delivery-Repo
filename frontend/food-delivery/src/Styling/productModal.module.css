@@ -4,7 +4,6 @@ body {
 
 .product {
     background-color: white;
-    /* border-radius: 1em; */
     width: 450px;
     height: 10em;
     overflow: hidden;
@@ -14,8 +13,8 @@ body {
     margin: 1em;
     color: black;
     font-size: 1em;
-    /* padding: 1em; */
     box-shadow: .2em .2em .2em .2em rgb(141, 138, 138);
+    cursor: pointer;
 }
 
 .productImage {
@@ -37,7 +36,6 @@ body {
         width: 40%;
         height: 3em;
         left: 0;
-        /* border-radius: .5em; */
         color: green;
         border:none;
         padding:.5em;

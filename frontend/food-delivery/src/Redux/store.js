@@ -15,7 +15,7 @@ import Detailing from './Detailing';
 const userCityPersistConfig={
     key:'userCity',
     storage,
-    whitelist:['city']
+    whitelist:['city','state']
 }
 
 const detailingPersistConfig={
@@ -32,7 +32,8 @@ const dataPersistConfig={
 
 const cartPersistConfig={
     key:'cart',
-    storage:localStorage
+    storage,
+    whitelist:['totalQuantity']
 }
 
 

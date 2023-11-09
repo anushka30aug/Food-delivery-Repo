@@ -1,21 +1,28 @@
 import { ChevronDown, ChevronUp } from '../Icon';
-import { removeItem, increase, decrease,calculateTotals } from '../../Redux/cartSlice';
+import { removeFromCart, increase, decrease, calculateAmount, updateQuantity } from '../../Redux/cartSlice';
+import { setModal, setProductDetail } from '../../Redux/Detailing';
 import { useDispatch } from 'react-redux';
 import '../../Styling/cartItem.css';
 
-const CartItem = ({ _id, image, name, price, amount }) => {
+const CartItem = (prop) => {
+  const { _id, image, name, price, productQuantity } = prop.item;
   const dispatch = useDispatch();
+  const showItem = (e) => {
+    e.preventDefault();
+    dispatch(setProductDetail(prop.item))
+    dispatch(setModal(true));
+  }
+
   return (
     <article className='cart-item'>
-      <img src={image} alt={name} />
+      <img src={image} alt={name} onClick={showItem} />
       <div>
         <h4>{name}</h4>
         <h4 className='item-price'>₹{price}</h4>
         <button
           className='remove-btn'
           onClick={() => {
-            dispatch(removeItem(_id));
-            dispatch(calculateTotals());
+            dispatch(removeFromCart(_id)).then(item => dispatch(calculateAmount()));
           }}
         >
           remove
@@ -25,23 +32,25 @@ const CartItem = ({ _id, image, name, price, amount }) => {
         <button
           className='amount-btn'
           onClick={() => {
-            dispatch(increase({ _id }));
-            dispatch(calculateTotals());
+            dispatch(increase());
+            dispatch(updateQuantity(_id)).then(item => dispatch(calculateAmount()))
+
           }}
         >
           <ChevronUp />
         </button>
-        <p className='amount'>{amount}</p>
+        <p className='amount'>{productQuantity}</p>
         <button
           className='amount-btn'
           onClick={() => {
-            if (amount === 1) {
-              dispatch(removeItem(_id));
-              dispatch(calculateTotals());
+            if (productQuantity === 1) {
+              dispatch(removeFromCart(_id));
+              dispatch(calculateAmount());
               return;
             }
-            dispatch(decrease({ _id }));
-            dispatch(calculateTotals());
+            dispatch(decrease());
+            dispatch(updateQuantity(_id)).then(item => dispatch(calculateAmount())
+            )
           }}
         >
           <ChevronDown />

@@ -5,10 +5,13 @@ import { resetValues,setSellerId } from "../../Redux/dataState";
 import style from '../../Styling/RestaurantDetail.module.css'
 import { useEffect } from "react";
 import ProductCart from '../product/productModal';
+import ProductDetail from "../product/ProductDetail";
+
 
 export default function RestaurantDetail() {
     const detail = useSelector(state => state.Detail.restaurantDetail)
     const data = useSelector(state=>state.data.data);
+    const showdetail=useSelector(state=>state.Detail.showdetail)
     const dispatch = useDispatch();
     useEffect(
         ()=>{
@@ -16,10 +19,12 @@ export default function RestaurantDetail() {
             dispatch(resetValues());
             dispatch(setSellerId(detail._id)); 
             dispatch(fetchData());
+            //eslint-disable-next-line
         },[])
 
     return (
         <div className={style.detail}>
+            {showdetail&&<ProductDetail/>}
             <div className={style.detailImage}>
                 <img src={detail.image} alt="" />
             </div>
@@ -28,6 +33,7 @@ export default function RestaurantDetail() {
                 <i>{detail.cuisine}</i>
                 <p>{detail.description}</p>
                 <div className={style.rating}><Rating />&nbsp;{detail.rating}</div>
+                <address>{detail.address}</address>
             </div>
         
         <h3>Menu</h3>

@@ -18,12 +18,37 @@ body {
     text-align: center;
     align-items: center;
     justify-content: center;
+    flex-wrap: wrap;
     font-size: xx-large;
     font-family: 'Young+Serif&display=swap';
     max-width: 1500px;
     margin: 0 auto;
 }
 
+.searchForm{
+    margin-top:2em;
+    display: none;
+}
+
+.searchForm input{
+    min-height: 3em;
+    min-width: 180px;
+    border: .1em solid black;
+    border-radius: .5em;
+    padding:.7em;
+    margin:.5em;
+    outline:none;
+}
+
+.searchForm button{
+     min-height:3em;
+     padding:.5em;
+     margin:.5em;
+     color: white;
+     background-color: green;
+     border:none;
+     border-radius:.5em;
+}
 
 .main {
     display: flex;
@@ -65,4 +90,11 @@ body {
 
 .category:hover img{
  transform: scale(1.1);
+}
+
+@media(min-width:500px)
+{
+    .searchForm{
+        display: block;
+    }
 }

@@ -9,9 +9,8 @@ import CartContainer from './components/cart/CartContainer';
 import RecoveryEmail from './components/Recover/RecoveryEmail';
 import ResetPassword from './components/Recover/ResetPassword';
 import RestaurantDetail from './components/Restaurant/RestaurantDetail';
-import Search from './components/Search';
+import Location from './components/Location';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
-
 
 function App() {
   return (
@@ -22,7 +21,7 @@ function App() {
           <Route path='/' element={<Home />}></Route>
           <Route path='/login' element={<Login />}></Route>
           <Route path='/signup' element={<Signup />}></Route>
-          <Route path='/search' element={<Search/>}></Route>
+          <Route path='/location' element={<Location/>}></Route>
           <Route path='/productList' element={<ProductList />}></Route>
           <Route path='/productDetail' element={<ProductDetail/>}></Route>
           <Route path='/restaurantDetail' element={<RestaurantDetail/>}></Route>

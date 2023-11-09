@@ -13,7 +13,6 @@ export default function RestaurantList() {
     const dataLength = data.length;
     const [search, setSearch] = useState('');
 
-
     useEffect(
         () => {
             if (city !== null)  {  
@@ -29,7 +28,7 @@ export default function RestaurantList() {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        dispatch(setName(search));
+        dispatch(setName(search.trim()));
         dispatch(fetchRestaurants());
     }
 
@@ -48,8 +47,10 @@ export default function RestaurantList() {
             <h3 className={style.heading}>Restaurants Near You</h3>
             <div className={style.utilities}>
                 <div className={style.searchbar}>
+                    <form onSubmit={handleSubmit}>
                     <input type="search" placeholder="search Restaurant" value={search} onInput={handleChange}/>
                     <button onClick={handleSubmit}>Search</button>
+                    </form>
                 </div>
 
                 <select className={style.filter} onChange={handleSelectChange}>

@@ -1,50 +1,201 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import toast from 'react-hot-toast';
+const host = process.env.REACT_APP_API_IP_ADDRESS;
+
+
+export const fetchCartItems = createAsyncThunk('/cart/fetch', async () => {
+  const response = await fetch(`${host}/delivery/cart/fetchCartItems`, {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json",
+      "auth-token": localStorage.getItem('token')
+    }
+  }
+  );
+  const data = await response.json();
+  return data;
+})
+
+export const addToCart = createAsyncThunk('/cart/add', async (item, { getState }) => {
+  console.log('adding to cart')
+  const product = { ...item, productQuantity: 1 };
+  const state = getState();
+  const request = { totalQuantity: state.cart.totalQuantity, product: product }
+  const response = await fetch(`${host}/delivery/cart/addToCart`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      "auth-token": localStorage.getItem('token')
+    },
+    body: JSON.stringify(request),
+  });
+  const data = await response.json();
+  return data;
+})
+
+export const removeFromCart = createAsyncThunk('/cart/remove', async (_id = null) => {
+  const response = await fetch(`${host}/delivery/cart/removeFromCart`, {
+    method: "DELETE",
+    headers: {
+      "Content-Type": "application/json",
+      "auth-token": localStorage.getItem('token')
+    },
+    body: JSON.stringify({ productId: _id }),
+  })
+  const data = await response.json();
+  return data;
+})
+
+export const updateQuantity = createAsyncThunk('/cart/updateQuantity', async (_id, { getState }) => {
+  const state = getState();
+  const { updateSymbol } = state.cart;
+  console.log(updateSymbol);
+  const response = await fetch(`${host}/delivery/cart/updateQuantity`, {
+    method: "PUT",
+    headers: {
+      "Content-Type": "application/json",
+      "auth-token": localStorage.getItem('token')
+    },
+    body: JSON.stringify({ productId: _id, newQuantity: updateSymbol })
+  })
+  const data = await response.json();
+  console.log(data);
+  return data;
+})
+
 const initialState = {
   cartItems: [],
   amount: 0,
-  total: 0,
-  isLoading: true,
+  totalQuantity: 0,
+  updateSymbol: null,
+  pending: false,
+  error: false
 };
 const cartSlice = createSlice({
   name: 'cart',
   initialState,
   reducers: {
-    clearCart: (state) => {
-      state.cartItems = [];
+
+    increase: (state) => {
+      state.updateSymbol = "+";
     },
-    addItem: (state, action) => {
-      console.log(action.payload)
-      state.cartItems.push(action.payload);
-      state.amount+=1;
-      toast.success('item added to cart')
+    decrease: (state) => {
+      state.updateSymbol = '-';
     },
-    removeItem: (state, action) => {
-      const itemId = action.payload;
-      state.cartItems = state.cartItems.filter((item) => item._id !== itemId);
-    },
-    increase: (state, { payload }) => {
-      const cartItem = state.cartItems.find((item) => item._id === payload._id);
-      cartItem.amount = cartItem.amount + 1;
-    },
-    decrease: (state, { payload }) => {
-      const cartItem = state.cartItems.find((item) => item._id === payload._id);
-      cartItem.amount = cartItem.amount - 1;
-    },
-    calculateTotals: (state) => {
+    calculateAmount: (state) => {
       let amount = 0;
-      let total = 0;
       state.cartItems.forEach((item) => {
-        amount += item.amount;
-        total += item.amount * item.price;
+        amount += item.productQuantity * item.price;
       });
       state.amount = amount;
-      state.total = total;
     },
+  },
+  extraReducers: (builder) => {
+    builder
+      .addCase(fetchCartItems.pending, (state) => {
+        state.pending = true;
+      })
+      .addCase(fetchCartItems.fulfilled, (state, action) => {
+        state.pending = false;
+        if (action.payload.error) {
+          toast.error('error occured')
+        }
+        else if (action.payload.noDataFound) {
+
+        }
+        else {
+          state.cartItems = [];
+          state.cartItems = [...state.cartItems, ...action.payload.cartItems];
+          state.totalQuantity = action.payload.totalQuantity;
+        }
+      })
+      .addCase(fetchCartItems.rejected, (state, action) => {
+        state.pending = false;
+        state.error = action.error.message
+        console.log('request rejected')
+      })
+      .addCase(addToCart.pending, (state, action) => {
+        state.pending = true;
+      })
+      .addCase(addToCart.fulfilled, (state, action) => {
+        state.pending = false;
+        if (action.payload.error) {
+          console.log("error in addtocart")
+        }
+        else {
+          if (action.payload.newCart) {
+            state.cartItems = [...state.cartItems, action.payload.newCart]
+            state.totalQuantity += 1
+            console.log(action.payload.newCart)
+            toast.success('item added to cart')
+          }
+          else if (action.payload.product) {
+            state.cartItems = [...state.cartItems, action.payload.product]
+            state.totalQuantity += 1
+            console.log(action.payload.product)
+            toast.success('item added to cart')
+
+          }
+          else if (action.payload.id) {
+            state.cartItems.forEach((items) => {
+              if (items._id === action.payload.id) {
+                items.productQuantity += 1;
+                toast.success('item added to cart')
+              }
+              state.totalQuantity += 1
+              console.log(items)
+            })
+          }
+        }
+      })
+      .addCase(addToCart.rejected, (state, action) => {
+        state.pending = false;
+        console.log('request rejected to add to cart')
+      }
+      )
+      .addCase(removeFromCart.pending, (state, action) => {
+        state.pending = true;
+      })
+      .addCase(removeFromCart.fulfilled, (state, action) => {
+        state.pending = false;
+        if (action.payload.error) {
+          toast.error("unexpected error occured")
+        }
+        else if (action.payload.notFound) {
+          toast.error('user cart not found')
+        }
+        else {
+          state.cartItems = action.payload.userCart.cartItems;
+          state.totalQuantity = action.payload.totalQuantity;
+        }
+      })
+      .addCase(removeFromCart.rejected, (state, action) => {
+        state.pending = false;
+        console.log('request rejected to remove from cart')
+      })
+      .addCase(updateQuantity.pending, (state, action) => {
+        state.pending = true;
+      })
+      .addCase(updateQuantity.fulfilled, (state, action) => {
+        state.pending = false;
+        if (action.payload.error) {
+          toast.error("unexpected error occured")
+        }
+        else if (action.payload.notFound) {
+          toast.error('user cart not found')
+        }
+        else {
+          state.cartItems = action.payload.userCart.cartItems;
+          state.totalQuantity = action.payload.totalQuantity;
+        }
+      })
+      .addCase(updateQuantity.rejected, (state, action) => {
+        state.pending = false;
+        console.log('request rejected to update quantity')
+      })
   }
 })
 
-export const { clearCart, addItem, removeItem, increase, decrease, calculateTotals } =
-  cartSlice.actions;
+export const { increase, decrease, calculateAmount } = cartSlice.actions;
 
 export default cartSlice.reducer;

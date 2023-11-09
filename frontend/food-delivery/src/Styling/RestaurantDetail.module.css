@@ -28,6 +28,7 @@
     color: green;
     box-shadow: 0 0 10px 1px rgb(209, 208, 208);
     border-radius: .5em;
+    margin: .5em;
 }
 .rating svg{
     width: 1em;

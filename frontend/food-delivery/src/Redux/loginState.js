@@ -1,9 +1,9 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import toast from 'react-hot-toast';
-
+const host = process.env.REACT_APP_API_IP_ADDRESS;
 export const loginUser = createAsyncThunk(
     '/login', async (userCredentials) => {
-        const response = await fetch(`http://192.168.109.74:5000/delivery/auth/login`, {
+        const response = await fetch(`${host}/delivery/auth/login`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
@@ -34,7 +34,6 @@ const loginSlice = createSlice(
                 .addCase(loginUser.fulfilled, (state, action) => {
                     state.loading = false;
                     state.user = action.payload;
-                    console.log(state.user);
                     if (state.user.err) {
                         toast.error('enter valid credentials')
                         return

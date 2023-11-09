@@ -1,24 +1,23 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import toast from 'react-hot-toast';
-
+const host = process.env.REACT_APP_API_IP_ADDRESS;
 
 export const sendOtp = createAsyncThunk('/verification/sendOtp',
     async (email) => {
-        const response = await fetch (`http://192.168.109.74:5000/delivery/auth/sendOtp?emailId=${email}`,
+        const response = await fetch (`${host}/delivery/auth/sendOtp?emailId=${email}`,
             {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json',
                 }
             })
-
         const data = await response.json();
         return data;
     })
 
 export const verifyOtp = createAsyncThunk('/verification/verifyOtp',
     async (enteredOtp) => {
-        const response = await fetch(`http://192.168.109.74:5000/delivery/auth/verifyOtp`,
+        const response = await fetch(`${host}/delivery/auth/verifyOtp`,
             {
                 method: 'POST',
                 headers: {
@@ -34,7 +33,7 @@ export const verifyOtp = createAsyncThunk('/verification/verifyOtp',
 export const resetPassword = createAsyncThunk('/verification/reset',
 async(password)=>{
     const emailId = sessionStorage.getItem('recover')
-   const response = await fetch(`http://192.168.109.74:5000/delivery/auth/resetPassword`,{
+   const response = await fetch(`${host}/delivery/auth/resetPassword`,{
     method:'POST',
     headers:{
         "Content-Type":'application/json'
@@ -77,7 +76,6 @@ const verificationSlice = createSlice(
                 })
                 .addCase(sendOtp.rejected, (state, action) => {
                     state.loading = false;
-                    console.log(action.error.message)
                 })
 
                 .addCase(verifyOtp.pending, (state) => {
@@ -95,7 +93,6 @@ const verificationSlice = createSlice(
                 })
                 .addCase(verifyOtp.rejected, (state, action) => {
                     state.loading = false;
-                    console.log(action.error.message)
                 })
 
                 .addCase(resetPassword.pending,(state,action)=>{
@@ -120,7 +117,6 @@ const verificationSlice = createSlice(
                 })
                 .addCase(resetPassword.rejected,(state,action)=>{
                     state.loading=false;
-                    console.log(action.error.message)
                 })
 
         }

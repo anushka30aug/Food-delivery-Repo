@@ -1,5 +1,4 @@
 .products {
-    /* font-size: medium; */
     max-width: 1500px;
     margin: 0 auto;
     display: flex;
@@ -7,54 +6,3 @@
     justify-content: space-evenly;
 }
 
-.searchOption {
-    max-width: 400px;
-    min-width: 100px;
-    position: fixed;
-    bottom: 0;
-    left: 50%;
-    transform: translateX(-50%);
-    margin: 0 auto;
-    margin-bottom: .5em;
-    padding: 1em;
-    border: none;
-    border-radius: 10em;
-    background-color: green;
-    color: white;
-}
-
-.searchOption svg {
-    font-weight: bolder;
-    margin-right: .2em;
-    margin-bottom: 0;
-    padding: 0;
-}
-
-.searchBar {
-    min-width: 320px;
-    max-width: 500px;
-    margin: 0 auto;
-    position: fixed;
-    bottom: 0;
-    left: 50%;
-    transform: translateX(-50%);
-    padding: 1em;
-    margin-bottom: .5em;
-    text-align: center;
-
-}
-.searchBar input{
-    padding: 1em;
-    border-radius: 10em;
-    margin-right: 1em;
-    border: .2em solid black;
-    outline: none;
-}
-.searchBar button{
-    padding: 1em;
-    border:none;
-    border-radius: 1em;
-    /* background-color: rgb(21, 98, 164); */
-    background-color:rgb(5, 95, 5);
-    color: white;
-}

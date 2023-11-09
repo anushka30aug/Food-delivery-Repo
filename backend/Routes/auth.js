@@ -8,7 +8,6 @@ const otp = require('otp-generator');
 const { body, validationResult } = require('express-validator');
 const s_key = '1012020Anu';
 
-
 route.post('/login',
     [body('email').isEmail().withMessage('enter valid email'),
     body('password').isLength({ min: 6 }).withMessage('password should be of minimum length 6')],
@@ -29,7 +28,8 @@ route.post('/login',
             }
             const data = {
                 id: user._id,
-                city: user.city
+                city: user.city,
+                state:user.state
             }
             const token = jwt.sign(data, '1012020Anu');
             res.json({ token })
@@ -73,7 +73,8 @@ route.post('/signup',
             }).then((user) => {
                 const data = {
                     id: user._id,
-                    city: user.city
+                    city: user.city,
+                    state: user.state
                 }
                 const token = jwt.sign(data, '1012020Anu');
                 res.json({ token });
@@ -98,6 +99,8 @@ route.get('/fetchUser', async (req, res) => {
         res.status(400).send({ error: "unexpected error occured" })
     }
 })
+
+
 var verificationOtp;
 route.get('/sendOtp', async (req, res) => {
     let getOtp = otp.generate(6, { upperCaseAlphabets: false, specialChars: false, lowerCaseAlphabets: false });
@@ -107,7 +110,7 @@ route.get('/sendOtp', async (req, res) => {
             service: 'gmail',
             auth: {
                 user: "anushkashukla3003@gmail.com",
-                pass: " ",
+                pass: "",
             },
         });
         const { emailId } = req.query;
@@ -117,7 +120,7 @@ route.get('/sendOtp', async (req, res) => {
             subject: "OTP for verfication ✔", // Subject line
             text: "Hello", // plain text body
             html: `<i> login OTP for your Trofi account : 
-            <b> ${getOtp} If it's not you then kindly do not share this OTP with anyone</i>`,
+            <b> ${getOtp} kindly do not share this OTP with anyone</i>`,
         });
 
         console.log("Message sent: %s", info.messageId);
@@ -158,6 +161,7 @@ route.post('/resetPassword', async (req, res) => {
         }
         const id = user._id;
         const city = user.city;
+        const state = user.state;
         const salt = await bcrypt.genSalt(10);
         const hashed = await bcrypt.hash(password, salt)
 
@@ -169,7 +173,8 @@ route.post('/resetPassword', async (req, res) => {
         if (updated) {
             const data = {
                 id: id,
-                city:city
+                city:city,
+                state:state
             }
             const token = jwt.sign(data, s_key);
             return res.status(200).json({ token })
