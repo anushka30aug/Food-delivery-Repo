@@ -1,9 +1,10 @@
 const jwt = require('jsonwebtoken');
-const S_key = '1012020Anu';
+const S_key = process.env.JWT_SECRET_KEY;
+
 const fetchUser = (req,res,next)=>{
     const token= req.header('auth-token');
     if(!token)
-    {
+    { 
        return res.status(401).send({error:"please authenticate using a valid token"})
     }
     try{

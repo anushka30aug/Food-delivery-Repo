@@ -26,11 +26,10 @@ export default function OtpModal() {
             const otpResponse = await dispatch(verifyOtp(otp));
             if (otpResponse.payload.success) {   //if otp is verified
                 if (recovering)       //check is user is recovering the account or signing in for first time
-                {
-                    console.log(recovering)
+                {   
                     dispatch(setRecovering(false));
-                    navigate('/resetPassword')
-
+                    //pass the verified prop to resetPassword to show that the user has entered the correct OTP and is verified to ensure that user is following the application flow
+                    navigate('/resetPassword',{ state: { verified: true } })
                 }
                 else {
                     const signupResponse = await dispatch(signupUser());
@@ -53,7 +52,7 @@ export default function OtpModal() {
                 </p>
                 <input type="text" inputMode="numeric" placeholder='enter OTP' className={style.form_input} value={otp} onChange={handleChange} />
                 <button className={style.form_button} onClick={handleSubmit}>Verify</button>
-                {/* <p>if you didn't receive a Code!! <button onClick={}> Resend</button></p> */}
+                {/* <p>if you didn't receive code!! <button onClick={}> Resend</button></p> */}
             </form>
         </div>
     )

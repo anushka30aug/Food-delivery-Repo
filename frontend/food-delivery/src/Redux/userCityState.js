@@ -65,8 +65,8 @@ const userSlice = createSlice({
                     return;
                 }
                 state.loading = false;
-                state.city = action.payload.city;
-                state.state=action.payload.state;
+                state.city = action.payload.data.city;
+                state.state=action.payload.data.state;
             })
             .addCase(fetchPayload.rejected, (state, action) => {
                 state.loading = false;

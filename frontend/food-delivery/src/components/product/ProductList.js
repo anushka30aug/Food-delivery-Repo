@@ -9,7 +9,6 @@ import ProductDetail from "./ProductDetail";
 import style from '../../Styling/ProductList.module.css';
 import Footer from '../Footer'
 
-
 export default function ProductList() {
     const dispatch = useDispatch();
     const navigate = useNavigate();

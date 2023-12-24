@@ -14,8 +14,8 @@ export default function RecoveryEmail() {
     }
     const handleSubmit = async (e) => {
         e.preventDefault();
-        dispatch(sendOtp(emailId));
-        dispatch(setRecovering(true))
+        dispatch(sendOtp(emailId)); 
+        dispatch(setRecovering(true));
         sessionStorage.setItem('recover', emailId);
         navigate('/otpModal');
     };

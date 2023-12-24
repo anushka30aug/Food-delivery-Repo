@@ -23,7 +23,7 @@ export const verifyOtp = createAsyncThunk('/verification/verifyOtp',
                 headers: {
                     'Content-Type': 'application/json'
                 },
-                body : JSON.stringify({enteredOtp}),      
+                body : JSON.stringify({enteredOtp}),       
             })
         const data = await response.json();
         return data;
@@ -44,6 +44,7 @@ async(password)=>{
    return data;
 }
 )
+
 // create builders of this function
 
 const verificationSlice = createSlice(

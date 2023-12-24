@@ -14,7 +14,7 @@ export default function ProductDetail() {
         if (localStorage.getItem('token') === null || undefined) {
             return navigate('/login')
         }
-        console.log('inside product detail')
+
     });
 
     const handleExit=()=>{

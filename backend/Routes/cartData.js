@@ -3,14 +3,16 @@ const route = express.Router();
 const Cart = require('../Models/Cart');
 const mongoose = require('mongoose');
 const fetchUser = require('../Middleware/fetchUser');
+
 route.get('/fetchCartItems',fetchUser, async (req, res) => {
+    
     try {
         const  userId  = req.user.id;
         const userCart = await Cart.findOne({ customerId :userId});
         if (!userCart || userCart.length === 0) {
             res.status(404).send({ noDataFound: "no cart data found" })
         }
-
+  
         else {
             const cartItems = userCart.cartItems;
             const totalQuantity = userCart.totalQuantity;
@@ -29,13 +31,11 @@ route.post('/addToCart',fetchUser, async (req, res) => {
         const userId=req.user.id;
         const userCart = await Cart.findOne({ customerId:userId });
         if (!userCart) {
-           
             Cart.create({
                 customerId: userId,
                 totalQuantity: 1,
                 cartItems: [product]
             }).then(newCart => {
-                
                 res.status(200).send({ newCart: newCart.cartItems });
             })
         }

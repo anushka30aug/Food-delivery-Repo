@@ -1,12 +1,13 @@
 const express = require('express');
 const route = express.Router();
 const User = require('../Models/User');
+const fetchUser = require('../Middleware/fetchUser');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
-const nodemailer = require('nodemailer');
+const transporter=require('../Helper/NodeMailer')
 const otp = require('otp-generator');
 const { body, validationResult } = require('express-validator');
-const s_key = '1012020Anu';
+const s_key = process.env.JWT_SECRET_KEY;
 
 route.post('/login',
     [body('email').isEmail().withMessage('enter valid email'),
@@ -16,7 +17,7 @@ route.post('/login',
         if (!err.isEmpty()) {
             return res.status(400).send({ err: 'enter valid credentials' })
         }
-        try {
+        try { 
             const { email, password } = req.body;
             let user = await User.findOne({ email });
             if (!user) {
@@ -29,7 +30,7 @@ route.post('/login',
             const data = {
                 id: user._id,
                 city: user.city,
-                state:user.state
+                state:user.state   
             }
             const token = jwt.sign(data, '1012020Anu');
             res.json({ token })
@@ -86,18 +87,22 @@ route.post('/signup',
     }
 )
 
-route.get('/fetchUser', async (req, res) => {
-    const token = req.header('auth-token');
-    if (!token) {
-        res.status(404).send({ err: "login to validate user" })
-    }
-    try {
-        const payload = jwt.verify(token, s_key);
-        res.status(200).send(payload);
-    }
-    catch (err) {
-        res.status(400).send({ error: "unexpected error occured" })
-    }
+
+route.get('/fetchUser',fetchUser,async(req,res)=>{
+    try{ 
+   const userId= req.user.id;
+   const user = await User.findById(userId).select('-password');
+   if(!user)
+   {  
+    res.status(400).send({not_found:"user not found"})
+   }
+   else{  
+    res.status(200).send({data:user})
+   }
+}
+catch(error){
+    res.status(400).send({error:"unexpected error occured"})
+}
 })
 
 
@@ -106,13 +111,6 @@ route.get('/sendOtp', async (req, res) => {
     let getOtp = otp.generate(6, { upperCaseAlphabets: false, specialChars: false, lowerCaseAlphabets: false });
     verificationOtp = getOtp;
     try {
-        const transporter = nodemailer.createTransport({
-            service: 'gmail',
-            auth: {
-                user: "anushkashukla3003@gmail.com",
-                pass: "",
-            },
-        });
         const { emailId } = req.query;
         let info = await transporter.sendMail({
             from: '"Anushka shukla👻" <anushkashukla3003@gmail.com>', // sender address
@@ -123,7 +121,6 @@ route.get('/sendOtp', async (req, res) => {
             <b> ${getOtp} kindly do not share this OTP with anyone</i>`,
         });
 
-        console.log("Message sent: %s", info.messageId);
         res.status(200).json({ otp: 'otp sent successfully' });
     }
 
@@ -141,7 +138,7 @@ route.post('/verifyOtp', async (req, res) => {
         if (enteredOtp === sentOtp) {
             res.status(200).json({ success: 'verified' })
         }
-        else {
+        else { 
             res.status(400).json({ fail: 'verification failed' })
         }
         verificationOtp = null;
@@ -158,7 +155,7 @@ route.post('/resetPassword', async (req, res) => {
         const user = await User.findOne({ email: emailId });
         if (!user) {
             return res.status(404).send({ notFound: 'user with entered emailId not found' });
-        }
+        } 
         const id = user._id;
         const city = user.city;
         const state = user.state;

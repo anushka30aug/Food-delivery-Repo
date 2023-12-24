@@ -7,9 +7,9 @@ const cartItems = new Schema({
     },
     productQuantity:{
         type:Number,
-        required:true
+        required:true  
     },
-    image: {
+    image: {  
         type: String,
         required: true
     },
@@ -60,3 +60,4 @@ const Cart = new Schema({
 })
 
 module.exports = mongoose.model('Cart', Cart);
+// module.exports= cartItems

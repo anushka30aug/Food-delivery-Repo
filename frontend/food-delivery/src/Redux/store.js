@@ -11,6 +11,7 @@ import cartReducer from './cartSlice';
 import verificationReducer from './verificationState';
 import restaurantDataState from './restaurantDtataState';
 import Detailing from './Detailing';
+import deliveryData from './purchaseState';
 // nested persist 
 const userCityPersistConfig={
     key:'userCity',
@@ -36,12 +37,17 @@ const cartPersistConfig={
     whitelist:['totalQuantity']
 }
 
+const purchaseDetail={
+    key:'purchase',
+    storage
+}
+
 
 const persistedUserCityReducer = persistReducer(userCityPersistConfig,userReducer);
 const persistedDetailingReducer = persistReducer(detailingPersistConfig,Detailing);
 const persistedDataReducer = persistReducer(dataPersistConfig,dataReducer);
 const persistedCartReducer = persistReducer(cartPersistConfig,cartReducer)
-
+const persistedPurchaseReducer = persistReducer(purchaseDetail,deliveryData)
 const rootReducer = combineReducers({
     login: loginReducer,
     signup: signupReducer,
@@ -50,7 +56,8 @@ const rootReducer = combineReducers({
     verification:verificationReducer,
     Detail:persistedDetailingReducer,
     cart:persistedCartReducer,
-    restaurantData:restaurantDataState
+    restaurantData:restaurantDataState,
+    deliveryData:persistedPurchaseReducer
 });
 
 

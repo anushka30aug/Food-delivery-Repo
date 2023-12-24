@@ -2,7 +2,6 @@ const express = require('express');
 const Product = require('../Models/Product');
 const Restaurant = require('../Models/Restaurant');
 const route = express.Router();
-const jwt = require('jsonwebtoken');
 
 route.get('/fetchData', async (req, res) => {
     try {
@@ -13,7 +12,7 @@ route.get('/fetchData', async (req, res) => {
             totalResults = await Product.countDocuments({ seller_Id: seller_Id });
         }
         else {
-
+           
             if (filter === 'ascending') {
                 if (sub_category !== 'none') {
                     data = await Product.find({

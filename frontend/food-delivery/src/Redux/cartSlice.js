@@ -17,8 +17,7 @@ export const fetchCartItems = createAsyncThunk('/cart/fetch', async () => {
 })
 
 export const addToCart = createAsyncThunk('/cart/add', async (item, { getState }) => {
-  console.log('adding to cart')
-  const product = { ...item, productQuantity: 1 };
+  const product = { ...item , productQuantity: 1 };
   const state = getState();
   const request = { totalQuantity: state.cart.totalQuantity, product: product }
   const response = await fetch(`${host}/delivery/cart/addToCart`, {
@@ -49,7 +48,6 @@ export const removeFromCart = createAsyncThunk('/cart/remove', async (_id = null
 export const updateQuantity = createAsyncThunk('/cart/updateQuantity', async (_id, { getState }) => {
   const state = getState();
   const { updateSymbol } = state.cart;
-  console.log(updateSymbol);
   const response = await fetch(`${host}/delivery/cart/updateQuantity`, {
     method: "PUT",
     headers: {
@@ -59,7 +57,6 @@ export const updateQuantity = createAsyncThunk('/cart/updateQuantity', async (_i
     body: JSON.stringify({ productId: _id, newQuantity: updateSymbol })
   })
   const data = await response.json();
-  console.log(data);
   return data;
 })
 
@@ -89,6 +86,14 @@ const cartSlice = createSlice({
       });
       state.amount = amount;
     },
+    nonDeliverableAmount: (state,action)=>{
+     const itemsWithDifferentCity= action.payload;
+     let amount = 0;
+     itemsWithDifferentCity.forEach((item)=>{
+      amount+= item.productQuantity*item.price;
+     })
+     state.amount -= amount;
+    }
   },
   extraReducers: (builder) => {
     builder
@@ -112,7 +117,7 @@ const cartSlice = createSlice({
       .addCase(fetchCartItems.rejected, (state, action) => {
         state.pending = false;
         state.error = action.error.message
-        console.log('request rejected')
+        console.log(state.error)
       })
       .addCase(addToCart.pending, (state, action) => {
         state.pending = true;
@@ -120,22 +125,21 @@ const cartSlice = createSlice({
       .addCase(addToCart.fulfilled, (state, action) => {
         state.pending = false;
         if (action.payload.error) {
-          console.log("error in addtocart")
+          toast.error("error in addtocart")
         }
         else {
           if (action.payload.newCart) {
             state.cartItems = [...state.cartItems, action.payload.newCart]
             state.totalQuantity += 1
-            console.log(action.payload.newCart)
             toast.success('item added to cart')
           }
+
           else if (action.payload.product) {
             state.cartItems = [...state.cartItems, action.payload.product]
             state.totalQuantity += 1
-            console.log(action.payload.product)
             toast.success('item added to cart')
-
           }
+
           else if (action.payload.id) {
             state.cartItems.forEach((items) => {
               if (items._id === action.payload.id) {
@@ -143,7 +147,6 @@ const cartSlice = createSlice({
                 toast.success('item added to cart')
               }
               state.totalQuantity += 1
-              console.log(items)
             })
           }
         }
@@ -196,6 +199,5 @@ const cartSlice = createSlice({
   }
 })
 
-export const { increase, decrease, calculateAmount } = cartSlice.actions;
-
+export const { increase, decrease, calculateAmount, nonDeliverableAmount } = cartSlice.actions;
 export default cartSlice.reducer;

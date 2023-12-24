@@ -1,0 +1,39 @@
+.item {
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    width: 100%;
+}
+
+.differentCityItems{
+    border-bottom: 1px solid red;
+    margin: 1em auto;
+    color:grey
+}
+
+.differentCityItems h4{
+    color:red
+}
+
+.sameCityItems{
+    border-bottom: 1px solid black;
+    margin: 1em auto;
+}
+
+.itemImage {
+    max-width: 10em;
+    max-height: 10em;
+    margin: .2em;
+    object-fit: cover;
+}
+
+.itemImage img {
+    width: 100%;
+}
+
+.itemDescription {
+    width: 40%;
+    text-align: left;
+    padding: .3em;
+    margin: .3em;
+}
