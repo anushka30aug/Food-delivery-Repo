@@ -2,15 +2,17 @@ import { digitalPayment, offlinePayment } from '../../Redux/paymentState';
 import { loadStripe } from '@stripe/stripe-js';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchCartItems, calculateAmount, nonDeliverableAmount } from '../../Redux/cartSlice';
-import { useEffect, useState } from 'react';
+import { useEffect, useState ,useRef} from 'react';
 import { useNavigate } from 'react-router';
 import toast from 'react-hot-toast';
 import PurchaseItemDesc from './purchaseItemDesc';
 import style from '../../Styling/BuyProduct.module.css';
+import LoadingBar from 'react-top-loading-bar'
 
 export default function BuyProduct() {
     const dispatch = useDispatch();
     const navigate = useNavigate();
+    const ref = useRef(null)
     const [paymentMode, setPaymentMode] = useState('')
     const [itemsWithDifferentCity, setItemsWithDifferentCity] = useState([]);
     const name = useSelector(state => state.deliveryData.name)
@@ -22,6 +24,9 @@ export default function BuyProduct() {
     const amount = useSelector(state => state.cart.amount)
     useEffect(
         () => {
+            if (!localStorage.getItem('token') ) {
+                return navigate('/login')
+            }
             dispatch(fetchCartItems()).then(items => dispatch(calculateAmount()));
             window.scrollTo(0, 0)
             // eslint-disable-next-line
@@ -45,6 +50,7 @@ export default function BuyProduct() {
     const handleClick = async (e) => {
         e.preventDefault();
         e.target.disabled = true;
+        ref.current.continuousStart()
         // if the payment mode is online or no payment mode (by maliciously doing change in the code) is selected
         if (paymentMode === 'online' || paymentMode === '') {
             dispatch(fetchCartItems()).then(async () => {
@@ -96,6 +102,7 @@ export default function BuyProduct() {
 
     return (
         <div className={style.buyproduct}>
+            <LoadingBar color='#ff4400d3' height='5px'  ref={ref} />
             <div className={style.products}>
                 <h2>product overview</h2>
                 {cartItems.map((item) => {

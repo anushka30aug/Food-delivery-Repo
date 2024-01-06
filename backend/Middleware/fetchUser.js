@@ -15,7 +15,7 @@ const fetchUser = (req,res,next)=>{
     }
     catch(err)
     {
-        res.status(401).send('failed to verify user');
+        res.status(401).send({verificationFailed:'failed to verify user'});
     }
 }
 module.exports=fetchUser;

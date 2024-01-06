@@ -1,5 +1,5 @@
 const mongoose= require('mongoose');
-const {Schema}= mongoose;
+const {Schema}= mongoose; 
 /* A Schema to temporarly store cart data for which online payment session is started
   this is done so that even if user makes any changes in their cart data (adding items or increasing quantity etc)
   the changes doesn't affect the data for which the payment is being started */
@@ -71,6 +71,9 @@ const deliveryData = new Schema({
     },
     pincode:{
         type:Number
+    },
+    email:{
+        type:String
     }
 })
 

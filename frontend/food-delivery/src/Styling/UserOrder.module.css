@@ -1,0 +1,37 @@
+.orders{
+padding:0;
+}
+
+.orderDescription{
+    background-image: linear-gradient(to right , rgb(255, 255, 255),rgb(181, 178, 178));
+    padding:.5em;
+    border:1px solid black;
+    margin-bottom:.5em;
+    font-weight: bold;
+}
+
+.date{
+    border:1px solid black;
+    padding:.5em;
+    background-color: white;
+}
+
+.image{
+    width:100%;
+    height: 100%;
+    overflow: hidden;
+    background-color: white;
+}
+.image img{
+    object-fit: contain;
+    width:100%;
+    height: 100%;    
+}
+
+@media(min-width:700px)
+{
+    .orders{
+        padding:.5em;
+        }
+        
+}

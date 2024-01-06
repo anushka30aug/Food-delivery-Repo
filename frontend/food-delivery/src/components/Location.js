@@ -1,15 +1,22 @@
 import { useDispatch } from "react-redux";
 import { useNavigate } from 'react-router-dom';
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { changeCity, changeState, fetchCity } from "../Redux/userCityState";
 import toast from "react-hot-toast";
 import style from '../Styling/Location.module.css';
 import { Position } from "./Icon";
+
 export default function Location() {
     const [coordinates, setCoordinates] = useState({ latitude: null, longitude: null });
     const [location, setLocation] = useState('')
     const dispatch = useDispatch();
     const navigate = useNavigate()
+
+    useEffect(()=>{
+        if (!localStorage.getItem('token') ) {
+            return navigate('/login')
+        }
+    },[])
 
     const useGPS = () => {
         if (navigator.geolocation) {

@@ -25,12 +25,16 @@ export default function Footer() {
         navigate('/productList');
     }
 
-    const goTo=()=>{
+    const goTo = () => {
 
     }
 
+    const goToAccount = () => {
+        navigate('/Account')
+    }
+
     const goToCart = () => {
-      navigate('/cart')
+        navigate('/cart')
     }
     return (
         <div>
@@ -45,7 +49,7 @@ export default function Footer() {
                 <div value='search' onClick={handleClick}> <Search /> </div>
                 <div value='orders' onClick={goTo}> Trofi </div>
                 <div value='cart' onClick={goToCart}> <Cart /> </div>
-                <div value='account' onClick={goTo}> <ProfileIcon /> </div>
+                <div value='account' onClick={goToAccount}> <ProfileIcon /> </div>
             </div>
 
         </div>

@@ -50,6 +50,11 @@ const userSchema = new Schema({
   contact: {
     type: Number,
     require: true
+  },
+  
+  profilePicture:{
+    type:String,
+    default:''
   }
 
 });

@@ -15,6 +15,10 @@ const Navbar = () => {
         navigate('/signup');
     }
 
+    const goToAccount=()=>{
+        navigate('/Account')
+    }
+
     const goToCart = () => {
         navigate('/cart')
     }
@@ -29,7 +33,7 @@ const Navbar = () => {
                             {/* <button className='cart'> */}
                             <button onClick={goToCart}><Cart /></button>
                             {/* </button> */}
-                            <button><ProfileIcon /></button>
+                            <button onClick={goToAccount}><ProfileIcon /></button>
                         </div>
                     ) : (
                         // Token doesn't exist, render Sign Up and Login buttons

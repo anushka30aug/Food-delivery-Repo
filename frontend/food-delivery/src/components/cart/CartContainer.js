@@ -16,6 +16,9 @@ const CartContainer = () => {
   const userState = useSelector(state => state.userCity.state)
   const dispatch = useDispatch()
   useEffect(() => {
+    if (!localStorage.getItem('token') ) {
+      return navigate('/login')
+  }
     dispatch(fetchCartItems()).then(items => dispatch(calculateAmount()));
     // eslint-disable-next-line
   }, [])

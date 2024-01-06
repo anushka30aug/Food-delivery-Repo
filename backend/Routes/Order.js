@@ -69,6 +69,7 @@ route.post('/webhook', express.json({ type: 'application/json' }), async (reques
     switch (event.type) {
       case 'checkout.session.completed':
 
+        // fetch the metadata
         const checkoutSessionCompleted = event.data.object;
         const key = checkoutSessionCompleted.metadata.key;
         const customerId = checkoutSessionCompleted.metadata.customerId;
@@ -137,38 +138,38 @@ route.post('/webhook', express.json({ type: 'application/json' }), async (reques
         }
 
         // delete temporary stored checkedout data
-        const result = await CheckOut.deleteOne({ customerId: key })
+        await CheckOut.deleteOne({ customerId: key })
 
-        //send mail to customer
+        //send mail to customer who ordered food
         const customer = await User.findById(customerId).select('-password');
         const { name, email } = customer;
 
         // Generate HTML table dynamically
         const tableRows = CheckedItems.map(item => `
-      <tr>
-       <td>${item.name}</td>
-      <td>${item.productQuantity}</td>
-      <td>${item.price}</td>
-     </tr>
-    `).join('');
+        <tr>
+          <td>${item.name}</td>
+          <td>${item.productQuantity}</td>
+          <td>${item.price}</td>
+        </tr>
+       `).join('');
 
         // HTML template with dynamic table rows
         const html = `
-    <p>Hello dear ${name}, your order has been placed for the following items:</p>
-    <table border="1">
-      <thead>
-        <tr>
-          <th>Product Name</th>
-          <th>Quantity</th>
-          <th>Price per unit</th>
-        </tr>
-      </thead>
-      <tbody>
-        ${tableRows}
-      </tbody>
-    </table>
-    <h3>Payment Mode - Online </h3>
-    <h4>Payment status - Done </h4> 
+        <p>Hello dear ${name}, your order has been placed for the following items:</p>
+          <table border="1">
+            <thead>
+              <tr>
+                <th>Product Name</th>
+                <th>Quantity</th>
+                <th>Price per unit</th>
+              </tr>
+            </thead>
+            <tbody>
+              ${tableRows}
+            </tbody>
+          </table>
+        <h3>Payment Mode - Online </h3>
+        <h4>Payment status - Done </h4> 
     `;
 
         await transporter.sendMail({
@@ -258,7 +259,7 @@ route.post('/OfflinePayment', fetchUser, async (req, res) => {
     );
 
 
-    //send mail to customer
+    //send mail to customer who ordered food
     const customer = await User.findById(userId).select('-password');
     const { name, email } = customer;
 
@@ -301,6 +302,22 @@ route.post('/OfflinePayment', fetchUser, async (req, res) => {
   }
   catch (error) {
     res.status(400).send({ fail: 'failed' })
+  }
+})
+
+route.get('/fetchOrders',fetchUser,async(req,res)=>{
+  try{
+    const customerId = req.user.id;
+    const orders = await Order.findOne({customerId});
+    if(orders){
+      res.status(200).send({orders:orders.orderedItems})
+    }
+    else{
+      res.status(404).send({notFound:'no orders from the customer'})
+    }
+  }
+  catch(error){
+    res.status(400).send({error})
   }
 })
 

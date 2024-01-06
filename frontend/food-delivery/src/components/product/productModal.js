@@ -4,7 +4,6 @@ import { setModal } from '../../Redux/Detailing';
 import { useDispatch } from 'react-redux';
 import { calculateAmount, addToCart } from '../../Redux/cartSlice';
 
-
 export default function ProductCart(prop) {
   const dispatch = useDispatch();
 
@@ -22,11 +21,11 @@ export default function ProductCart(prop) {
 
   return (
     <div className={style.product}>
-      <div className={style.productImage}><img src={prop.item.image} alt="" /><button onClick={add}>+ADD</button></div>
-      <div className={style.productDetail} onClick={showProduct}>
+      <div className={style.productImage}><img src={prop.item.image } alt="" /><button onClick={add}>+ADD</button></div>
+      <div className={style.productDetail } onClick={showProduct}>
         <h3>{prop.item.name}</h3>
         <h5>₹{prop.item.price}</h5>
-      </div>
+      </div> 
     </div>
   )
 }

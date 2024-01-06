@@ -24,7 +24,7 @@ export default function Home() {
         }
         else {
             if (city === null) {
-                var x = toast.loading("fetching...")
+                var load = toast.loading("fetching...")
                 if (navigator.geolocation) {
                     navigator.geolocation.getCurrentPosition(
                         (position) => {
@@ -34,16 +34,16 @@ export default function Home() {
                                 longitude: position.coords.longitude
                             };
                             setCoordinates(updatedCoordinates);
-                            dispatch(fetchCity(updatedCoordinates)).then(data => toast.dismiss(x));
+                            dispatch(fetchCity(updatedCoordinates)).then(data => toast.dismiss(load));
                         },
                         (error) => {
                             console.log('Geolocation is not available. Fetching data...');
-                            dispatch(fetchPayload()).then(data => toast.dismiss(x));
+                            dispatch(fetchPayload()).then(data => toast.dismiss(load));
                         }
                     );
                 } else {
                     console.log('Geolocation is not supported. Fetching data...');
-                    dispatch(fetchPayload()).then(data => toast.dismiss(x));
+                    dispatch(fetchPayload()).then(data => toast.dismiss(load));
                 }
             }
             dispatch(setModal(false))
@@ -76,7 +76,7 @@ export default function Home() {
 
 
     return (
-        <div>
+        <div className={style.home}>
 
             <header className={style.header}>
                 <div>
@@ -98,7 +98,6 @@ export default function Home() {
                 <div className={style.mainItems}> <li className={style.category}> <img src="https://img.freepik.com/free-photo/gourmet-dessert-collection-cute-macaroon-tray-generated-by-ai_188544-21953.jpg?size=626&ext=jpg&ga=GA1.2.982961382.1695667691&semt=sph" alt="" onClick={handleCategoryClick} name='Sweets' ></img> </li> SWEETS</div>
             </main>
             <RestaurantList />
-            <Footer />
         </div>
     )
 }

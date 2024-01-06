@@ -4,5 +4,21 @@
     display: flex;
     flex-wrap: wrap;
     justify-content: space-evenly;
+    margin-bottom:5em;
+}
+
+.skeleton_Container{
+    display:flex;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+
+}
+
+.skeleton{
+    width:320px;
+    height:10em;
+    background-color: rgb(62, 61, 61);
+    box-shadow: 0 0 .1em 1px gainsboro;
+    margin: 1em auto;
 }
 

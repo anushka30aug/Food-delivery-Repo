@@ -12,6 +12,8 @@ import verificationReducer from './verificationState';
 import restaurantDataState from './restaurantDtataState';
 import Detailing from './Detailing';
 import deliveryData from './purchaseState';
+import OrdersState from './OrdersState';
+
 // nested persist 
 const userCityPersistConfig={
     key:'userCity',
@@ -57,7 +59,8 @@ const rootReducer = combineReducers({
     Detail:persistedDetailingReducer,
     cart:persistedCartReducer,
     restaurantData:restaurantDataState,
-    deliveryData:persistedPurchaseReducer
+    deliveryData:persistedPurchaseReducer,
+    orderData:OrdersState
 });
 
 

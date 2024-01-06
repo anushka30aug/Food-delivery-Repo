@@ -5,6 +5,11 @@ const ngrok = require('ngrok');  // Import the ngrok module
 const main = require('./connect');
 const cors = require('cors');
 const app = express();
+const fileupload = require('express-fileupload');
+
+app.use(fileupload({
+    useTempFiles:true
+}))
 
 app.use(cors());
 
@@ -13,15 +18,16 @@ main().then(() => {
 }).catch((error) => {
     console.log('Not connected to DB' + error);
 });
-
+ 
 app.use(express.json());
 app.use('/delivery/auth', require('./Routes/auth'));
 app.use('/delivery/data', require('./Routes/data'));
 app.use('/delivery/cart', require('./Routes/cartData'));
 app.use('/delivery/buy', require('./Routes/Order'));
+app.use('/delivery/user', require('./Routes/user'));
 
 // ngrok to expose the local server
-(async () => { 
+(async () => {
     const url = await ngrok.connect({
         proto: 'http', // http|tcp|tls, defaults to http
         addr: 5000,    // port or network address, defaults to 80
@@ -30,7 +36,7 @@ app.use('/delivery/buy', require('./Routes/Order'));
 
     console.log(`Ngrok URL: ${url}`);
 })();
- 
+
 // Start the Express server
 const port = 5000;
 app.listen(port, () => {

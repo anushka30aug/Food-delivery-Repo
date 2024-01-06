@@ -37,7 +37,6 @@
 
 .gps {
     font-size: large;
-    /* font-weight: bold; */
     color: orange;
     width: 70%;
     max-width: 400px;
@@ -45,5 +44,5 @@
     border-radius:.5em ;
     box-sizing: border-box;
     box-shadow: 0 4px 4px -2px gainsboro, 0 0 0 0 gainsboro, 4px 0 4px -2px gainsboro, -4px 0 4px -2px gainsboro;
-   margin-bottom: 1em;
+    margin-bottom: 1em;
 }

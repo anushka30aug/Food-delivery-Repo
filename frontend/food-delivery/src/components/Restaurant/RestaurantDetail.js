@@ -6,15 +6,20 @@ import style from '../../Styling/RestaurantDetail.module.css'
 import { useEffect } from "react";
 import ProductCart from '../product/productModal';
 import ProductDetail from "../product/ProductDetail";
+import { useNavigate } from 'react-router-dom';
 
 
 export default function RestaurantDetail() {
+    const navigate = useNavigate();
     const detail = useSelector(state => state.Detail.restaurantDetail)
     const data = useSelector(state=>state.data.data);
     const showdetail=useSelector(state=>state.Detail.showdetail)
     const dispatch = useDispatch();
     useEffect(
         ()=>{
+            if (!localStorage.getItem('token') ) {
+                return navigate('/login')
+            }
             window.scrollTo({top: 0, left: 0, behavior: 'smooth'})
             dispatch(resetValues());
             dispatch(setSellerId(detail._id)); 

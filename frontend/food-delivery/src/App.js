@@ -6,6 +6,7 @@ import Home from './components/Home';
 import ProductList from './components/product/ProductList';
 import OtpModal from './components/OtpModal';
 import CartContainer from './components/cart/CartContainer';
+import UserAccount from './components/Account/UserAccount';
 import RecoveryEmail from './components/Recover/RecoveryEmail';
 import ResetPassword from './components/Recover/ResetPassword';
 import RestaurantDetail from './components/Restaurant/RestaurantDetail';
@@ -14,6 +15,7 @@ import ChangeDeliveryAddress from './components/buy/changeDeliveryAddress';
 import BuyProduct from './components/buy/BuyProduct';
 import Success from './components/buy/Success';
 import Failure from './components/buy/Failure';
+import Footer from './components/Footer';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 
 function App() {
@@ -30,6 +32,7 @@ function App() {
           <Route path='/productDetail' element={<ProductDetail/>}></Route>
           <Route path='/restaurantDetail' element={<RestaurantDetail/>}></Route>
           <Route path='/cart' element={<CartContainer/>}></Route>
+          <Route path='/Account' element={<UserAccount/>}></Route>
           <Route path='/changeAddress' element={<ChangeDeliveryAddress/>}></Route>
           <Route path='/buy' element={<BuyProduct/>}></Route>
           <Route path='/success'element={<Success/>}></Route>
@@ -38,6 +41,7 @@ function App() {
           <Route path='/recoveryEmail' element={<RecoveryEmail/>}></Route>
           <Route path='/resetPassword' element={<ResetPassword/>}></Route>
         </Routes>
+        <Footer/>
       </BrowserRouter>
     </div>
   );

@@ -1,0 +1,174 @@
+.userAccount {
+    background-color: #ff8c00;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-attachment: fixed;
+}
+.header {
+    text-align: center;
+    color: white;
+    padding: 1em;
+}
+
+.header button {
+    padding: .5em;
+    margin: 1em;
+    min-width: 80px;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    background-color: transparent;
+    border: 1px solid white;
+    border-radius: .3em;
+    color: rgb(255, 255, 255);
+}
+
+.profilePicture {
+    width: 100px;
+    height: 100px;
+    border-radius: 50em;
+    object-fit: contain;
+    overflow: hidden;
+    margin: 1em auto;
+}
+
+.profilePicture img {
+    width: 100%;
+}
+
+.UserDetail h3 {
+    margin: 0;
+    padding: .1em;
+}
+
+.mainMenu {
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    background-image: linear-gradient(to right, rgb(255, 255, 255), rgb(181, 178, 178));
+    margin: 0 .5em;
+    box-sizing: border-box;
+    border: 1px solid rgb(142, 132, 132);
+    border-bottom: none;
+    border-radius: .5em .5em 0 0;
+    overflow: scroll;
+}
+
+.mainMenu button {
+    padding: 1em;
+    border: none;
+    background-color: transparent;
+    color: white;
+    font-size: medium;
+    width: 50%;
+}
+
+.mainContent {
+    padding: 0 .5em 3em .5em;
+}
+
+.mainContent img {
+    padding: .5em;
+    box-sizing: border-box;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+
+@media(min-width:700px) {
+    .userAccount {
+        background-size: cover;
+        padding: 2em 0;
+        max-width: 1500px;
+        margin: 0 auto;
+        position: relative;
+    }
+
+    .Account {
+        max-width: 1000px;
+        margin: 0 auto;
+        height: 700px;
+    }
+
+    .header {
+        width: 100%;
+        height: 20%;
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        justify-content: space-between;
+        box-sizing: border-box;
+        text-align: left;
+    }
+
+    .profileSection {
+        width: 70%;
+        display: flex;
+        align-items: center;
+    }
+
+    .profilePicture {
+        width: 50px;
+        height: 50px;
+        border-radius: 10em;
+        margin: .5em;
+        background-color: black;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .UserDetail {
+        font-weight: 400;
+        padding: .3em;
+        display: flex;
+        flex-direction: column;
+        flex-wrap: wrap;
+    }
+
+    .main {
+        width: 100%;
+        display: flex;
+        justify-content: space-evenly;
+        flex-wrap: wrap;
+        background-color: white;
+        height: 80%;
+        padding: 1em;
+        box-sizing: border-box;
+        background-image: none;
+        box-shadow: 0 0 1em 1px rgb(39, 39, 39);
+    }
+
+    .mainMenu {
+        display: flex;
+        flex-direction: column;
+        align-items: normal;
+        justify-content: normal;
+        width: 25%;
+        height: 100%;
+        box-sizing: border-box;
+        background-image: none;
+        background-color: rgb(196, 196, 196);
+        padding: 0;
+        margin: 0;
+        border: none;
+        border-radius: 0;
+    }
+
+    .mainMenu button {
+        padding: .5em;
+        border: none;
+        margin: .3em 0 .3em .5em;
+        border-radius: 0;
+        height: 50px;
+        background-color: white;
+        color: black;
+        width: initial;
+    }
+
+    .mainContent {
+        width: 75%;
+        height: 100%;
+        overflow: scroll;
+        padding: 0;
+    }
+}

@@ -6,7 +6,7 @@ const fetchUser = require('../Middleware/fetchUser');
 
 route.get('/fetchCartItems',fetchUser, async (req, res) => {
     
-    try {
+    try { 
         const  userId  = req.user.id;
         const userCart = await Cart.findOne({ customerId :userId});
         if (!userCart || userCart.length === 0) {

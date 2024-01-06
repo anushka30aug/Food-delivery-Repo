@@ -13,6 +13,9 @@ export default function ChangeDeliveryAddress() {
     const userCity = useSelector(state => state.userCity.city)
     const userState = useSelector(state => state.userCity.state)
     useEffect(() => {
+        if (!localStorage.getItem('token') ) {
+            return navigate('/login')
+        }
         //if user current location is same as the address entered by user at signup time then autofill address for user's convenience
         if(info.city.toUpperCase() === userCity.toUpperCase() && info.state.toUpperCase() === userState.toUpperCase())
         {

@@ -3,9 +3,12 @@ import { useDispatch, useSelector } from "react-redux";
 import { incrementPage, fetchRestaurants, setName, setRating } from "../../Redux/restaurantDtataState";
 import { useEffect, useState } from "react";
 import RestaurantModal from "./RestaurantModal";
-import style from '../../Styling/RestaurantList.module.css'
-export default function RestaurantList() {
+import style from '../../Styling/RestaurantList.module.css';
+import { useNavigate } from 'react-router-dom';
 
+
+export default function RestaurantList() {
+    const navigate = useNavigate();
     const dispatch = useDispatch();
     const data = useSelector(state => state.restaurantData.data);
     const totalLength = useSelector(state => state.restaurantData.totalResults);
@@ -15,6 +18,9 @@ export default function RestaurantList() {
 
     useEffect(
         () => {
+            if (!localStorage.getItem('token') ) {
+                return navigate('/login')
+            }
             if (city !== null)  {  
                 if (dataLength <= totalLength)
                     dispatch(fetchRestaurants())

@@ -17,12 +17,9 @@ food delivery web app with basic features like exploring restaurants ,menu ,sear
 <br>
 <h4>Online Payment Integration</h4>:Integrated secure payment gateways to enable online payment
 <br>
+<h4> User Account</h4>:User can view their account detail , orders and edit their account
 
 <h2>Future Enhancement</h2>
-<h4> User Account</h4>:User canview their account detail , orders and edit their account
-<br>
-<h4>Order Food and Tracking Order</h4>:User can browse food from the cart and also track the status of the Delivery
-<br>
 <h4> Review and Rating</h4>:Enable user to leave review and rating for restaurant and food item
-
+<br>
 Author : Anushka Shukla
