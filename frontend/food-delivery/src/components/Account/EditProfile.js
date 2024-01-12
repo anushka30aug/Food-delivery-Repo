@@ -1,10 +1,10 @@
 import { useRef, useState } from "react"
 import { useDispatch, useSelector } from "react-redux";
-import { editUserProfile, fetchuser, setProfile } from "../../Redux/purchaseState";
+import { editUserProfile, fetchuser, setProfile } from "../../Redux/UserProfile";
 import 'react-sliding-side-panel/lib/index.css';
 import style from '../../Styling/EditProfile.module.css';
 import { Cross } from '../Icon';
-import { uploadProfilePicture } from '../../Redux/purchaseState';
+import { uploadProfilePicture } from '../../Redux/UserProfile';
 import img from '../Helper/profile-pic.jpg';
 import toast from 'react-hot-toast';
 

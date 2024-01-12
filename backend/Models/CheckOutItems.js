@@ -84,7 +84,7 @@ const CheckedOutCartItems = new Schema(
         unique:true,
         required:true
     },
-    cartItems:[cartItems],
+    cartItems:[cartItems], 
     deliveryData:deliveryData
 })
 

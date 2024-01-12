@@ -305,6 +305,7 @@ route.post('/OfflinePayment', fetchUser, async (req, res) => {
   }
 })
 
+
 route.get('/fetchOrders',fetchUser,async(req,res)=>{
   try{
     const customerId = req.user.id;

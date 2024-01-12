@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import toast from 'react-hot-toast';
 import style from '../../Styling/changeDeliveryAddress.module.css'
 import { useDispatch, useSelector } from 'react-redux';
-import { changeAddress } from '../../Redux/purchaseState';
+import { changeAddress } from '../../Redux/UserProfile';
 import { useNavigate } from 'react-router';
 
 export default function ChangeDeliveryAddress() {

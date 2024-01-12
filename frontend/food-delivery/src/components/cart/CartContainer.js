@@ -5,7 +5,7 @@ import { useEffect } from 'react';
 import { calculateAmount, fetchCartItems, removeFromCart } from '../../Redux/cartSlice';
 import ProductDetail from '../product/ProductDetail';
 import Footer from '../Footer';
-import { fetchuser } from '../../Redux/purchaseState';
+import { fetchuser } from '../../Redux/UserProfile';
 import { useNavigate } from 'react-router';
 
 const CartContainer = () => {

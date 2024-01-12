@@ -1,6 +1,5 @@
 import {persistReducer,persistStore} from 'redux-persist';
 import storage from 'redux-persist/lib/storage/session';
-import localStorage from 'redux-persist/lib/storage';
 import { configureStore } from '@reduxjs/toolkit';
 import { combineReducers } from "@reduxjs/toolkit";
 import loginReducer from "./loginState";
@@ -11,7 +10,7 @@ import cartReducer from './cartSlice';
 import verificationReducer from './verificationState';
 import restaurantDataState from './restaurantDtataState';
 import Detailing from './Detailing';
-import deliveryData from './purchaseState';
+import deliveryData from './UserProfile';
 import OrdersState from './OrdersState';
 
 // nested persist 
@@ -39,7 +38,7 @@ const cartPersistConfig={
     whitelist:['totalQuantity']
 }
 
-const purchaseDetail={
+const UserProfile={
     key:'purchase',
     storage
 }
@@ -49,7 +48,7 @@ const persistedUserCityReducer = persistReducer(userCityPersistConfig,userReduce
 const persistedDetailingReducer = persistReducer(detailingPersistConfig,Detailing);
 const persistedDataReducer = persistReducer(dataPersistConfig,dataReducer);
 const persistedCartReducer = persistReducer(cartPersistConfig,cartReducer)
-const persistedPurchaseReducer = persistReducer(purchaseDetail,deliveryData)
+const persistedUserProfileReducer = persistReducer(UserProfile,deliveryData)
 const rootReducer = combineReducers({
     login: loginReducer,
     signup: signupReducer,
@@ -59,7 +58,7 @@ const rootReducer = combineReducers({
     Detail:persistedDetailingReducer,
     cart:persistedCartReducer,
     restaurantData:restaurantDataState,
-    deliveryData:persistedPurchaseReducer,
+    deliveryData:persistedUserProfileReducer,
     orderData:OrdersState
 });
 

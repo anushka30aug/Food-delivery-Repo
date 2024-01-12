@@ -1,7 +1,6 @@
 import { useSelector } from 'react-redux';
 import PurchaseItemDesc from '../buy/purchaseItemDesc';
 import Style from '../../Styling/UserOrder.module.css';
-import img from '../Helper/noOrderFound.png'
 
 export default function UserOrders() {
     const orderedItems = useSelector(state => state.orderData.orderedItems)

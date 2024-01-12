@@ -28,6 +28,10 @@
     object-fit: contain;
     overflow: hidden;
     margin: 1em auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: black;
 }
 
 .profilePicture img {

@@ -34,7 +34,7 @@ route.post('/upload', fetchUser, async (req, res) => {
         console.log('upload', req.body)
         const file = req.files.photo;
         cloudinary.uploader.upload(file.tempFilePath, async (err, result) => {
-
+        
             // to delete the temporary file created
             fs.unlink(file.tempFilePath, (unlinkError) => {
                 if (unlinkError) {

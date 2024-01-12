@@ -72,7 +72,7 @@ const verificationSlice = createSlice(
                         toast.error('unexpected error occured')
                     }
                     else if (action.payload.otp) {
-                        toast.success('otp bhej diya bhaya')
+                        toast.success('otp sent successfully')
                     }
                 })
                 .addCase(sendOtp.rejected, (state, action) => {

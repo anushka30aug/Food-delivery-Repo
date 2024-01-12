@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from 'react-router-dom';
-import { fetchuser, setProfile } from "../../Redux/purchaseState";
+import { fetchuser, setProfile } from "../../Redux/UserProfile";
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchOrders } from "../../Redux/OrdersState";
 import UserOrders from "./UserOrders";

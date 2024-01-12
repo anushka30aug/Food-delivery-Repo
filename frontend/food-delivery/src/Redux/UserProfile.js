@@ -45,7 +45,7 @@ export const uploadProfilePicture = createAsyncThunk('/upload', async ({ photo }
     return response;
 });
 
-const purchaseSlice = createSlice({
+const customerDataSlice = createSlice({
     name: 'customer data',
     initialState: {
         name: null,
@@ -114,5 +114,5 @@ const purchaseSlice = createSlice({
 
     }
 })
-export const { changeAddress, setProfile } = purchaseSlice.actions;
-export default purchaseSlice.reducer;
+export const { changeAddress, setProfile } = customerDataSlice.actions;
+export default customerDataSlice.reducer;

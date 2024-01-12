@@ -1,0 +1,36 @@
+.success{
+    background-image: linear-gradient(to right , orange,rgb(255, 190, 69));
+    width:100%;
+    height: 90vh;
+    max-width: 1500px;
+    margin:0 auto;
+}
+
+.image{
+  max-width: 320px;
+  max-height: 320px;
+  object-fit: contain;
+  margin:0 auto;
+}
+
+.image img{
+    width: 100%;
+    height: 100%;
+}
+
+.text{
+    text-align: center;
+}
+
+.text h4{
+    margin-top:0
+}
+
+.text button{
+    background-color: black;
+    padding:.5em;
+    border:1px solid white;
+    border-radius: .5em;
+    color: white;
+    margin: 0 auto;
+}

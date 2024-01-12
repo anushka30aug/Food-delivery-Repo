@@ -49,7 +49,3 @@ function App() {
 
 export default App;
 
-
-
-// $2b$10$iDWyS4Gi92lAPb74G51WAOW8fWnFihD6PD7VrRtyUenNI3EK.qPbG
-// $2b$10$rNwmhZDMEbSzwRVNaOM2qeDsZIQzuH3SOW98woNgNQIFCCW459gwa
