@@ -3,12 +3,14 @@ import { verifyOtp, setRecovering } from "../Redux/verificationState";
 import { signupUser } from "../Redux/signupState";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router";
+import {useLocation} from 'react-router-dom';
 import style from '../Styling/OtpModal.module.css';
 
 export default function OtpModal() {
     const [otp, setOtp] = useState('');
     const dispatch = useDispatch();
     const navigate = useNavigate();
+    const location = useLocation();
     const recovering = useSelector(state => state.verification.isRecovering);
 
     useEffect(() => {
@@ -29,7 +31,7 @@ export default function OtpModal() {
                 {   
                     dispatch(setRecovering(false));
                     //pass the verified prop to resetPassword to show that the user has entered the correct OTP and is verified to ensure that user is following the application flow
-                    navigate('/resetPassword',{ state: { verified: true } })
+                    navigate('/resetPassword',{ state: { verified: true,recoveryMail:location.state.recoveryMail } })
                 }
                 else {
                     const signupResponse = await dispatch(signupUser());

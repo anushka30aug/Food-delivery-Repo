@@ -5,8 +5,10 @@ const Detailing = createSlice(
     name: 'Detail',
     initialState: {
       showdetail: false,
+      showOrderDetailModal:false,
       productDetail: {},     //to show detailing of a product being clicked
-      restaurantDetail: {}
+      restaurantDetail: {},
+      orderDetail:{}
     },
     reducers: {
       setModal(state, action) {
@@ -17,10 +19,17 @@ const Detailing = createSlice(
       },
       setRestDetail(state, action) {
         state.restaurantDetail = action.payload;
+      },
+      setOrderDetail(state,action) {
+        state.orderDetail=action.payload
+      },
+      setOrderDetailModal(state,action)
+      {
+        state.showOrderDetailModal=action.payload;
       }
     }
   }
 )
 
-export const { setModal, setProductDetail, setRestDetail } = Detailing.actions;
+export const { setModal, setProductDetail, setRestDetail,setOrderDetail,setOrderDetailModal } = Detailing.actions;
 export default Detailing.reducer;

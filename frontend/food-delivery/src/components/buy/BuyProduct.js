@@ -42,7 +42,6 @@ export default function BuyProduct() {
             // issue : subtracting the nondeliverable product amount from total amount , it is updating the value of amount correctly
             //         but is not reflected to the product overview  section
              dispatch(nonDeliverableAmount(itemsWithDifferentCity));
-             console.log(amount)
              // eslint-disable-next-line
         }, [cartItems, city, state]
     )

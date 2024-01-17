@@ -6,6 +6,42 @@ import { changeAddress } from '../../Redux/UserProfile';
 import { useNavigate } from 'react-router';
 
 export default function ChangeDeliveryAddress() {
+    const indianStates = [
+        'Andhra Pradesh',
+        'Arunachal Pradesh',
+        'Assam',
+        'Bihar',
+        'Chhattisgarh',
+        'Goa',
+        'Gujarat',
+        'Haryana',
+        'Himachal Pradesh',
+        'Jharkhand',
+        'Karnataka',
+        'Kerala',
+        'Madhya Pradesh',
+        'Maharashtra',
+        'Manipur',
+        'Meghalaya',
+        'Mizoram',
+        'Nagaland',
+        'Odisha',
+        'Punjab',
+        'Rajasthan',
+        'Sikkim',
+        'Tamil Nadu',
+        'Telangana',
+        'Tripura',
+        'Uttar Pradesh',
+        'Uttarakhand',
+        'West Bengal',
+        'Andaman and Nicobar Islands',
+        'Chandigarh',
+        'Dadra and Nagar Haveli and Daman and Diu',
+        'Lakshadweep',
+        'Delhi',
+        'Puducherry'
+    ];
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const [deliveryInfo, setDeliveryInfo] = useState({ address: '', city: '', state: '', pincode: '', name: '', contact: '' });
@@ -13,21 +49,28 @@ export default function ChangeDeliveryAddress() {
     const userCity = useSelector(state => state.userCity.city)
     const userState = useSelector(state => state.userCity.state)
     useEffect(() => {
-        if (!localStorage.getItem('token') ) {
+        if (!localStorage.getItem('token')) {
             return navigate('/login')
         }
         //if user current location is same as the address entered by user at signup time then autofill address for user's convenience
-        if(info.city.toUpperCase() === userCity.toUpperCase() && info.state.toUpperCase() === userState.toUpperCase())
-        {
+        if (info.city.toUpperCase() === userCity.toUpperCase() && info.state.toUpperCase() === userState.toUpperCase()) {
             setDeliveryInfo(info)
         }
-        else{
-        //otherwise set all the address field empty and autofill only user's name and contact no.
-        setDeliveryInfo({ ...deliveryInfo, name: info.name, contact: info.contact })
+        else {
+            //otherwise set all the address field empty and autofill only user's name and contact no.
+            setDeliveryInfo({ ...deliveryInfo, name: info.name, contact: info.contact })
         }
     }, [info])
 
     const handleChange = (e) => {
+        //limit pincode length to 6
+        if (e.target.name === 'pincode') {
+            e.target.value = e.target.value.replace(/[^0-9]/g, '').slice(0, 6)
+        }
+        //limit contact number length to 10 
+        else if (e.target.name === 'contact') {
+            e.target.value = e.target.value.replace(/[^0-9]/g, '').slice(0, 10)
+        }
         setDeliveryInfo({ ...deliveryInfo, [e.target.name]: e.target.value })
     }
 
@@ -49,7 +92,14 @@ export default function ChangeDeliveryAddress() {
             <form className={style.changeAddress} >
                 <input type="text" placeholder="enter house no., locality" name='address' className={style.inputFields} value={deliveryInfo.address} onChange={handleChange} required ></input>
                 <input type="text" placeholder="enter city" name='city' className={style.inputFields} value={deliveryInfo.city} onChange={handleChange} required></input>
-                <input type="text" placeholder="enter state" name='state' className={style.inputFields} value={deliveryInfo.state} onChange={handleChange} required></input>
+                <select id="state" name="state" className={style.inputFields} value={deliveryInfo.state} onChange={handleChange}>
+                    {indianStates.map((state, index) => (
+                        <option key={index} value={state}>
+                            {state}
+                        </option>
+                    ))}
+                </select>
+                {/* <input type="text" placeholder="enter state" name='state' className={style.inputFields} value={deliveryInfo.state} onChange={handleChange} required></input> */}
                 <input type="number" placeholder="enter pincode" name='pincode' className={style.inputFields} value={deliveryInfo.pincode} onChange={handleChange} required></input>
                 <h4 className={style.contactInfoHeading}>contact Details</h4>
                 <span className={style.contactInfo}>

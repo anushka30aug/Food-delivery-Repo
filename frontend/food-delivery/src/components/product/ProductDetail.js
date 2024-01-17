@@ -1,10 +1,11 @@
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 import { useNavigate } from "react-router";
-import { setModal,setProductDetail } from "../../Redux/Detailing";
+import { setModal,setProductDetail, setRestDetail } from "../../Redux/Detailing";
 import { calculateAmount } from "../../Redux/cartSlice";
 import style from '../../Styling/ProductDetail.module.css';
 import { addToCart } from "../../Redux/cartSlice";
+import { fetchRestaurantById, setId } from "../../Redux/restaurantDtataState";
 
 export default function ProductDetail() {
     const navigate = useNavigate();
@@ -28,15 +29,24 @@ export default function ProductDetail() {
         dispatch(calculateAmount());
     }
 
+    const visitRestaurant=(e)=>{
+        e.preventDefault();
+        dispatch(setId(detail.seller_Id))
+        dispatch(fetchRestaurantById()).then(restaurant=>{
+            dispatch(setRestDetail(restaurant.payload.data))
+            navigate('/restaurantDetail')
+        })
+    }
+
     return (
         <div className={style.productDetail} onClick={handleExit}>
-            {console.log(detail)}
             <div className={style.detail}>
                 <div className={style.detail_img}><img src={detail.image} alt=""></img></div>
                 <div className={style.detail_desc}>
                     <h1>{detail.name}</h1>
                     <p>{detail.description}</p>
                     <h3>₹{detail.price}</h3>
+                    <button onClick={visitRestaurant}>Visit restaurant</button>
                     <button onClick={add}>+ ADD</button>
                 </div>
             </div>

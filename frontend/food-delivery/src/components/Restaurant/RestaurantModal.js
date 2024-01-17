@@ -9,7 +9,7 @@ export default function RestaurantModal(prop) {
     const showDetail=(e)=>{
         e.preventDefault();
         dispatch(setRestDetail(prop.item));
-        navigate('/restaurantDetail')
+        navigate('/restaurantDetail');
     }
     return (
        <div className={style.restaurant} onClick={showDetail}>

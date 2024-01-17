@@ -8,11 +8,13 @@ import Style from '../../Styling/UserAccount.module.css'
 import EditProfile from "./EditProfile";
 import img from '../Helper/profile-pic.jpg'
 import Logout from "./Logout";
+import OrderDetailModal from './OrderDetailModal';
 
 
 export default function UserAccount() {
     const dispatch = useDispatch();
     const navigate = useNavigate();
+    const orderDetailModal = useSelector(state => state.Detail.showOrderDetailModal)
     const name = useSelector(state => state.deliveryData.name);
     const contact = useSelector(state => state.deliveryData.contact);
     const email = useSelector(state => state.deliveryData.email);
@@ -21,13 +23,13 @@ export default function UserAccount() {
     const [selectedButton, setSelectedButton] = useState('orders')
     useEffect(
         () => {
-            if(!localStorage.getItem('token'))
-            {
+            if (!localStorage.getItem('token')) {
                 return navigate('/login')
             }
-            
+
             dispatch(fetchuser());
             dispatch(fetchOrders());
+            // eslint-disable-next-line
         }, []
     )
 
@@ -40,7 +42,8 @@ export default function UserAccount() {
         e.preventDefault();
         dispatch(setProfile(true));
     }
-    return (
+    return (<>
+        {orderDetailModal && <OrderDetailModal />}
         <div className={Style.userAccount}>
             {editProfile && <EditProfile />}
             <div className={Style.Account}>
@@ -76,11 +79,12 @@ export default function UserAccount() {
                         {selectedButton === 'orders' ? (
                             <UserOrders />
                         ) : (
-                            <Logout/>
+                            <Logout />
                         )}
                     </div>
                 </main>
             </div>
         </div>
+    </>
     )
 }

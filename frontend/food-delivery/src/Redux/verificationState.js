@@ -31,8 +31,7 @@ export const verifyOtp = createAsyncThunk('/verification/verifyOtp',
 )
 
 export const resetPassword = createAsyncThunk('/verification/reset',
-async(password)=>{
-    const emailId = sessionStorage.getItem('recover')
+async({password,emailId})=>{
    const response = await fetch(`${host}/delivery/auth/resetPassword`,{
     method:'POST',
     headers:{

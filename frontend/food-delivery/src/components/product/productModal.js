@@ -16,7 +16,7 @@ export default function ProductCart(prop) {
   const add = (e) => {
     e.preventDefault();
     dispatch(addToCart(prop.item));
-    dispatch(calculateAmount());
+    dispatch(calculateAmount());  
   }
 
   return (

@@ -33,12 +33,13 @@ const ordersSlice = createSlice({
         state.pending = false;
         state.error = false;
         if (action.payload.notFound) {
-          toast.error('no orders')
+          toast('No orders')
         }
         else if (action.payload.error) {
           toast.error('unexpected error occured')
         }
         else {
+          state.orderedItems=[]
           state.orderedItems = [...state.orderedItems, ...action.payload.orders]
         }
       })

@@ -16,8 +16,8 @@ export default function RecoveryEmail() {
         e.preventDefault();
         dispatch(sendOtp(emailId)); 
         dispatch(setRecovering(true));
-        sessionStorage.setItem('recover', emailId);
-        navigate('/otpModal');
+        // sessionStorage.setItem('recover', emailId);
+        navigate('/otpModal',{state:{recoveryMail:emailId}});
     };
 
     return (

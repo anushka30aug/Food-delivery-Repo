@@ -66,7 +66,7 @@ export default function EditProfile() {
     return (
 
         <div className={style.panel_container}>
-            <div className={style.svg_container} onClick={removeProfileSection}><Cross /></div>
+            <div onClick={removeProfileSection}><Cross /></div>
             <main className={style.mainContent_container}>
 
                 <div className={style.profile} onClick={handleImageClick}>

@@ -42,9 +42,9 @@ export default function ResetPassword() {
             toast.error('you entered two different passwords');
         }
         else {
-            dispatch(resetPassword(password)).then(response => {
+            const emailId=location.state.recoveryMail;
+            dispatch(resetPassword({password,emailId})).then(response => {
                 if (response.payload.token) {
-                    sessionStorage.removeItem('recover')
                     navigate('/')
                 }
             })

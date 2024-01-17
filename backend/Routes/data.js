@@ -1,6 +1,7 @@
 const express = require('express');
 const Product = require('../Models/Product');
 const Restaurant = require('../Models/Restaurant');
+const mongoose = require('mongoose')
 const route = express.Router();
 
 route.get('/fetchData', async (req, res) => {
@@ -12,7 +13,7 @@ route.get('/fetchData', async (req, res) => {
             totalResults = await Product.countDocuments({ seller_Id: seller_Id });
         }
         else {
-           
+
             if (filter === 'ascending') {
                 if (sub_category !== 'none') {
                     data = await Product.find({
@@ -51,7 +52,7 @@ route.get('/fetchData', async (req, res) => {
                         seller_City: { "$regex": city, "$options": "i" },
                         seller_State: { "$regex": state, "$options": "i" }, "$or": [
                             { "name": { "$regex": sub_category, "$options": "i" } },
-                            { "sub_category": { "$regex": sub_category, "$options": "i" }},
+                            { "sub_category": { "$regex": sub_category, "$options": "i" } },
                             { 'category': { "$regex": sub_category, "$options": "i" } }
                         ]
                     }).sort({ price: -1 }).skip((page - 1) * 10).limit(10);
@@ -124,36 +125,42 @@ route.get('/fetchData', async (req, res) => {
 
 route.get('/fetchRestaurant', async (req, res) => {
     try {
-        const { name, rating, city, page } = req.query;
+        const { id, name, rating, city, page } = req.query;
         var data, totalResults;
-        const regexCity = new RegExp(city, 'i');
-        if (name === 'none') {
-            if (rating === 'top') {
-                data = await Restaurant.find({ city: regexCity }).sort({ rating: -1 }).limit(10);
-                totalResults = await Restaurant.countDocuments({ city: regexCity }).sort({ rating: -1 }).limit(10);
-            }
-            else if (rating === 'more than 4') {
-                data = await Restaurant.find({ city: regexCity, rating: { $gt: 4 } }).skip((page - 1) * 10).limit(10);
-                totalResults = await Restaurant.countDocuments({ city: regexCity, rating: { $gt: 4 } });
-            }
-            else {
-                data = await Restaurant.find({ city: regexCity }).skip((page - 1) * 10).limit(10);
-                totalResults = await Restaurant.countDocuments({ city: regexCity });
-            }
+        if (id !== null && id!== undefined ) {
+            const objectId = new mongoose.Types.ObjectId(id);
+            data = await Restaurant.findById(objectId);
+            totalResults = 1;
         }
-
         else {
-            const regexName = new RegExp(name, 'i');
-            if (rating === 'more than 4') {
-                data = await Restaurant.find({ city: regexCity, name: regexName, rating: { $gt: 4 } }).skip((page - 1) * 10).limit(10);
-                totalResults = await Restaurant.countDocuments({ city: regexCity, name: regexName, rating: { $gt: 4 } });
+            const regexCity = new RegExp(city, 'i');
+            if (name === 'none') {
+                if (rating === 'top') {
+                    data = await Restaurant.find({ city: regexCity }).sort({ rating: -1 }).limit(10);
+                    totalResults = await Restaurant.countDocuments({ city: regexCity }).sort({ rating: -1 }).limit(10);
+                }
+                else if (rating === 'more than 4') {
+                    data = await Restaurant.find({ city: regexCity, rating: { $gt: 4 } }).skip((page - 1) * 10).limit(10);
+                    totalResults = await Restaurant.countDocuments({ city: regexCity, rating: { $gt: 4 } });
+                }
+                else {
+                    data = await Restaurant.find({ city: regexCity }).skip((page - 1) * 10).limit(10);
+                    totalResults = await Restaurant.countDocuments({ city: regexCity });
+                }
             }
+
             else {
-                data = await Restaurant.find({ city: regexCity, name: regexName }).sort({ rating: -1 }).skip((page - 1) * 10).limit(10);
-                totalResults = await Restaurant.countDocuments({ city: regexCity, name: regexName });
+                const regexName = new RegExp(name, 'i');
+                if (rating === 'more than 4') {
+                    data = await Restaurant.find({ city: regexCity, name: regexName, rating: { $gt: 4 } }).skip((page - 1) * 10).limit(10);
+                    totalResults = await Restaurant.countDocuments({ city: regexCity, name: regexName, rating: { $gt: 4 } });
+                }
+                else {
+                    data = await Restaurant.find({ city: regexCity, name: regexName }).sort({ rating: -1 }).skip((page - 1) * 10).limit(10);
+                    totalResults = await Restaurant.countDocuments({ city: regexCity, name: regexName });
+                }
             }
         }
-
         if (!data || data.length === 0) {
             return res.status(404).send({ err: "No Restaurant found" });
         }
@@ -162,6 +169,7 @@ route.get('/fetchRestaurant', async (req, res) => {
     }
 
     catch (err) {
+        console.log(err)
         res.status(400).send({ error: "unexpected error occured" })
     }
 

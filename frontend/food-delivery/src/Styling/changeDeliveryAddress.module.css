@@ -23,13 +23,15 @@
     border:none;
     border-bottom: .1em solid black;
     outline: none;
-    width:100%
+    width:100%;
+    box-sizing: border-box;
 }
 
 .contactInfoHeading{
     margin: 1em;
     color: orangered;
 }
+
 
 .contactInfo{
   text-align: center;
