@@ -6,6 +6,7 @@ const main = require('./connect');
 const cors = require('cors');
 const app = express();
 const fileupload = require('express-fileupload');
+const port = process.env.PORT||5000;
 
 app.use(fileupload({
     useTempFiles:true
@@ -30,7 +31,7 @@ app.use('/delivery/user', require('./Routes/user'));
 (async () => {
     const url = await ngrok.connect({
         proto: 'http', // http|tcp|tls, defaults to http
-        addr: 5000,    // port or network address, defaults to 80
+        addr: port,    // port or network address, defaults to 80
         authtoken: process.env.NGROK_AUTHTOKEN, // authtoken from ngrok
     });
 
@@ -38,7 +39,6 @@ app.use('/delivery/user', require('./Routes/user'));
 })();
 
 // Start the Express server
-const port = 5000;
 app.listen(port, () => {
     console.log(`Server running on http://localhost:${port}`);
 });
