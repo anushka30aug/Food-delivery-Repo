@@ -6,7 +6,7 @@ const main = require('./connect');
 const cors = require('cors');
 const app = express();
 const fileupload = require('express-fileupload');
-const port = process.env.PORT||5000;
+const port = process.env.PORT || 5000;
 
 app.use(fileupload({
     useTempFiles:true
@@ -28,17 +28,18 @@ app.use('/delivery/buy', require('./Routes/Order'));
 app.use('/delivery/user', require('./Routes/user'));
 
 // ngrok to expose the local server
-(async () => {
-    const url = await ngrok.connect({
-        proto: 'http', // http|tcp|tls, defaults to http
-        addr: port,    // port or network address, defaults to 80
-        authtoken: process.env.NGROK_AUTHTOKEN, // authtoken from ngrok
-    });
+// (async () => {
+//     const url = await ngrok.connect({
+//         proto: 'http', // http|tcp|tls, defaults to http
+//         addr: 5000,    // port or network address, defaults to 80
+//         authtoken: process.env.NGROK_AUTHTOKEN, // authtoken from ngrok
+//     });
 
-    console.log(`Ngrok URL: ${url}`);
-})();
+//     console.log(`Ngrok URL: ${url}`);
+// })();
 
 // Start the Express server
+
 app.listen(port, () => {
     console.log(`Server running on http://localhost:${port}`);
 });
