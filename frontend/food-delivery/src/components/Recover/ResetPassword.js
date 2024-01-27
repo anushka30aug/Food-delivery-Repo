@@ -15,6 +15,7 @@ export default function ResetPassword() {
     const navigate = useNavigate();
     const [password, setPassword] = useState('');
     const [reConfirm, setReConfirm] = useState('');
+    const [loading,setLoading]=useState(false);
 
     useEffect(() => {
         if (localStorage.getItem('token')) {
@@ -36,14 +37,16 @@ export default function ResetPassword() {
         setReConfirm(e.target.value)
     }
 
-    const handleClick = (e) => {
+    const handleSubmit = (e) => {
         e.preventDefault();
         if (password !== reConfirm) {
             toast.error('you entered two different passwords');
         }
         else {
+            setLoading(true);
             const emailId=location.state.recoveryMail;
             dispatch(resetPassword({password,emailId})).then(response => {
+                setLoading(false);
                 if (response.payload.token) {
                     navigate('/')
                 }
@@ -52,12 +55,12 @@ export default function ResetPassword() {
     }
 
     return (
-        <form className={style.form}>
+        <form className={style.form} onSubmit={handleSubmit} disabled={loading}>
             <h3>Reset Password</h3>
             <p>To recover your account, please enter a new password below.</p>
             <input type='Password' placeholder="enter New Password" className={style.password} onChange={handleChange} value={password} />
             <input type='Password' placeholder="Re-Enter new Password" className={style.password} onChange={handleConfirmation} value={reConfirm} />
-            <button onClick={handleClick} className={style.form_button}>Reset password</button>
+            <button className={style.form_button} type="submit" disabled={loading}>{loading?'Loading...':'Reset password'}</button>
 
         </form>
     )

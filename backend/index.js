@@ -1,25 +1,24 @@
 const dotenv = require('dotenv');
 dotenv.config({ path: './.env' });
 const express = require('express');
-const ngrok = require('ngrok');  // Import the ngrok module
+// const ngrok = require('ngrok'); 
 const main = require('./connect');
 const cors = require('cors');
 const app = express();
 const fileupload = require('express-fileupload');
 const port = process.env.PORT || 5000;
 
-app.use(fileupload({
-    useTempFiles:true
-}))
-
-app.use(cors());
-
 main().then(() => {
     console.log('Connected to DB');
 }).catch((error) => {
     console.log('Not connected to DB' + error);
 });
- 
+
+app.use(fileupload({
+    useTempFiles:true
+}))
+
+app.use(cors());
 app.use(express.json());
 app.use('/delivery/auth', require('./Routes/auth'));
 app.use('/delivery/data', require('./Routes/data'));

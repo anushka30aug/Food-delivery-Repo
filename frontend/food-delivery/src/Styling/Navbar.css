@@ -62,9 +62,18 @@ svg {
   border: none;
 }
 
+.icons{
+  display:none;
+}
+
+
 .icons button{
  background-color: rgb(181, 178, 178);
- display: none;
+ height: 40px;
+}
+
+.cart-container{
+  position: static;
 }
 
 .icons button svg{
@@ -73,8 +82,16 @@ svg {
  color: black;
 }
 
-.cart{
+.amount-container {
   position: relative;
+  top: -30px;
+  right: -30px;
+  transform: translate(-50%, -50%);
+  width: 1.5rem;
+  border-radius: 1em;
+  background-color: green;
+  color: white; 
+  text-align: center;
 }
 
 
@@ -107,13 +124,13 @@ svg {
     font-size: larger;
     margin: 0 1em;
     background-color: rgb(181, 178, 178);
-    /* background-color: rgb(255, 255, 255); */
     color: black;
     border: none;
   }
-
-  .icons button{
-    display: inline;
+  .icons{
+    display:flex;
+    align-items: center;
+    justify-content: center;
   }
 
 }

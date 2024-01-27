@@ -169,7 +169,7 @@ const cartSlice = createSlice({
         }
         else {
           state.cartItems = action.payload.userCart.cartItems;
-          state.totalQuantity = action.payload.totalQuantity;
+          state.totalQuantity = action.payload.userCart.totalQuantity;
         }
       })
       .addCase(removeFromCart.rejected, (state, action) => {
@@ -189,7 +189,7 @@ const cartSlice = createSlice({
         }
         else {
           state.cartItems = action.payload.userCart.cartItems;
-          state.totalQuantity = action.payload.totalQuantity;
+          state.totalQuantity = action.payload.userCart.totalQuantity;
         }
       })
       .addCase(updateQuantity.rejected, (state, action) => {

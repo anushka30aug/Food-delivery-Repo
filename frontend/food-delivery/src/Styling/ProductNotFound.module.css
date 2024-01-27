@@ -1,0 +1,36 @@
+.not_found{
+ max-width: 1500px;
+ margin: 1em auto;
+ text-align: center;
+ margin-bottom: 3em;
+}
+
+.image{
+    max-width: 300px;
+    max-height: 300px;
+    margin: 0 auto;
+    object-fit: cover;
+}
+
+.image img{
+    height: 100%;
+    width: 100%;
+}
+.main{
+padding: 1em;
+}
+.main p{
+ font-size: large;
+ font-weight: bold;
+ color: rgb(50, 179, 230);
+}
+
+.main button{
+    border:none;
+    border-radius: .5em;
+    padding: .5em;
+    background-color:rgb(224, 239, 244);
+    color: rgb(1, 32, 61);
+    font-weight: bold;
+    min-width: 150px;
+}

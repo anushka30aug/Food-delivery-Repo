@@ -1,0 +1,27 @@
+.contact_panel{
+    max-width: 1500px;
+    margin: 0 auto;
+    box-shadow: 0 0 1em 1px gainsboro;
+    padding: 1em 1em 3em 1em;
+    text-align: center;
+    box-sizing: border-box;
+}
+.contact_list{
+    max-width: 500px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: center;
+    align-items:center;
+}
+
+.contact_list li{
+    list-style-type: none;
+    max-width: 50px;
+    max-height: 50px;
+    margin: .5em;
+}
+
+.contact_list li svg{
+    width: 30px;
+    height: 30px;
+}

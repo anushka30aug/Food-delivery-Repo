@@ -1,6 +1,18 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import toast from "react-hot-toast";
 const host = process.env.REACT_APP_API_IP_ADDRESS;
+
+export const fetchUserById = createAsyncThunk('/signup/userExist',async(email)=>{
+    const response = await fetch(`${host}/delivery/auth/fetchUserByEmailId?email=${email}`,{
+        method:'GET',
+        headers:{
+            'Content-Type':'application/json'
+        }
+    })
+    const data = response.json();
+    return data;
+})
+
 export const signupUser = createAsyncThunk(
     '/signup', async (_,{getState}) => {
         const {signup}=getState();

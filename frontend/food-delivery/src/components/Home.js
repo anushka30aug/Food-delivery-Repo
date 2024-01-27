@@ -6,9 +6,9 @@ import { setModal, setProductDetail } from '../Redux/Detailing';
 import { useEffect, useState } from 'react';
 import toast from 'react-hot-toast';
 import RestaurantList from './Restaurant/RestaurantList';
-import Footer from './Footer';
 import style from '../Styling/Home.module.css';
 import { fetchCartItems } from '../Redux/cartSlice';
+
 
 
 export default function Home() {
@@ -24,7 +24,7 @@ export default function Home() {
         }
         else {
             if (city === null) {
-                var load = toast.loading("fetching...")
+                var load = toast.loading("please wait while we are fetching details")
                 if (navigator.geolocation) {
                     navigator.geolocation.getCurrentPosition(
                         (position) => {
@@ -69,8 +69,15 @@ export default function Home() {
    const handleSubCategoryClick=(e)=>{
        e.preventDefault();
        dispatch(setSubCategory(searchValue.trim()));
-       dispatch(fetchData());
-       navigate('/productList');
+       dispatch(fetchData()).then(data=>{
+            if(data.payload.err)
+            {
+                navigate('/productNotFound')
+            }
+            else{
+                navigate('/productList')
+            }
+        });
    }
 
 
@@ -98,6 +105,7 @@ export default function Home() {
                 <div className={style.mainItems}> <li className={style.category}> <img src="https://img.freepik.com/free-photo/gourmet-dessert-collection-cute-macaroon-tray-generated-by-ai_188544-21953.jpg?size=626&ext=jpg&ga=GA1.2.982961382.1695667691&semt=sph" alt="" onClick={handleCategoryClick} name='Sweets' ></img> </li> SWEETS</div>
             </main>
             <RestaurantList />
+
         </div>
     )
 }

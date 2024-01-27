@@ -1,5 +1,6 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import toast from "react-hot-toast";
+import Home from "../components/Home";
 const host = process.env.REACT_APP_API_IP_ADDRESS;
 export const fetchData = createAsyncThunk(
     '/fetchData',
@@ -27,7 +28,7 @@ const dataSlice = createSlice({
         sub_category: 'none',
         name: 'none',
         filter: 'default',
-        seller_Id:'none',
+        seller_Id: 'none',
         data: [],
         totalResults: 0,
     },
@@ -41,34 +42,32 @@ const dataSlice = createSlice({
             state.data = [];
             state.totalResults = 0;
         },
-        setSubCategory(state,action)
-        {
-            state.sub_category=action.payload;
-            state.page=1;
-            state.data=[];
-            state.seller_Id= 'none';
-            state.totalResults=0;
+        setSubCategory(state, action) {
+            state.sub_category = action.payload;
+            state.page = 1;
+            state.data = [];
+            state.seller_Id = 'none';
+            state.totalResults = 0;
         },
-        setFilter(state,action)
-        {
-            state.filter=action.payload;
-            state.page=1;
-            state.seller_Id= 'none';
-            state.data=[];
-            state.totalResults=0;
+        setFilter(state, action) {
+            state.filter = action.payload;
+            state.page = 1;
+            state.seller_Id = 'none';
+            state.data = [];
+            state.totalResults = 0;
         },
         incrementPage(state) {
             state.page = state.page + 1;
         },
         changeCategory(state, action) {
             state.category = action.payload;
-            state.sub_category='none';
-            state.seller_Id= 'none';
+            state.sub_category = 'none';
+            state.seller_Id = 'none';
         },
-        setSellerId(state,action){
-            state.seller_Id=action.payload;
+        setSellerId(state, action) {
+            state.seller_Id = action.payload;
         }
-        
+
     },
     extraReducers: (builder) => {
         builder
@@ -77,7 +76,7 @@ const dataSlice = createSlice({
             })
             .addCase(fetchData.fulfilled, (state, action) => {
                 if (action.payload.err) {
-                    toast.error('No food item found');
+                    toast('No food item found');
                     return;
                 }
                 else if (action.payload.error) {
@@ -88,14 +87,13 @@ const dataSlice = createSlice({
                 state.loading = false;
                 state.totalResults = action.payload.totalResults;
                 state.data = [...state.data, ...action.payload.data];
-            }
-            )
+            })
             .addCase(fetchData.rejected, (state, action) => {
                 state.loading = false;
-                toast.error('kuch to locha hai');
+                toast.error('some error occured while fetching fooditems\ntry again later');
                 state.error = action.error.message;
             })
     }
 })
-export const { resetValues, incrementPage, changeCategory, setDetailing ,setSubCategory,setFilter,setSellerId} = dataSlice.actions;
+export const { resetValues, incrementPage, changeCategory, setDetailing, setSubCategory, setFilter, setSellerId } = dataSlice.actions;
 export default dataSlice.reducer;

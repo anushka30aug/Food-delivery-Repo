@@ -53,8 +53,8 @@ route.post('/digitalPayment', fetchUser, async (req, res) => {
         customerId: id
       },
       mode: 'payment',
-      success_url: 'http://localhost:3000/success',
-      cancel_url: 'http://localhost:3000/failure',
+      success_url: 'https://trofi-food-ordering-app.netlify.app/success',
+      cancel_url:  'https://trofi-food-ordering-app.netlify.app/failure',
     });
 
     res.json({ id: session.id });

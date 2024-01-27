@@ -4,7 +4,7 @@ const User = require('../Models/User');
 const fetchUser = require('../Middleware/fetchUser');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
-const transporter=require('../Helper/NodeMailer')
+const transporter = require('../Helper/NodeMailer')
 const otp = require('otp-generator');
 const { body, validationResult } = require('express-validator');
 const s_key = process.env.JWT_SECRET_KEY;
@@ -17,7 +17,7 @@ route.post('/login',
         if (!err.isEmpty()) {
             return res.status(400).send({ err: 'enter valid credentials' })
         }
-        try { 
+        try {
             const { email, password } = req.body;
             let user = await User.findOne({ email });
             if (!user) {
@@ -30,7 +30,7 @@ route.post('/login',
             const data = {
                 id: user._id,
                 city: user.city,
-                state:user.state   
+                state: user.state
             }
             const token = jwt.sign(data, '1012020Anu');
             res.json({ token })
@@ -88,26 +88,46 @@ route.post('/signup',
 )
 
 
-route.get('/fetchUser',fetchUser,async(req,res)=>{
-    try{ 
-   const userId= req.user.id;
-   const user = await User.findById(userId).select('-password');
-   if(!user)
-   {  
-    res.status(400).send({not_found:"user not found"})
-   }
-   else{  
-    res.status(200).send({data:user})
-   }
-}
-catch(error){
-    res.status(400).send({error:"unexpected error occured"})
-}
+route.get('/fetchUser', fetchUser, async (req, res) => {
+    try {
+        const userId = req.user.id;
+        const user = await User.findById(userId).select('-password');
+        if (!user) {
+            res.status(400).send({ not_found: "user not found" })
+        }
+        else {
+            res.status(200).send({ data: user })
+        }
+    }
+    catch (error) {
+        res.status(400).send({ error: "unexpected error occured" })
+    }
+})
+
+
+route.get('/fetchUserByEmailId', async (req, res) => {
+    try {
+        const emailId = req.query.email;
+        const user = await User.findOne({ email: emailId });
+        if (user) {
+            res.send({ alreadyExist: "user with this email id already exist" });
+        }
+        else {
+            res.send({ notExist: 'user with this email ID do not exist' });
+        }
+    }
+    catch (error) {
+        res.status(400).send({ error: 'unexpected error occured' });
+    }
 })
 
 
 var verificationOtp;
-route.get('/sendOtp', async (req, res) => {
+route.get('/sendOtp', [body('emailId').isEmail().withMessage('enter valid email')], async (req, res) => {
+    const error = validationResult(req);
+    if (!error.isEmpty) {
+        res.status(400).send({ invalidId: 'enter valid emailId' });
+    }
     let getOtp = otp.generate(6, { upperCaseAlphabets: false, specialChars: false, lowerCaseAlphabets: false });
     verificationOtp = getOtp;
     try {
@@ -120,7 +140,7 @@ route.get('/sendOtp', async (req, res) => {
             html: `<i> login OTP for your Trofi account : 
             <b> ${getOtp} kindly do not share this OTP with anyone</i>`,
         });
-
+        console.log(info);
         res.status(200).json({ otp: 'otp sent successfully' });
     }
 
@@ -138,7 +158,7 @@ route.post('/verifyOtp', async (req, res) => {
         if (enteredOtp === sentOtp) {
             res.status(200).json({ success: 'verified' })
         }
-        else { 
+        else {
             res.status(400).json({ fail: 'verification failed' })
         }
         verificationOtp = null;
@@ -155,7 +175,7 @@ route.post('/resetPassword', async (req, res) => {
         const user = await User.findOne({ email: emailId });
         if (!user) {
             return res.status(404).send({ notFound: 'user with entered emailId not found' });
-        } 
+        }
         const id = user._id;
         const city = user.city;
         const state = user.state;
@@ -170,8 +190,8 @@ route.post('/resetPassword', async (req, res) => {
         if (updated) {
             const data = {
                 id: id,
-                city:city,
-                state:state
+                city: city,
+                state: state
             }
             const token = jwt.sign(data, s_key);
             return res.status(200).json({ token })

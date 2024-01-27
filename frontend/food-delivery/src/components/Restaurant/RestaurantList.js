@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 import RestaurantModal from "./RestaurantModal";
 import style from '../../Styling/RestaurantList.module.css';
 import { useNavigate } from 'react-router-dom';
+import { Loading } from "../Icon";
 
 
 export default function RestaurantList() {
@@ -15,18 +16,22 @@ export default function RestaurantList() {
     const city = useSelector(state => state.userCity.city)
     const dataLength = data.length;
     const [search, setSearch] = useState('');
+    const [loading, setLoading] = useState(false);
 
     useEffect(
         () => {
-            if (!localStorage.getItem('token') ) {
+            if (!localStorage.getItem('token')) {
                 return navigate('/login')
             }
-            if (city !== null)  {  
-                if (dataLength <= totalLength)
+            if (city !== null) {
+                if (dataLength === 0 && totalLength === 0) {
+                    setLoading(true);
                     dispatch(fetchRestaurants())
+                }
             }
             // eslint-disable-next-line
-        },[city])
+        }, [city])
+
 
     const handleChange = (e) => {
         setSearch(e.target.value)
@@ -43,10 +48,25 @@ export default function RestaurantList() {
         dispatch(fetchRestaurants());
     }
 
+    const hasMore = () => {
+        if (dataLength < totalLength) {
+            if (loading === false)
+            setLoading(true);
+            return true;
+        }
+        else {
+            if (loading === true)
+                setLoading(false);
+                return false;
+        }
+        
+    }
+
+
     const handleSelectChange = (e) => {
         dispatch(setRating(e.target.value));
         dispatch(fetchRestaurants())
-      }
+    }
 
     return (
         <div>
@@ -54,8 +74,8 @@ export default function RestaurantList() {
             <div className={style.utilities}>
                 <div className={style.searchbar}>
                     <form onSubmit={handleSubmit}>
-                    <input type="search" placeholder="search Restaurant" value={search} onInput={handleChange}/>
-                    <button onClick={handleSubmit}>Search</button>
+                        <input type="search" placeholder="search Restaurant" value={search} onInput={handleChange} />
+                        <button onClick={handleSubmit}>Search</button>
                     </form>
                 </div>
 
@@ -69,12 +89,14 @@ export default function RestaurantList() {
 
             <InfiniteScroll
                 dataLength={dataLength}
-                hasMore={dataLength < totalLength}
-                next={fetchMore}>
+                hasMore={hasMore()}
+                next={fetchMore}
+            >
                 <div className={style.restaurantList}>
-                    
                     {data.map((item, index) => (<RestaurantModal key={index} item={item} />))}
                 </div>
+
+                { loading?<div className={style.Loader}><b>Loading</b><Loading /></div>:'' }
             </InfiniteScroll>
         </div>
     )

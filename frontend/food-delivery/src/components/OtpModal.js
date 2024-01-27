@@ -8,6 +8,7 @@ import style from '../Styling/OtpModal.module.css';
 
 export default function OtpModal() {
     const [otp, setOtp] = useState('');
+    const [loading,setLoading]=useState(false);
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const location = useLocation();
@@ -24,8 +25,10 @@ export default function OtpModal() {
     }
     const handleSubmit = async (e) => {
         e.preventDefault();
+        setLoading(true);
         try {
             const otpResponse = await dispatch(verifyOtp(otp));
+            setLoading(false);
             if (otpResponse.payload.success) {   //if otp is verified
                 if (recovering)       //check is user is recovering the account or signing in for first time
                 {   
@@ -47,13 +50,13 @@ export default function OtpModal() {
 
     return (
         <div className={style.form_page}>
-            <form className={style.form}>
+            <form className={style.form} onSubmit={handleSubmit} disabled={loading}>
                 <h3>Verify your Account</h3>
                 <p>we have sent you six digit code at your Email Address
                     enter the code below to confirm your Email Address
                 </p>
                 <input type="text" inputMode="numeric" placeholder='enter OTP' className={style.form_input} value={otp} onChange={handleChange} />
-                <button className={style.form_button} onClick={handleSubmit}>Verify</button>
+                <button className={style.form_button} type="submit" disabled={loading} >{loading?'Loading...':'Verify'}</button>
                 {/* <p>if you didn't receive code!! <button onClick={}> Resend</button></p> */}
             </form>
         </div>

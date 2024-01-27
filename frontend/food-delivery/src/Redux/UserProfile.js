@@ -30,7 +30,6 @@ export const editUserProfile = createAsyncThunk('/editUserProfile', async ({ nam
 export const uploadProfilePicture = createAsyncThunk('/upload', async ({ photo }) => {
     const formData = new FormData();
     formData.append('photo', photo);
-    console.log(formData)
     const data = await fetch(`${host}/delivery/user/upload`,
         {
             method: 'POST',
@@ -41,7 +40,6 @@ export const uploadProfilePicture = createAsyncThunk('/upload', async ({ photo }
         }
     );
     const response = await data.json();
-    console.log(response)
     return response;
 });
 
@@ -93,7 +91,6 @@ const customerDataSlice = createSlice({
                     state.state = action.payload.data.state;
                     state.pincode = action.payload.data.pincode;
                     state.profilePicture=action.payload.data.profilePicture;
-                    console.log(state.profilePicture)
                 }
             })
             .addCase(fetchuser.rejected, (state, action) => {

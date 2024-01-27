@@ -1,6 +1,6 @@
 .searchBar {
     min-width: 320px;
-    width:50%;
+    width: 50%;
     max-width: 500px;
     margin: 0 auto;
     position: fixed;
@@ -10,32 +10,34 @@
     padding: 1em;
     margin-bottom: .5em;
     text-align: center;
-    background-color: rgb(227, 223, 223,.5);
+    background-color: rgb(227, 223, 223, .5);
     border-radius: 1em;
-    
+
 }
-.searchBar input{
+
+.searchBar input {
     padding: 1em;
     border-radius: 10em;
     margin-right: .5em;
     border: .2em solid black;
     outline: none;
 }
-.searchBar button{
+
+.searchBar button {
     padding: 1em;
-    border:none;
+    border: none;
     border-radius: 1em;
     background-color: rgb(5, 95, 5);
     color: white;
 }
 
-.footer{
+.footer {
     position: fixed;
     bottom: 0;
     left: 50%;
     transform: translateX(-50%);
     min-width: 320px;
-    width:100%;
+    width: 100%;
     max-width: 500px;
     background-color: white;
     margin: 0 auto;
@@ -43,20 +45,35 @@
     align-items: center;
     justify-content: space-evenly;
     margin-top: 1em;
-    padding:1em;
+    padding: 1em;
     font-weight: bold;
     text-align: center;
     cursor: pointer;
+    z-index: 1000;
 }
 
-.footer div{
+.footer div {
     width: 20%;
     height: 20px;
 }
 
-@media(min-width:500px)
-{
-    .footer{
+
+.amount_container {
+    position: relative;
+    top: 0;
+    right: 2px;
+    transform: translate(-50%, -50%);
+    width: 1.3rem;
+    background-color: green;
+    color: white;
+    border-radius: 2em;
+    display: inline-block;
+    text-align: center;
+
+}
+
+@media(min-width:500px) {
+    .footer {
         display: none;
     }
 }

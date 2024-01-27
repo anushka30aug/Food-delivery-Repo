@@ -29,9 +29,7 @@ export default function UserOrders() {
             {orderedItems.map((item) => {
                 return (
                     <div className={Style.orderDescription} onClick={(e) => { e.preventDefault(); handleClick(item) }}>
-                        {
-                            console.log(item)
-                        }
+                       
                         <div className={Style.date}>
                             Date - {item.date}
                         </div>

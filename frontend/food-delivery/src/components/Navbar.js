@@ -6,6 +6,7 @@ import { Position, ProfileIcon, Cart } from './Icon';
 const Navbar = () => {
     const location = useSelector(state => state.userCity.city)
     const state = useSelector(state => state.userCity.state)
+    const Quantity = useSelector(state=>state.cart.totalQuantity)
     const navigate = useNavigate();
     const logOutClick = () => {
         localStorage.removeItem('token');
@@ -15,7 +16,7 @@ const Navbar = () => {
         navigate('/signup');
     }
 
-    const goToAccount=()=>{
+    const goToAccount = () => {
         navigate('/Account')
     }
 
@@ -30,9 +31,16 @@ const Navbar = () => {
                 <div className='navbar-activities'>
                     {localStorage.getItem('token') ? (
                         <div className='icons'>
-                            {/* <button className='cart'> */}
-                            <button onClick={goToCart}><Cart /></button>
-                            {/* </button> */}
+                            
+                            <button onClick={goToCart} className='cart-container'>
+                            <Cart />
+                            <div className='amount-container'>
+                                {Quantity===0?'':Quantity}
+                            </div>
+                            
+                            </button>
+                           
+                            
                             <button onClick={goToAccount}><ProfileIcon /></button>
                         </div>
                     ) : (
@@ -45,11 +53,11 @@ const Navbar = () => {
                 </div>
             </nav>
             {localStorage.getItem('token') ? (
-                <div className='location' onClick={()=>{console.log('navigating'); navigate('/location')}}>
+                <div className='location' onClick={() => { console.log('navigating'); navigate('/location') }}>
                     <Position /> Delivery in {location},{state}
                 </div>) : (<></>)
             }
-          
+
         </div>
     )
 }

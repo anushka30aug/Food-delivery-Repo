@@ -67,6 +67,10 @@ const verificationSlice = createSlice(
                 })
                 .addCase(sendOtp.fulfilled, (state, action) => {
                     state.loading = false;
+                    if(action.payload.invaliId)
+                    {
+                        toast.error('enter valid emailId')
+                    }
                     if (action.payload.error) {
                         toast.error('unexpected error occured')
                     }

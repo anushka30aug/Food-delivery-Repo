@@ -43,3 +43,10 @@
     justify-content: center;
     margin-bottom: 3em;
 }
+
+.Loader{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 1em;
+  }
