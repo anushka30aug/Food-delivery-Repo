@@ -18,13 +18,14 @@ export default function Home() {
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const city = useSelector(state => state.userCity.city)
-    useEffect(() => {
+    useEffect(() => { 
+       window.scrollTo({top: 0, left: 0, behavior: 'smooth'})
         if (!localStorage.getItem('token') ) {
             return navigate('/login')
         }
         else {
             if (city === null) {
-                var load = toast.loading("please wait while we are fetching details")
+                var load = toast.loading("please wait we are fetching details")
                 if (navigator.geolocation) {
                     navigator.geolocation.getCurrentPosition(
                         (position) => {

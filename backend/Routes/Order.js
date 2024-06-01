@@ -53,8 +53,8 @@ route.post('/digitalPayment', fetchUser, async (req, res) => {
         customerId: id
       },
       mode: 'payment',
-      success_url: 'https://trofi-food-ordering-app.netlify.app/success',
-      cancel_url:  'https://trofi-food-ordering-app.netlify.app/failure',
+      success_url: 'https://trofi-food.netlify.app/success',
+      cancel_url:  'https://trofi-food.netlify.app/failure',
     });
 
     res.json({ id: session.id });
@@ -173,7 +173,7 @@ route.post('/webhook', express.json({ type: 'application/json' }), async (reques
     `;
 
         await transporter.sendMail({
-          from: '"Anushka shukla👻" <anushkashukla3003@gmail.com>',
+          from: '"Anushka shukla" <anushkashukla3003@gmail.com>',
           to: `${email}`,
           subject: "Order placed",
           text: `Hello dear ${name} , your order has been placed successfully`,
@@ -292,7 +292,7 @@ route.post('/OfflinePayment', fetchUser, async (req, res) => {
           `;
 
     await transporter.sendMail({
-      from: '"Anushka shukla👻" <anushkashukla3003@gmail.com>',
+      from: '"Anushka shukla" <anushkashukla3003@gmail.com>',
       to: `${email}`,
       subject: "Order placed",
       text: `Hello dear ${name} , your order has been placed successfully`,

@@ -19,6 +19,7 @@ const CartContainer = () => {
     if (!localStorage.getItem('token') ) {
       return navigate('/login')
   }
+    window.scrollTo({top: 0, left: 0, behavior: 'smooth'})
     dispatch(fetchCartItems()).then(items => dispatch(calculateAmount()));
     // eslint-disable-next-line
   }, [])

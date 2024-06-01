@@ -22,15 +22,15 @@ padding: 1em;
 .main p{
  font-size: large;
  font-weight: bold;
- color: rgb(50, 179, 230);
+ color: rgb(1, 145, 202);
 }
 
 .main button{
-    border:none;
+    border:1px solid rgb(1, 32, 61);
     border-radius: .5em;
-    padding: .5em;
+    padding: .5em 1em;
     background-color:rgb(224, 239, 244);
     color: rgb(1, 32, 61);
     font-weight: bold;
-    min-width: 150px;
+    
 }

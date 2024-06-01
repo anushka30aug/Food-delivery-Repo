@@ -58,10 +58,9 @@ export default function ResetPassword() {
         <form className={style.form} onSubmit={handleSubmit} disabled={loading}>
             <h3>Reset Password</h3>
             <p>To recover your account, please enter a new password below.</p>
-            <input type='Password' placeholder="enter New Password" className={style.password} onChange={handleChange} value={password} />
-            <input type='Password' placeholder="Re-Enter new Password" className={style.password} onChange={handleConfirmation} value={reConfirm} />
-            <button className={style.form_button} type="submit" disabled={loading}>{loading?'Loading...':'Reset password'}</button>
-
+            <input type='Password' minLength={6} placeholder="enter New Password" className={style.password} onChange={handleChange} value={password} />
+            <input type='Password' minLength={6} placeholder="Re-Enter new Password" className={style.password} onChange={handleConfirmation} value={reConfirm} />
+            <button className={style.form_button} type="submit" disabled={loading}>{loading?'Loading...':'Reset'}</button>
         </form>
     )
 }

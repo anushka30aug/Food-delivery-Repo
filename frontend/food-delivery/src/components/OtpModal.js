@@ -43,6 +43,9 @@ export default function OtpModal() {
                     }
                 }
             }
+            else{
+                navigate('/recoveryEmail')
+            }
         } catch (error) {
             console.error('An error occurred:', error);
         }
@@ -52,7 +55,7 @@ export default function OtpModal() {
         <div className={style.form_page}>
             <form className={style.form} onSubmit={handleSubmit} disabled={loading}>
                 <h3>Verify your Account</h3>
-                <p>we have sent you six digit code at your Email Address
+                <p> we have sent you six digit code at your Email Address
                     enter the code below to confirm your Email Address
                 </p>
                 <input type="text" inputMode="numeric" placeholder='enter OTP' className={style.form_input} value={otp} onChange={handleChange} />

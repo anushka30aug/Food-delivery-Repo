@@ -20,7 +20,7 @@ import style from '../Styling/ContactPanel.module.css';
             <li onClick={sendEmail}><Gmail/></li>
             </div>
             <h4>Created by Anushka Shukla</h4>
-            <p>(This website is developed solely to showcase my skills in MERN stack and is not ready for professional use.)</p>
+            <p><small>(This website is developed solely to showcase my skills in MERN stack and is not meant for Commercial use.)</small></p>
         </div>
 
     )

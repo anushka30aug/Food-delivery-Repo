@@ -36,7 +36,7 @@ export default function RecoveryEmail() {
                 <h3>Recover By Email Address</h3>
                 <p>To recover your account, please provide email address of your TROFI Account We'll use it only for account recovery purposes.</p>
                 <input type="email" placeholder='Email Id' className={style.form_input} value={emailId} onChange={handleChange} />
-                <button className={style.form_button} type="submit" disabled={loading}>{loading?'Loading...':"Send Otp"}</button>
+                <button className={style.form_button} type="submit" disabled={loading}>{loading?'Loading...':"OTP"}</button>
             </form>
         </div>
     )

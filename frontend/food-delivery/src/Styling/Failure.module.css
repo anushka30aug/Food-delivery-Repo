@@ -28,7 +28,7 @@
 
 .text button{
     background-color: black;
-    padding:.5em;
+    padding:.5em 1em;
     border:1px solid white;
     border-radius: .5em;
     color: white;

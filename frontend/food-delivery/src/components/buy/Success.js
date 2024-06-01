@@ -14,7 +14,7 @@ export default function Success(){
                 
                 <button onClick={()=>{
                    navigate('/')
-                }}>Continue Shopping</button>
+                }}>Continue</button>
             </div>
         </div>
     )

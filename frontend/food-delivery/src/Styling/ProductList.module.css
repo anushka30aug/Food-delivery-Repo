@@ -7,12 +7,12 @@
     margin-bottom:5em;
 }
 
-.skeleton_Container{
+/* .skeleton_Container{
     display:flex;
     flex-wrap: wrap;
     justify-content: space-evenly;
 
-}
+} */
 
 .skeleton{
     width:320px;

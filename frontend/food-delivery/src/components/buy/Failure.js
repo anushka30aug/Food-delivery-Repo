@@ -15,7 +15,7 @@ export default function Failure(){
             
             <button onClick={()=>{
                navigate('/')
-            }}>Continue Shopping</button>
+            }}>Continue</button>
         </div>
     </div>
     )

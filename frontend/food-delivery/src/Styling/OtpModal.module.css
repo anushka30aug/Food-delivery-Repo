@@ -1,4 +1,6 @@
-
+.form_page{
+   padding-bottom: 2em;
+}
 .form{
     background: rgba(174, 170, 170, 0.3);
     max-width: 500px;
@@ -26,11 +28,13 @@
 
  .form_button{
     margin:1em;
-    padding:.5em;
+    padding:.5em 1em;
     width: 40%;
-    background-color:rgb(220, 144, 91);
+    background-color:rgba(255, 68, 0);
     color:rgb(255, 255, 255);
     border:.1em solid rgb(0, 0, 0);
-    border-radius: 10em;
-    box-shadow: .1em .1em black;
+    border-radius: .5em;
+    border: none;
+    font-size: medium;
+    /* box-shadow: .1em .1em black; */
  }

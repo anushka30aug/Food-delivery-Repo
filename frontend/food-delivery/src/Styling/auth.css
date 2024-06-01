@@ -6,13 +6,13 @@
     margin-top: 2em;
     margin-bottom: 2em;
     padding:1em;
-    box-shadow: 0 0 1em 1px gainsboro;
+    /* box-shadow: 0 0 1em 1px gainsboro; */
     padding-bottom: 5em;
 
 }
 
 .auth-heading {
-    background: linear-gradient(145deg, rgb(247, 135, 56), rgb(189, 46, 46));
+    background: linear-gradient(145deg, rgba(255, 68, 0), rgba(255, 68, 0));
     -webkit-text-fill-color: transparent;
     -webkit-background-clip: text;
     margin: .5em;
@@ -27,7 +27,7 @@
     padding: 1em;
     margin: 1em auto;
     outline: none;
-    background-color:rgb(255, 255, 240);
+    /* background-color:rgb(255, 255, 240); */
     box-sizing: border-box;
 }
 
@@ -35,7 +35,7 @@
     padding:.5em;
     font-size: large;
     border-radius: .4em;
-    background-color: chocolate;
+    background-color: rgba(255, 68, 0);
     color: white;
     border: none;
     width: 50%;

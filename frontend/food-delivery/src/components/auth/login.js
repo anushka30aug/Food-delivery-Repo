@@ -49,13 +49,13 @@ const Login=()=>{
         <form className="auth-form">
             <h2 className="auth-heading">Login</h2>
             <input type="email" placeholder="Email ID" name="email" id="email" value={credentials.email} onChange={handleChange} className="input" />
-            forgot pasword?<Link to='/recoveryEmail' style={{'color':'chocolate'}}> click here....</Link>
+            forgot pasword?<Link to='/recoveryEmail' style={{'color':'rgba(255, 68, 0)'}}> click here....</Link>
             <input type="password" minLength={6} placeholder="password" name="password" id="password" value={credentials.password} onChange={handleChange} className="input" />
 
             <button className="auth-button" onClick={handleLogin} disabled={loading}>{loading?<Load/>:"Login"}</button>
             <br/>
             <hr color="white" />
-            Create new account? <Link to='/signup' style={{ 'color': 'chocolate' }}>signup here...</Link>
+            Create new account? <Link to='/signup' style={{ 'color': 'rgba(255, 68, 0)' }}>signup here...</Link>
         </form>
 
     )

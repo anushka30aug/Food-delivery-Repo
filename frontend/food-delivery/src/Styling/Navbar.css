@@ -9,12 +9,13 @@ svg {
   align-items: center;
   padding: 0 0 0 1em;
   color: black;
-  background-color: rgb(181, 178, 178);
+  background-color:rgb(228, 226, 226);
   box-shadow: 0 0 .2em .2em rgb(235, 235, 235);
   list-style-type: none;
   max-width: 1500px;
   margin: 0 auto;
   box-sizing: border-box;
+  /* border-bottom: 1px solid rgb(0, 0, 0); */
 }
 
 .navbar h2 {
@@ -32,6 +33,7 @@ svg {
   align-items: center;
   color: black;
   padding: 1em;
+  
 }
 .location{
   width: 100%;
@@ -39,8 +41,9 @@ svg {
   margin: 0 auto;
   padding: .5em;
   box-sizing: border-box;
-  background-color: rgb(198, 197, 197);
+  background-color: rgb(228, 226, 226);
   color: black;
+ 
 }
 
 .location svg {
@@ -57,18 +60,20 @@ svg {
   font-size: larger;
   font-weight: 500;
   margin: 0 .5em;
-  background-color:rgb(181, 178, 178) ;
+  background-color:rgb(228, 226, 226) ;
   color: black;
   border: none;
+  cursor: pointer;
 }
 
 .icons{
   display:none;
+  cursor: pointer;
 }
 
 
 .icons button{
- background-color: rgb(181, 178, 178);
+ background-color:rgb(228, 226, 226);
  height: 40px;
 }
 
@@ -102,7 +107,7 @@ svg {
     justify-content: space-between;
     align-items: center;
     color: black;
-    background-color: rgb(181, 178, 178);
+    background-color: rgb(228, 226, 226);
     list-style-type: none;
     padding: 0em 0em 0em 3em;
     max-width: 1500px;
@@ -123,7 +128,7 @@ svg {
   .navbar-activities button {
     font-size: larger;
     margin: 0 1em;
-    background-color: rgb(181, 178, 178);
+    background-color: rgb(228, 226, 226);
     color: black;
     border: none;
   }

@@ -54,7 +54,7 @@ const Navbar = () => {
             </nav>
             {localStorage.getItem('token') ? (
                 <div className='location' onClick={() => { console.log('navigating'); navigate('/location') }}>
-                    <Position /> Delivery in {location},{state}
+                    <Position /> Delivery in {location}, {state}
                 </div>) : (<></>)
             }
 
