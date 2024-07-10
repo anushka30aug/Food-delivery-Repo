@@ -190,7 +190,7 @@ route.post('/webhook', express.json({ type: 'application/json' }), async (reques
     response.json({ received: true });
   }
   catch (error) {
-    response.status(404).send({ error: 'error occured' })
+    response.status(404).send({ error: "Internal server error" })
   }
 });
 
@@ -301,7 +301,7 @@ route.post('/OfflinePayment', fetchUser, async (req, res) => {
     res.status(200).send({ success: "sucessful" })
   }
   catch (error) {
-    res.status(400).send({ fail: 'failed' })
+    res.status(400).send({ fail: "Internal server error" })
   }
 })
 
@@ -318,7 +318,7 @@ route.get('/fetchOrders',fetchUser,async(req,res)=>{
     }
   }
   catch(error){
-    res.status(400).send({error})
+    res.status(400).send({error:"Internal server error"})
   }
 })
 

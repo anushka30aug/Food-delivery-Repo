@@ -36,7 +36,7 @@ const ordersSlice = createSlice({
           toast('No orders')
         }
         else if (action.payload.error) {
-          toast.error('unexpected error occured')
+          toast.error(`${action.payload.error}`);
         }
         else {
           state.orderedItems=[]
@@ -46,7 +46,7 @@ const ordersSlice = createSlice({
       .addCase(fetchOrders.rejected, (state, action) => {
         state.pending = false;
         state.error = action.error.message;
-        toast.error('error occured');
+        toast.error('Network error');
         console.log(state.error)
       })
   }

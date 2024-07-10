@@ -59,7 +59,7 @@ const signupSlice = createSlice({
             }
             else if(state.response.error)
             {
-                toast.error('unexpected error occured');
+                toast.error(`${action.payload.error}`);
                 return;
             }
             else if(state.response.alreadyExist)
@@ -75,6 +75,7 @@ const signupSlice = createSlice({
             state.loading=false;
             state.response=null;
             state.error=action.error.message;
+            toast.error('Network error')
         })
     }
 })

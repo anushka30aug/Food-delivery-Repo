@@ -119,7 +119,7 @@ route.get('/fetchData', async (req, res) => {
         res.status(200).send({ totalResults, data });
     }
     catch (err) {
-        res.status(400).send({ err: "Unexpected error occurred " + err.message });
+        res.status(400).send({ err: "Internal server error" });
     }
 })
 
@@ -170,7 +170,7 @@ route.get('/fetchRestaurant', async (req, res) => {
 
     catch (err) {
         console.log(err)
-        res.status(400).send({ error: "unexpected error occured" })
+        res.status(400).send({ error: "Internal server error" })
     }
 
 })

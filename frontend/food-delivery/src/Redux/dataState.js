@@ -76,11 +76,11 @@ const dataSlice = createSlice({
             })
             .addCase(fetchData.fulfilled, (state, action) => {
                 if (action.payload.err) {
-                    toast('No food item found');
+                    toast.error(`${action.payload.err}`) 
                     return;
                 }
                 else if (action.payload.error) {
-                    toast.error('Unexpected error occured...\ntry again later');
+                    toast.error(`${action.payload.error}`);
                     return;
                 }
                 if (state.page === 1) { state.data = []; }

@@ -80,7 +80,7 @@ const customerDataSlice = createSlice({
                     toast.error("user not found")
                 }
                 else if (action.payload.error) {
-                    toast.error("unexpected error occured")
+                    toast.error(`${action.payload.error}`);
                 }
                 else {
                     state.name = action.payload.data.name;
@@ -94,18 +94,18 @@ const customerDataSlice = createSlice({
                 }
             })
             .addCase(fetchuser.rejected, (state, action) => {
-                toast.error("unexpected error occured")
+                toast.error("Network error")
             })
             .addCase(editUserProfile.fulfilled, (state, action) => {
                 if (action.payload.error) {
-                    toast.error('unexpected error occured')
+                    toast.error(`${action.payload.error}`);
                 }
                 else {
                     toast.success('updated successfully')
                 }
             })
             .addCase(editUserProfile.rejected, (state, action) => {
-                toast.error('unexpected error occured hehehehehe')
+                toast.error('Networ error')
             })
 
 

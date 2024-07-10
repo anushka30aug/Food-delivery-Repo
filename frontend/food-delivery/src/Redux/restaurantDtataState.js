@@ -84,11 +84,11 @@ const restaurantSlice = createSlice({
             .addCase(fetchRestaurants.fulfilled, (state, action) => {
                 state.loading = false;
                 if (action.payload.err) {
-                    toast.error('no Restaurant found');
+                    toast.error(`${action.payload.err}`);
                     return;
                 }
                 else if (action.payload.error) {
-                    toast.error('unexpected error occured');
+                    toast.error(`${action.payload.error}`);
                     return;
                 }
                 if (state.page === 1) {
@@ -100,7 +100,7 @@ const restaurantSlice = createSlice({
             .addCase(fetchRestaurants.rejected, (state, action) => {
                 state.loading = false;
                 state.error = action.error;
-                toast.error('error occured')
+                toast.error('Network error')
             })
 
 

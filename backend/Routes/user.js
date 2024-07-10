@@ -14,7 +14,7 @@ route.post('/editProfile', fetchUser, async (req, res) => {
         return res.status(200).send({ updated: 'updated name,contact number successfully' });
     }
     catch (error) {
-        return res.status(400).send({ error: 'unexpected error occured' })
+        return res.status(400).send({ error: "Internal server error" })
     }
 
 })
@@ -54,7 +54,7 @@ route.post('/upload', fetchUser, async (req, res) => {
         })
     }
     catch (error) {
-        return res.status(400).send({ error })
+        return res.status(400).send({ error:"Internal server error" })
     }
 })
 

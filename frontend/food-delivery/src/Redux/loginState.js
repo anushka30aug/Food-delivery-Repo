@@ -35,11 +35,11 @@ const loginSlice = createSlice(
                     state.loading = false;
                     state.user = action.payload;
                     if (state.user.err) {
-                        toast.error('enter valid credentials')
+                        toast.error(`${action.payload.err}`);
                         return
                     }
                     else if (state.user.error) {
-                        toast.error('unexpected error occured')
+                        toast.error(`${action.payload.error}`);
                         return
                     }
                     else if (state.user.notFound) {
@@ -55,7 +55,7 @@ const loginSlice = createSlice(
                 .addCase(loginUser.rejected, (state, action) => {
                     state.loading = false;
                     state.user = null;
-                    toast.error('kuch locha hai')
+                    toast.error('Network error');
                     state.error = action.error.message;
 
                 })

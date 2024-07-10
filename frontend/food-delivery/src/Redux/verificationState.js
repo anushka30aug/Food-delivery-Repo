@@ -4,6 +4,7 @@ const host = process.env.REACT_APP_API_IP_ADDRESS;
 
 export const sendOtp = createAsyncThunk('/verification/sendOtp',
     async (email) => {
+        console.log(`sending otp at email ${email}`)
         const response = await fetch (`${host}/delivery/auth/sendOtp?emailId=${email}`,
             {
                 method: 'GET',
@@ -69,10 +70,10 @@ const verificationSlice = createSlice(
                     state.loading = false;
                     if(action.payload.invaliId)
                     {
-                        toast.error('enter valid emailId')
+                        toast.error('enter valid email address')
                     }
                     if (action.payload.error) {
-                        toast.error('unexpected error occured')
+                        toast.error(`${action.payload.error}`)
                     }
                     else if (action.payload.otp) {
                         toast.success('otp sent successfully')
@@ -80,6 +81,8 @@ const verificationSlice = createSlice(
                 })
                 .addCase(sendOtp.rejected, (state, action) => {
                     state.loading = false;
+                    toast.error('Network error')
+
                 })
 
                 .addCase(verifyOtp.pending, (state) => {
@@ -88,7 +91,7 @@ const verificationSlice = createSlice(
                 .addCase(verifyOtp.fulfilled, (state, action) => {
                     state.loading = false;
                     if (action.payload.error) {
-                        toast.error('unexpected error occured')
+                        toast.error(`${action.payload.error}`)
                     }
                     else if (action.payload.fail) {
                         toast.error('wrong OTP')
@@ -97,6 +100,7 @@ const verificationSlice = createSlice(
                 })
                 .addCase(verifyOtp.rejected, (state, action) => {
                     state.loading = false;
+                    toast.error('Network error')
                 })
 
                 .addCase(resetPassword.pending,(state,action)=>{
@@ -112,7 +116,7 @@ const verificationSlice = createSlice(
                     }
                     else if(action.payload.error)
                     {
-                        toast.error('unexpected error occured \n can\'t update password')
+                        toast.error(`${action.payload.error}`);
                         return
                     }
                     localStorage.setItem('token',action.payload.token)
@@ -121,6 +125,7 @@ const verificationSlice = createSlice(
                 })
                 .addCase(resetPassword.rejected,(state,action)=>{
                     state.loading=false;
+                    toast.error('Network error')
                 })
 
         }

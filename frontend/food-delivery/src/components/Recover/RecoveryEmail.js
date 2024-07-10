@@ -23,9 +23,7 @@ export default function RecoveryEmail() {
             { 
                 navigate('/otpModal',{state:{recoveryMail:emailId}});
             }
-            else{
-                toast.error('Unexpected error occured');
-            }
+           
         });
         dispatch(setRecovering(true));  
     };

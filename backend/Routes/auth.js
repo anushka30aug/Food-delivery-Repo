@@ -7,6 +7,7 @@ const jwt = require('jsonwebtoken');
 const transporter = require('../Helper/NodeMailer')
 const otp = require('otp-generator');
 const { body, validationResult } = require('express-validator');
+const emailExistence = require('email-existence');
 const s_key = process.env.JWT_SECRET_KEY;
 
 route.post('/login',
@@ -36,7 +37,7 @@ route.post('/login',
             res.json({ token })
         }
         catch (err) {
-            return res.status(400).send({ error: 'unexpected error occured' })
+            return res.status(400).send({ error: 'Internal server error' })
         }
     }
 
@@ -82,7 +83,7 @@ route.post('/signup',
             })
         }
         catch (error) {
-            res.status(400).json({ error: 'an unexpected error occured' });
+            res.status(400).json({ error: 'Internal server error' });
         }
     }
 )
@@ -100,7 +101,7 @@ route.get('/fetchUser', fetchUser, async (req, res) => {
         }
     }
     catch (error) {
-        res.status(400).send({ error: "unexpected error occured" })
+        res.status(400).send({ error: "Internal server error" })
     }
 })
 
@@ -117,7 +118,7 @@ route.get('/fetchUserByEmailId', async (req, res) => {
         }
     }
     catch (error) {
-        res.status(400).send({ error: 'unexpected error occured' });
+        res.status(400).send({ error: 'Internal server error' });
     }
 })
 
@@ -132,20 +133,31 @@ route.get('/sendOtp', [body('emailId').isEmail().withMessage('enter valid email'
     verificationOtp = getOtp;
     try {
         const { emailId } = req.query;
-        let info = await transporter.sendMail({
-            from: '"Anushka shukla👻" <anushkashukla3003@gmail.com>', // sender address
-            to: `${emailId}`, // list of receivers
-            subject: "OTP for verfication ✔", // Subject line
-            text: "Hello", // plain text body
-            html: `<i> login OTP for your Trofi account : 
-            <b> ${getOtp} kindly do not share this OTP with anyone</i>`,
+        emailExistence.check(emailId, (error, response) => {
+            if (error) {
+                return res.status(500).json({ error: 'Domain doesnt exist' });
+            }
+            // Proceed with sending the email
+            transporter.sendMail({
+                from: '"Anushka Shukla👻" <anushkashukla3003@gmail.com>', // sender address
+                to: emailId, // list of receivers
+                subject: "OTP for verification ✔", // Subject line
+                text: "Hello", // plain text body
+                html: `<i>Login OTP for your Trofi account: <b>${getOtp}</b> kindly do not share this OTP with anyone</i>`, // HTML body
+            })
+            .then(info => {
+                console.log(info);
+                res.status(200).json({ otp: 'OTP sent successfully' });
+            })
+            .catch(error => {
+                console.error('Error sending email:', error);
+                res.status(500).json({ error: 'Failed to send OTP' });
+            });
         });
-        console.log(info);
-        res.status(200).json({ otp: 'otp sent successfully' });
     }
 
     catch (err) {
-        res.status(404).json({ error: 'unexpected error occured' })
+        res.status(404).json({ error: 'Internal server error' })
     }
 }
 )
@@ -164,7 +176,7 @@ route.post('/verifyOtp', async (req, res) => {
         verificationOtp = null;
     }
     catch (err) {
-        res.status(404).json({ error: 'unexpected error occured' })
+        res.status(404).json({ error: 'Internal server error' })
     }
 
 })
@@ -197,17 +209,14 @@ route.post('/resetPassword', async (req, res) => {
             return res.status(200).json({ token })
         }
         else {
-            return res.status(401).json({ error: 'can\'t update password' });
+            return res.status(401).json({ error: 'failed to update password \n try again after sometime' });
         }
     }
     catch (err) {
-        res.status(400).json({ error: 'an unexpected error occured' })
+        res.status(400).json({ error: 'Internal server error' })
     }
 
 
 })
-
-
-
 
 module.exports = route;

@@ -50,18 +50,18 @@ const userSlice = createSlice({
             .addCase(fetchCity.rejected, (state, action) => {
                 state.loading = false;
                 state.error = true;
-                toast.error(`can't fetch user details\n try again after sometime...`)
+                toast.error(`Network error`)
             })
             .addCase(fetchPayload.pending, (state) => {
                 state.loading = true;
             })
             .addCase(fetchPayload.fulfilled, (state, action) => {
                 if (action.payload.err) {
-                    toast.error('login to validate user ');
+                    toast.error(`${action.payload.err}`);
                     return;
                 }
                 else if (action.payload.error) {
-                    toast.error('unexpected error occured ');
+                    toast.error(`${action.payload.error}`);
                     return;
                 }
                 state.loading = false;
@@ -71,7 +71,7 @@ const userSlice = createSlice({
             .addCase(fetchPayload.rejected, (state, action) => {
                 state.loading = false;
                 state.error = true;
-                toast.error(`can't fetch user details\n try again after sometime... `)
+                toast.error(`Network error`)
             })
 
 

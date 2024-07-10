@@ -20,7 +20,7 @@ route.get('/fetchCartItems',fetchUser, async (req, res) => {
         }
     }
     catch (error) {
-        res.status(400).send({ error: "unexpected error occured" + error })
+        res.status(400).send({ error: "Internal server error" })
     }
 
 })
@@ -59,7 +59,7 @@ route.post('/addToCart',fetchUser, async (req, res) => {
     }
 
     catch (error) {
-        res.status(400).send({ error: "unexpected error occured " + error })
+        res.status(400).send({ error: "Internal server error" })
     }
 })
 
@@ -91,7 +91,7 @@ route.delete('/removeFromCart',fetchUser, async(req,res)=>{
     }
     catch(error)
     {
-        res.status(400).send({error:"unexpected error occured "+error})
+        res.status(400).send({error:'Internal server error'})
     }
 })
 
@@ -122,7 +122,7 @@ route.put('/updateQuantity',fetchUser,async(req,res)=>{
 }
 catch(error)
 {
-    res.status(400).send({error})
+    res.status(400).send({error:'Internal server error'})
 }
 })
 module.exports = route;

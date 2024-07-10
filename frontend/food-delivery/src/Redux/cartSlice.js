@@ -103,7 +103,7 @@ const cartSlice = createSlice({
       .addCase(fetchCartItems.fulfilled, (state, action) => {
         state.pending = false;
         if (action.payload.error) {
-          toast.error('error occured')
+          toast.error(`${action.payload.error}`)
         }
         else if (action.payload.noDataFound) {
 
@@ -125,8 +125,7 @@ const cartSlice = createSlice({
       .addCase(addToCart.fulfilled, (state, action) => {
         state.pending = false;
         if (action.payload.error) {
-          toast.error("error in addtocart")
-        }
+          toast.error(`${action.payload.error}`)        }
         else {
           if (action.payload.newCart) {
             state.cartItems = [...state.cartItems, action.payload.newCart]
@@ -162,8 +161,7 @@ const cartSlice = createSlice({
       .addCase(removeFromCart.fulfilled, (state, action) => {
         state.pending = false;
         if (action.payload.error) {
-          toast.error("unexpected error occured")
-        }
+          toast.error(`${action.payload.error}`)        }
         else if (action.payload.notFound) {
           toast.error('user cart not found')
         }
@@ -182,8 +180,7 @@ const cartSlice = createSlice({
       .addCase(updateQuantity.fulfilled, (state, action) => {
         state.pending = false;
         if (action.payload.error) {
-          toast.error("unexpected error occured")
-        }
+          toast.error(`${action.payload.error}`)        }
         else if (action.payload.notFound) {
           toast.error('user cart not found')
         }
