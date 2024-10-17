@@ -21,51 +21,67 @@ export default function Footer() {
     }
 
     const handleSearch = (e) => {
+        e.preventDefault();
         dispatch(setSubCategory(searchItem.trim()));
         setSearchState(false);
-        dispatch(fetchData()).then(data=>{
-            if(data.payload.err)
-            {
+        dispatch(fetchData()).then(data => {
+            if (data.payload.err) {
                 navigate('/productNotFound')
             }
-            else{
+            else {
                 navigate('/productList')
             }
         });
-       
-       
+
+
     }
 
     const goTo = () => {
-        
+
     }
 
     const goToAccount = () => {
-        navigate('/Account')
+        if (!localStorage.getItem('token')) {
+            navigate('/sign-in');
+        }
+        else
+            navigate('/Account')
     }
 
     const goToCart = () => {
-        navigate('/cart')
+        if (!localStorage.getItem('token')) {
+            navigate('/sign-in');
+        }
+        else
+            navigate('/cart')
     }
     return (
-        <div style={{ display: localStorage.getItem('token') ? 'block' : 'none' }}>
-
-            <div className={style.searchBar} style={{ display: searchState ? 'block' : 'none' }}>
+        <>
+            {/* <div className={style.searchBar} style={{ display: searchState ? 'block' : 'none' }}>
                 <input type="search" value={searchItem} onChange={handleChange} placeholder="Pizza" />
                 <button onClick={handleSearch}>Search</button>
+            </div> */}
+
+            <div className={style.searchbar} style={{ display: searchState ? 'block' : 'none' }}>
+                <form className={style.search_form} onSubmit={handleSearch}>
+                    <Search />
+                    <input type="search" placeholder="Search Food e.g. pizza" value={searchItem} onChange={handleChange} />
+                    <input type="submit" hidden />
+                </form>
             </div>
 
             <div className={style.footer}>
                 <div value='home' onClick={() => { navigate('/') }} > <Home /> </div>
                 <div value='search' onClick={handleClick}> <Search /> </div>
                 <div value='orders' onClick={goTo}> Trofi </div>
-                <div value='cart' onClick={goToCart} className={style.cart_container}> <Cart />  <span className={style.amount_container} 
-                style={{display:Quantity===0?"none":"inline-block"}}>
+                <div value='cart' onClick={goToCart} className={style.cart_container}> <Cart />  <span className={style.amount_container}
+                    style={{ display: Quantity === 0 ? "none" : "inline-block" }}>
                     {Quantity === 0 ? '' : Quantity}
                 </span> </div>
                 <div value='account' onClick={goToAccount}> <ProfileIcon /> </div>
             </div>
 
-        </div>
+            {/* </div> */}
+        </>
     )
 }

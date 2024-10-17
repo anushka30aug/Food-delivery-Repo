@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import toast from 'react-hot-toast';
+// import toast from 'react-hot-toast';
 import style from '../../Styling/changeDeliveryAddress.module.css'
 import { useDispatch, useSelector } from 'react-redux';
 import { changeAddress } from '../../Redux/UserProfile';
@@ -50,16 +50,24 @@ export default function ChangeDeliveryAddress() {
     const userState = useSelector(state => state.userCity.state)
     useEffect(() => {
         if (!localStorage.getItem('token')) {
-            return navigate('/login')
+            // return navigate('/login')
+            return navigate('/sign-in')
         }
         //if user current location is same as the address entered by user at signup time then autofill address for user's convenience
-        if (info.city.toUpperCase() === userCity.toUpperCase() && info.state.toUpperCase() === userState.toUpperCase()) {
-            setDeliveryInfo(info)
+        // if (info.city.toUpperCase() === userCity.toUpperCase() && info.state.toUpperCase() === userState.toUpperCase()) {
+        //     setDeliveryInfo(info);
+        // }
+
+        if(info.city !== null){
+            setDeliveryInfo(info);
         }
+
         else {
             //otherwise set all the address field empty and autofill only user's name and contact no.
-            setDeliveryInfo({ ...deliveryInfo, name: info.name, contact: info.contact })
+            // setDeliveryInfo({ ...deliveryInfo, name: info.name, contact: info.contact })
+            setDeliveryInfo({ ...deliveryInfo, city:userCity, state:userState });
         }
+        //eslint-disable-next-line
     }, [info])
 
     const handleChange = (e) => {
@@ -71,28 +79,31 @@ export default function ChangeDeliveryAddress() {
         else if (e.target.name === 'contact') {
             e.target.value = e.target.value.replace(/[^0-9]/g, '').slice(0, 10)
         }
-        setDeliveryInfo({ ...deliveryInfo, [e.target.name]: e.target.value })
+        setDeliveryInfo({ ...deliveryInfo, [e.target.name]: e.target.value });
+        console.log(deliveryInfo)
     }
 
     const handleSubmit = (e) => {
         e.preventDefault();
+        const updatedDeliveryInfo = { ...deliveryInfo };
         //if the delivery location entered by user is not same as the current location selected by user(or location detected by geolocation)
-        if (userCity.toUpperCase() !== deliveryInfo.city.toUpperCase() || userState.toUpperCase() !== deliveryInfo.state.toUpperCase()) {
-            toast('the delivery location is out of delivery range..please enter address of same city')
-        }
-        else {
-            dispatch(changeAddress(deliveryInfo))
+        // if (userCity.toUpperCase() !== deliveryInfo.city.toUpperCase() || userState.toUpperCase() !== deliveryInfo.state.toUpperCase()) {
+        //     toast('the delivery location is out of delivery range..please enter address of same city')
+        // }
+        // else {
+            dispatch(changeAddress(updatedDeliveryInfo)); // Dispatch the latest state directly
+            console.log(updatedDeliveryInfo);
             navigate('/buy')
-        }
+        // }
     }
 
     return (
         <>
             <h2 className={style.heading}>Delivery Address</h2>
-            <form className={style.changeAddress} >
-                <input type="text" placeholder="enter house no., locality" name='address' className={style.inputFields} value={deliveryInfo.address} onChange={handleChange} required ></input>
-                <input type="text" placeholder="enter city" name='city' className={style.inputFields} value={deliveryInfo.city} onChange={handleChange} required></input>
-                <select id="state" name="state" className={style.inputFields} value={deliveryInfo.state} onChange={handleChange}>
+            <form className={style.changeAddress} onSubmit={handleSubmit}>
+                <input type="text" placeholder="enter house no., locality" name='address' className={style.inputFields} value={deliveryInfo.address} onChange={handleChange} autocomplete="off" required ></input>
+                <input type="text" placeholder="enter city" name='city' className={style.inputFields} value={deliveryInfo.city} onChange={handleChange} autocomplete="off" required></input>
+                <select id="state" name="state" className={style.inputFields} value={deliveryInfo.state} onChange={handleChange}  required>
                     {indianStates.map((state, index) => (
                         <option key={index} value={state}>
                             {state}
@@ -100,13 +111,13 @@ export default function ChangeDeliveryAddress() {
                     ))}
                 </select>
                 {/* <input type="text" placeholder="enter state" name='state' className={style.inputFields} value={deliveryInfo.state} onChange={handleChange} required></input> */}
-                <input type="number" placeholder="enter pincode" name='pincode' className={style.inputFields} value={deliveryInfo.pincode} onChange={handleChange} required></input>
+                <input type="number" placeholder="enter pincode" name='pincode' className={style.inputFields} value={deliveryInfo.pincode} onChange={handleChange} autocomplete="off" required></input>
                 <h4 className={style.contactInfoHeading}>contact Details</h4>
                 <span className={style.contactInfo}>
-                    <input type="text" placeholder="name" name='name' className={`${style.inputFields} ${style.contactDetail}`} onChange={handleChange} value={deliveryInfo.name} required></input>
-                    <input type="number" placeholder="contact no." name='contact' className={`${style.inputFields} ${style.contactDetail}`} onChange={handleChange} value={deliveryInfo.contact} required></input>
+                    <input type="text" placeholder="name" name='name' className={`${style.inputFields} ${style.contactDetail}`} onChange={handleChange} value={deliveryInfo.name} autocomplete="off" required></input>
+                    <input type="number" placeholder="contact no." name='contact' className={`${style.inputFields} ${style.contactDetail}`} onChange={handleChange} value={deliveryInfo.contact} autocomplete="off" required></input>
                 </span>
-                <button className={style.submit} onClick={handleSubmit}>Continue</button>
+                <button className={style.submit} type='submit'>Continue</button>
             </form>
         </>
     )

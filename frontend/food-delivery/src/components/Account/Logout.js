@@ -6,7 +6,8 @@ export default function Logout(){
         e.preventDefault();
         localStorage.removeItem('token');
         sessionStorage.clear();
-        navigate('/login')
+        navigate('/sign-in')
+        // navigate('/login')
         
     }
 

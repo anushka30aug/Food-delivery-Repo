@@ -1,58 +1,22 @@
 import { useNavigate } from 'react-router-dom';
-import { useDispatch, useSelector } from 'react-redux'
+import { useDispatch } from 'react-redux'
 import { changeCategory, fetchData, resetValues, setSubCategory } from '../Redux/dataState';
-import { fetchCity, fetchPayload } from '../Redux/userCityState';
-import { setModal, setProductDetail } from '../Redux/Detailing';
 import { useEffect, useState } from 'react';
-import toast from 'react-hot-toast';
 import RestaurantList from './Restaurant/RestaurantList';
 import style from '../Styling/Home.module.css';
 import { fetchCartItems } from '../Redux/cartSlice';
-
+import { Search } from './Icon';
 
 
 export default function Home() {
-    // eslint-disable-next-line
-    const [coordinates, setCoordinates] = useState({ latitude: null, longitude: null });
     const [searchValue,setSeachValue]=useState('');
     const dispatch = useDispatch();
     const navigate = useNavigate();
-    const city = useSelector(state => state.userCity.city)
     useEffect(() => { 
-       window.scrollTo({top: 0, left: 0, behavior: 'smooth'})
-        if (!localStorage.getItem('token') ) {
-            return navigate('/login')
-        }
-        else {
-            if (city === null) {
-                var load = toast.loading("please wait we are fetching details")
-                if (navigator.geolocation) {
-                    navigator.geolocation.getCurrentPosition(
-                        (position) => {
-                            console.log('fetching geolocation');
-                            const updatedCoordinates = {
-                                latitude: position.coords.latitude,
-                                longitude: position.coords.longitude
-                            };
-                            setCoordinates(updatedCoordinates);
-                            dispatch(fetchCity(updatedCoordinates)).then(data => toast.dismiss(load));
-                        },
-                        (error) => {
-                            console.log('Geolocation is not available. Fetching data...');
-                            dispatch(fetchPayload()).then(data => toast.dismiss(load));
-                        }
-                    );
-                } else {
-                    console.log('Geolocation is not supported. Fetching data...');
-                    dispatch(fetchPayload()).then(data => toast.dismiss(load));
-                }
-            }
-            dispatch(setModal(false))
-            dispatch(setProductDetail({}))
-            //this is because whenever we open the detailing of product and direct come back to home page without closing the detail then it remains openif we click on any other category
-            dispatch(fetchCartItems());
-        }
-        // eslint-disable-next-line
+       window.scrollTo({top: 0, left: 0, behavior: 'smooth'});
+       if(localStorage.getItem('token'))
+       dispatch(fetchCartItems());
+       //eslint-disable-next-line
     }, []);
 
     
@@ -90,10 +54,17 @@ export default function Home() {
                 <div>
                     <h1>Trofi</h1>
                     <b>Find the best food nearby</b>
-                    <form className={style.searchForm} onSubmit={handleSubCategoryClick}>
+                    {/* <form className={style.searchForm} onSubmit={handleSubCategoryClick}>
                         <input type='search' placeholder='search Food e.g. pizza' value={searchValue} onChange={handleSubCategoryChange}/>
                         <button onClick={handleSubCategoryClick}>Search</button>
+                    </form> */}
+                    <div className={style.searchbar}>
+                    <form className={style.search_form} onSubmit={handleSubCategoryClick}>
+                        <Search/>
+                        <input type="search" placeholder="Search Food e.g. pizza" value={searchValue} onInput={handleSubCategoryChange}  required/>
+                        <input type="submit" hidden/>
                     </form>
+                </div>
                 </div>
             </header>
 

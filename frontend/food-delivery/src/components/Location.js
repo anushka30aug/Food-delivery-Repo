@@ -1,22 +1,17 @@
 import { useDispatch } from "react-redux";
 import { useNavigate } from 'react-router-dom';
-import { useEffect, useState } from "react";
+import {  useState } from "react";
 import { changeCity, changeState, fetchCity } from "../Redux/userCityState";
 import toast from "react-hot-toast";
 import style from '../Styling/Location.module.css';
-import { Position } from "./Icon";
+import { Location, Search } from "./Icon";
 
-export default function Location() {
+export default function LocationPage() {
+    //eslint-disable-next-line
     const [coordinates, setCoordinates] = useState({ latitude: null, longitude: null });
     const [location, setLocation] = useState('')
     const dispatch = useDispatch();
     const navigate = useNavigate()
-
-    useEffect(()=>{
-        if (!localStorage.getItem('token') ) {
-            return navigate('/login')
-        }
-    },[])
 
     const useGPS = () => {
         if (navigator.geolocation) {
@@ -38,7 +33,7 @@ export default function Location() {
         }
     }
 
-    const handleClick = (e) => {
+    const handleSubmit = (e) => {
         e.preventDefault();
         const string = location.split(',');
         dispatch(changeCity(string[0].trim()));
@@ -51,15 +46,27 @@ export default function Location() {
     }
 
     return (
-        <div className={style.location} onSubmit={handleClick}>
-            <form className={style.form}>
-                <input type="search" placeholder="enter city,state" onChange={handleChange} />
-                <button onClick={handleClick}>change</button>
-            </form>
-            <div onClick={useGPS} className={style.gps}>
-              Get Current Location
+        <div className={style.location} >
+            
+            {/* <img src="https://cliply.co/wp-content/uploads/2019/03/371903340_LOCATION_MARKER_400.gif" alt="location GIF"></img> */}
+            <div className={style.location_icon}>
+            <Location/>
             </div>
-            <img src="https://cliply.co/wp-content/uploads/2019/03/371903340_LOCATION_MARKER_400.gif" alt="location GIF"></img>
+            <h4>Find restaurants near you!</h4>
+            <p>
+             Enter your city and state manually, or enable location services to find restaurants near you.
+             If location access is blocked, please enable it in your browser settings
+            </p>
+            <form  onSubmit={handleSubmit}>
+                <div className={style.form}>
+                    <span>
+                    <Search/>
+                    </span>
+                    <input type="search" placeholder="Enter City, State" onChange={handleChange}  required/>
+                    <input type="submit" hidden/>
+                </div>
+            </form>
+            <button onClick={useGPS} className={style.gps_button}>Use GPS location</button>
         </div>
     )
 }

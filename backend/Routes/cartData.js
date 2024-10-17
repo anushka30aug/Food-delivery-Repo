@@ -22,7 +22,6 @@ route.get('/fetchCartItems',fetchUser, async (req, res) => {
     catch (error) {
         res.status(400).send({ error: "Internal server error" })
     }
-
 })
 
 route.post('/addToCart',fetchUser, async (req, res) => {
@@ -81,7 +80,6 @@ route.delete('/removeFromCart',fetchUser, async(req,res)=>{
             res.status(200).send({userCart})
          }
          else{
-
             const item = userCart.cartItems.find(items => items._id.equals(itemId));
             userCart.totalQuantity-=item.productQuantity;
             userCart.cartItems.pull({_id:productId});

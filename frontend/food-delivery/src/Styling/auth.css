@@ -10,6 +10,23 @@
     padding-bottom: 5em;
 
 }
+.back{
+    margin:1em 2em;
+    background-color: white;
+    border: none;
+    font-size: large;
+    color: rgba(255, 68, 0);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform .25s ease-in-out;
+
+}
+
+.back:hover{
+    transform: scale(1.1);
+
+}
 
 .auth-heading {
     background: linear-gradient(145deg, rgba(255, 68, 0), rgba(255, 68, 0));
@@ -32,6 +49,7 @@
 }
 
 .auth-button {
+    margin-top: 1em;
     padding:.5em;
     font-size: large;
     border-radius: .4em;
@@ -39,4 +57,10 @@
     color: white;
     border: none;
     width: 50%;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
 }

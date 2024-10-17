@@ -75,7 +75,7 @@ route.post('/webhook', express.json({ type: 'application/json' }), async (reques
         const customerId = checkoutSessionCompleted.metadata.customerId;
 
         // to find the user from CheckOut schema by using the user id
-        const UserCheckOutData = await CheckOut.findOne({ customerId: key })
+        const UserCheckOutData = await CheckOut.findOne({ customerId: key });
         const CheckedItems = UserCheckOutData.cartItems;
 
         const UserCart = await Cart.findOne({ customerId });
@@ -319,6 +319,26 @@ route.get('/fetchOrders',fetchUser,async(req,res)=>{
   }
   catch(error){
     res.status(400).send({error:"Internal server error"})
+  }
+})
+
+route.get('/fetchSingleOrder',async(req,res)=>{
+  try{
+    // const customerId = req.user.id;
+    // const orderId = req.body.orderId;
+    const orderedItemsId = req.query.orderedItemsId;
+    const orders = await Order.findOne({"orderedItems._id":orderedItemsId});
+    if(!orders){
+      res.status(404).send({error:'No order with provided orderId'})
+    }
+    else{
+      const order = orders.orderedItems.filter((item)=> item._id.toString()===orderedItemsId.toString());
+      // console.log(order);
+      res.status(200).send({success:true , order:order});
+    }
+  }
+  catch(err){
+    res.status(400).send({error:"Internal server error"});
   }
 })
 

@@ -13,7 +13,7 @@ import style from '../Styling/ContactPanel.module.css';
     }
     return(
         <div className={style.contact_panel} >
-            <h3>Contact Us</h3>
+            <h3>Contact Developer</h3>
             <div className={style.contact_list}>
             <li onClick={moveToLinkedIn}><Linkedin/></li>
             <li onClick={moveToGitHub}><Github/></li>

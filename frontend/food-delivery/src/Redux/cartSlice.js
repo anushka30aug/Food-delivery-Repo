@@ -72,7 +72,10 @@ const cartSlice = createSlice({
   name: 'cart',
   initialState,
   reducers: {
-
+    resetTotal(state){
+      // used when user log out bcz we can update the session storage due to redux persist 
+      state.totalQuantity = 0;
+    },
     increase: (state) => {
       state.updateSymbol = "+";
     },
@@ -92,7 +95,9 @@ const cartSlice = createSlice({
      itemsWithDifferentCity.forEach((item)=>{
       amount+= item.productQuantity*item.price;
      })
+    //  console.log("inside nonDeliverableAmount "+ amount)
      state.amount -= amount;
+    //  console.log("inside nonDeliverableAmount "+ state.amount)
     }
   },
   extraReducers: (builder) => {
@@ -196,5 +201,5 @@ const cartSlice = createSlice({
   }
 })
 
-export const { increase, decrease, calculateAmount, nonDeliverableAmount } = cartSlice.actions;
+export const { resetTotal,increase, decrease, calculateAmount, nonDeliverableAmount } = cartSlice.actions;
 export default cartSlice.reducer;

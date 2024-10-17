@@ -3,18 +3,27 @@ import { setProductDetail } from '../../Redux/Detailing';
 import { setModal } from '../../Redux/Detailing';
 import { useDispatch } from 'react-redux';
 import { calculateAmount, addToCart } from '../../Redux/cartSlice';
+import toast from 'react-hot-toast';
+import { useNavigate } from 'react-router';
 
 export default function ProductCart(prop) {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const showProduct = (e) => {
     e.preventDefault();
     dispatch(setProductDetail(prop.item));
-    dispatch(setModal(true));
+    // console.log(prop.item);
+    navigate(`/productDetail?id=${prop.item._id}`);
+    // dispatch(setModal(true));
   }
 
   const add = (e) => {
     e.preventDefault();
+    if(!localStorage.getItem('token')){
+      toast("Please sign in to add items to your cart.");
+      return;
+  }
     dispatch(addToCart(prop.item));
     dispatch(calculateAmount());  
   }

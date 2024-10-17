@@ -1,53 +1,78 @@
 import { useDispatch, useSelector } from "react-redux";
-import { useEffect } from "react";
+// import { useEffect } from "react";
 import { useNavigate } from "react-router";
-import { setModal,setProductDetail, setRestDetail } from "../../Redux/Detailing";
+import { fetchData, setRestDetail } from "../../Redux/Detailing";
 import { calculateAmount } from "../../Redux/cartSlice";
 import style from '../../Styling/ProductDetail.module.css';
 import { addToCart } from "../../Redux/cartSlice";
 import { fetchRestaurantById, setId } from "../../Redux/restaurantDtataState";
+import toast from "react-hot-toast";
+import { useLocation } from 'react-router-dom';
+import { useEffect } from "react";
+import ShareProduct from "./ShareProduct";
+
 
 export default function ProductDetail() {
     const navigate = useNavigate();
+    const { search } = useLocation();
     const detail = useSelector(state => state.Detail.productDetail)
-    const dispatch= useDispatch();
+    const dispatch = useDispatch();
+
+
+    const getQueryParam = (param) => {
+        return new URLSearchParams(search).get(param);
+    };
+
+
     useEffect(() => {
-        if (localStorage.getItem('token') === null || undefined) {
-            return navigate('/login')
+        console.log(detail);
+        if (Object.keys(detail).length === 0) {
+            const id = getQueryParam('id');
+            if (id === undefined || id === null) {
+                toast.error("Product Id not found");
+                return;
+            }
+            console.log("inside if", id)
+            dispatch(fetchData(id));
         }
+        //eslint-disable-next-line
+    }, [])
 
-    });
-
-    const handleExit=()=>{
-      dispatch(setModal(false));
-      dispatch(setProductDetail({}));
-    }
-
-    const add=(e)=>{
+    const add = (e) => {
         e.preventDefault();
-        dispatch(addToCart(detail))
-        dispatch(calculateAmount());
+        if (!localStorage.getItem('token')) {
+           navigate('/sign-in');
+        }
+        else{
+            dispatch(addToCart(detail))
+            dispatch(calculateAmount());
+        }
     }
 
-    const visitRestaurant=(e)=>{
+    const visitRestaurant = (e) => {
         e.preventDefault();
         dispatch(setId(detail.seller_Id))
-        dispatch(fetchRestaurantById()).then(restaurant=>{
+        dispatch(fetchRestaurantById()).then(restaurant => {
             dispatch(setRestDetail(restaurant.payload.data))
             navigate('/restaurantDetail')
         })
     }
 
     return (
-        <div className={style.productDetail} onClick={handleExit}>
+        <div className={style.productDetail}>
             <div className={style.detail}>
                 <div className={style.detail_img}><img src={detail.image} alt=""></img></div>
                 <div className={style.detail_desc}>
-                    <h1>{detail.name}</h1>
+                    <div className={style.header}>
+                        <h1>{detail.name}</h1>
+                        <ShareProduct />
+                    </div>
                     <p>{detail.description}</p>
                     <h3>₹{detail.price}</h3>
-                    <button onClick={visitRestaurant}>Visit restaurant</button>
-                    <button onClick={add}>+ ADD</button>
+                    <div className={style.btn}>
+                        <button className={style.btn1} onClick={visitRestaurant}>Visit restaurant</button>
+                        <button className={style.btn2} onClick={add}>+ ADD</button>
+                    </div>
                 </div>
             </div>
         </div>

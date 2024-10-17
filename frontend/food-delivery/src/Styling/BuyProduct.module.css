@@ -6,6 +6,9 @@
     '_2'
     '_1' 
     '_3';
+    ::-webkit-scrollbar {
+        display: none;
+      }
 }
 
 .buyproduct button{
@@ -51,14 +54,22 @@
     box-shadow: 0 0 1em 1px gainsboro;
     padding:1em;
     margin:1em auto;
-
 }
+
 .address h3{
     color:orangered
 }
 
 .address button{
-    margin-left: 0;
+    margin-left: 2px;
+    padding: 6px 16px;
+    font-size: medium;
+    border-radius: .2em;
+    transition: transform .25s ease-in-out ;
+}
+
+.address button:hover{
+    transform: scale(1.1);
 }
 
 .payment{
@@ -80,6 +91,18 @@
     padding:.5em;
     margin:.5em;
     border-bottom: 1px solid #000;
+}
+
+.payment button{
+    margin-left: 2px;
+    padding: 6px 16px;
+    font-size: medium;
+    border-radius: .2em;
+    transition: transform .25s ease-in-out ;
+}
+
+.payment button:hover{
+    transform: scale(1.1);
 }
 
 button:disabled{

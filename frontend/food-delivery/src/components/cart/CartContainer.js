@@ -1,6 +1,6 @@
 import CartItem from './CartItem';
 import { useDispatch, useSelector } from 'react-redux';
-import '../../Styling/cartContainer.css';
+import style from'../../Styling/cartContainer.module.css';
 import { useEffect } from 'react';
 import { calculateAmount, fetchCartItems, removeFromCart } from '../../Redux/cartSlice';
 import ProductDetail from '../product/ProductDetail';
@@ -17,7 +17,8 @@ const CartContainer = () => {
   const dispatch = useDispatch()
   useEffect(() => {
     if (!localStorage.getItem('token') ) {
-      return navigate('/login')
+      return navigate('/sign-in')
+      // return navigate('/login')
   }
     window.scrollTo({top: 0, left: 0, behavior: 'smooth'})
     dispatch(fetchCartItems()).then(items => dispatch(calculateAmount()));
@@ -31,24 +32,27 @@ const CartContainer = () => {
 
   const Buy = (e) => {
     e.preventDefault();
-    dispatch(fetchuser()).then(response => {
-      if ((response.payload.data.city.toUpperCase() === userCity.toUpperCase()) && (response.payload.data.state.toUpperCase() === userState.toUpperCase())) {
-        navigate('/buy')
-      }
-      else {
-        console.log(response)
-        navigate('/changeAddress')
-       
-      }
-    })
+    // dispatch(fetchuser()).then(response => {
+      // if ((response.payload.data.city.toUpperCase() === userCity.toUpperCase()) && (response.payload.data.state.toUpperCase() === userState.toUpperCase())) {
+      //   navigate('/buy')
+      // }
+      // else {
+        // console.log(response)
+        navigate('/changeAddress');
+      // }
+    // })
   }
 
   if (totalQuantity < 1) {
     return (
-      <section className='cart'>
-        <header>
+      <section className={style.cart}>
+        <header className={style.cart_empty}>
           <h2>your Plate</h2>
-          <h4 className='empty-cart'>Oops!! your plate is empty 😔</h4>
+          <h4 className={style.empty_cart}>Oops!! your plate is empty </h4>
+          <h5>
+            Good food is always cooking! 
+            Go ahead , order some yummy items from the menu
+          </h5>
         </header>
         <Footer/>
       </section>
@@ -56,7 +60,7 @@ const CartContainer = () => {
   }
 
   return (
-    <section className='cart'>
+    <section className={style.cart}>
       {showdetail && <ProductDetail />}
       <header>
         <h2>your Plate 😋</h2>
@@ -64,18 +68,19 @@ const CartContainer = () => {
       <div>
         {cartItems.map((item) => {
           return <CartItem key={item.id} item={item} />;
-        })}
+        })
+        }
       </div>
       <footer>
         <hr />
-        <div className='cart-total'>
+        <div className={style.cart_total}>
           <h4>
             total <span>₹{amount.toFixed(2)}</span>
           </h4>
         </div>
-        <div className='Cart-button'>
-          <button className='clear' onClick={removeAll}>Remove All</button>
-          <button className='buy' onClick={Buy}>Proceed to Buy</button>
+        <div className={style.cart_button}>
+          <button className={style.clear} onClick={removeAll}>Remove All</button>
+          <button className={style.buy} onClick={Buy}>Order Now</button>
         </div>
       </footer>
       <Footer />

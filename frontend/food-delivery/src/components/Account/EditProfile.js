@@ -35,7 +35,11 @@ export default function EditProfile() {
     }
 
     const changeNumber = (e) => {
-        setNumber(e.target.value)
+        if(e.target.value){
+            if(e.target.value.length<10){
+                setNumber(e.target.value)
+            }
+        }
     }
     const changeUserName = (e) => {
         setName(e.target.value)
@@ -79,7 +83,7 @@ export default function EditProfile() {
                 </div>
                 <div className={style.number_container}>
                     <h4>Contact Number</h4>
-                    <input type="number" value={number} onChange={changeNumber} />
+                    <input type="number" placeholder="--" value={number} onChange={changeNumber} />
                 </div>
                 <button onClick={handleClick}>Done</button>
             </main>

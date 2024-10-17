@@ -57,7 +57,7 @@ const customerDataSlice = createSlice({
         editProfile: false
     },
     reducers: {
-        changeAddress(state, action) {
+        changeAddress(state, action){
             state.city = action.payload.city;
             state.state = action.payload.state;
             state.address = action.payload.address;
@@ -66,14 +66,14 @@ const customerDataSlice = createSlice({
             state.contact = action.payload.contact
             state.profilePicture=action.payload.profilePicture;
         },
-        setProfile(state, action) {
+        setProfile(state, action){
             state.editProfile = action.payload;
         }
     },
     extraReducers: (builder) => {
         builder
             .addCase(fetchuser.pending, (state, action) => {
-                toast("fetching user details")
+                // toast("fetching user details")
             })
             .addCase(fetchuser.fulfilled, (state, action) => {
                 if (action.payload.not_found) {

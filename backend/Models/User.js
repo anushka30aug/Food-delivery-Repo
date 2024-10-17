@@ -12,10 +12,10 @@ const userSchema = new Schema({
     unique: true
   },
 
-  password: {
-    type: String,
-    require: true
-  },
+  // password: {
+  //   type: String,
+  //   require: true
+  // },
 
   date: {
     type: Date,
@@ -24,32 +24,32 @@ const userSchema = new Schema({
 
   address: {
     type: String,
-    required: true
+    // required: true
   },
 
   city: {
     type: String,
-    require: true
+    // require: true
   },
 
   state: {
     type: String,
-    require: true
+    // require: true
   },
 
   country: {
     type: String,
-    require: true
+    // require: true
   },
 
   pincode: {
     type: Number,
-    require: true
+    // require: true
   },
 
   contact: {
     type: Number,
-    require: true
+    // require: true
   },
   
   profilePicture:{

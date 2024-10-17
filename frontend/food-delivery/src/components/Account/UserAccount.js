@@ -16,7 +16,7 @@ export default function UserAccount() {
     const navigate = useNavigate();
     const orderDetailModal = useSelector(state => state.Detail.showOrderDetailModal)
     const name = useSelector(state => state.deliveryData.name);
-    const contact = useSelector(state => state.deliveryData.contact);
+    // const contact = useSelector(state => state.deliveryData.contact);
     const email = useSelector(state => state.deliveryData.email);
     const editProfile = useSelector(state => state.deliveryData.editProfile);
     const image = useSelector(state => state.deliveryData.profilePicture);
@@ -24,7 +24,8 @@ export default function UserAccount() {
     useEffect(
         () => {
             if (!localStorage.getItem('token')) {
-                return navigate('/login')
+                return navigate('/sign-in');
+                // return navigate('/login')
             }
 
             dispatch(fetchuser());
@@ -54,7 +55,7 @@ export default function UserAccount() {
                         </div>
                         <div className={Style.UserDetail}>
                             <h3>{name}</h3>
-                            <span>{contact} • {email}</span>
+                            <span>{email}</span>
                         </div>
                     </div>
                     <button onClick={handleEditProfileClick}>Edit</button>
@@ -78,6 +79,7 @@ export default function UserAccount() {
                     <div className={Style.mainContent}>
                         {selectedButton === 'orders' ? (
                             <UserOrders />
+                            // <></>
                         ) : (
                             <Logout />
                         )}
@@ -85,6 +87,7 @@ export default function UserAccount() {
                 </main>
             </div>
         </div>
+        {/* <UserOrders/> */}
     </>
     )
 }

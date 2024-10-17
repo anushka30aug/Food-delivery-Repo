@@ -1,0 +1,39 @@
+.form_page{
+    padding-bottom: 2em;
+    max-width: 1500px;
+    margin: 0 auto;
+ }
+ .form{
+     max-width: 500px;
+     margin: 0 auto;
+     margin-top: 10%;
+     display: flex;
+     align-items: center;
+     justify-content: center;
+     flex-direction: column;
+     padding:3em;
+     box-sizing: border-box;
+     text-align: center;
+ }
+
+ .form h3{
+    margin: .5em;
+ }
+
+ .form p{
+    margin:none;
+ }
+
+ .form_input{
+    margin: .5em auto;
+ }
+
+ .form_button{
+    background-color: rgba(255, 68, 0);
+    padding: 6px 16px;
+    margin:1em;
+    border: none;
+    border-radius: .2em;
+    color: white;
+    font-size: large;
+ }

@@ -21,11 +21,13 @@ export default function BuyProduct() {
     const state = useSelector(state => state.deliveryData.state)
     const contact = useSelector(state => state.deliveryData.contact)
     const cartItems = useSelector(state => state.cart.cartItems)
-    const amount = useSelector(state => state.cart.amount)
+    const amount = useSelector(state => state.cart.amount);
+    
     useEffect(
         () => {
             if (!localStorage.getItem('token') ) {
-                return navigate('/login')
+                // return navigate('/login')
+                return navigate('/sign-in');
             }
             dispatch(fetchCartItems()).then(items => dispatch(calculateAmount()));
             window.scrollTo(0, 0)
@@ -36,14 +38,19 @@ export default function BuyProduct() {
     useEffect(
         () => {
             // find the items which belong to different city and state to style them differently
-            const itemsWithDifferentCity = cartItems.filter(item => item.seller_City.toUpperCase() !== city.toUpperCase() || item.seller_State.toUpperCase() !== state.toUpperCase());
-            setItemsWithDifferentCity(itemsWithDifferentCity);
-            dispatch(calculateAmount());
-            // issue : subtracting the nondeliverable product amount from total amount , it is updating the value of amount correctly
-            //         but is not reflected to the product overview  section
-             dispatch(nonDeliverableAmount(itemsWithDifferentCity));
+            if(cartItems.length>0){
+                // console.log("inside useEffect of buyproduct");
+                // console.log(cartItems);
+                const itemsWithDifferentCity = cartItems.filter(item =>{
+                   return (item.seller_City.toUpperCase() !== city.toUpperCase() || item.seller_State.toUpperCase() !== state.toUpperCase() )? true:false;
+                } )
+                    
+                setItemsWithDifferentCity(itemsWithDifferentCity);
+                dispatch(calculateAmount());
+                dispatch(nonDeliverableAmount(itemsWithDifferentCity));
+            }
              // eslint-disable-next-line
-        }, [cartItems, city, state]
+        }, [cartItems, city, state,amount]
     )
 
     const handleClick = async (e) => {
@@ -83,6 +90,7 @@ export default function BuyProduct() {
                         toast.error('error occured!!')
                         navigate('/failure')
                     }
+                    e.target.disabled = false;
                 })
             })
         }
@@ -115,7 +123,7 @@ export default function BuyProduct() {
                 <h3>Delivery to-</h3>
                 {` ${name} at ${address} , ${city} ,${state} \n contact:${contact}`}
                 <br />
-                <button onClick={changeAddress}>change address</button>
+                <button onClick={changeAddress}>Change </button>
             </div>
 
             <div className={style.payment}>

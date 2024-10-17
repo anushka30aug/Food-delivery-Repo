@@ -4,25 +4,26 @@ import { incrementPage, fetchRestaurants, setName, setRating } from "../../Redux
 import { useEffect, useState } from "react";
 import RestaurantModal from "./RestaurantModal";
 import style from '../../Styling/RestaurantList.module.css';
-import { useNavigate } from 'react-router-dom';
-import { Loading } from "../Icon";
-
+import CircularProgress from '@mui/material/CircularProgress';
+import Skeleton from '@mui/material/Skeleton';
+import InputLabel from '@mui/material/InputLabel';
+import MenuItem from '@mui/material/MenuItem';
+import FormControl from '@mui/material/FormControl';
+import Select, { SelectChangeEvent } from '@mui/material/Select';
+import { Search } from "../Icon";
 
 export default function RestaurantList() {
-    const navigate = useNavigate();
     const dispatch = useDispatch();
     const data = useSelector(state => state.restaurantData.data);
     const totalLength = useSelector(state => state.restaurantData.totalResults);
     const city = useSelector(state => state.userCity.city)
     const dataLength = data.length;
+    const rating  = useSelector(state=>state.restaurantData.rating);
     const [search, setSearch] = useState('');
     const [loading, setLoading] = useState(false);
 
     useEffect(
         () => {
-            if (!localStorage.getItem('token')) {
-                return navigate('/login')
-            }
             if (city !== null) {
                 if (dataLength === 0 && totalLength === 0) {
                     setLoading(true);
@@ -51,15 +52,15 @@ export default function RestaurantList() {
     const hasMore = () => {
         if (dataLength < totalLength) {
             if (loading === false)
-            setLoading(true);
+                setLoading(true);
             return true;
         }
         else {
             if (loading === true)
                 setLoading(false);
-                return false;
+            return false;
         }
-        
+
     }
 
 
@@ -72,31 +73,58 @@ export default function RestaurantList() {
         <div>
             <h3 className={style.heading}>Restaurants Near You</h3>
             <div className={style.utilities}>
+
                 <div className={style.searchbar}>
-                    <form onSubmit={handleSubmit}>
-                        <input type="search" placeholder="search Restaurant" value={search} onInput={handleChange} />
-                        <button onClick={handleSubmit}>Search</button>
+                    <form className={style.search_form} onSubmit={handleSubmit}>
+                        <Search/>
+                        <input type="search" placeholder="Search Restaurant" value={search} onInput={handleChange} required />
+                        <input type="submit" hidden/>
                     </form>
                 </div>
 
-                <select className={style.filter} onChange={handleSelectChange}>
-                    <option value='all'>Filter</option>
-                    <option value='all'>Default</option>
-                    <option value='top'>Top</option>
-                    <option value='more than 4'>4+ Rating</option>
-                </select>
-            </div>
+                <FormControl sx={{ m: 1, minWidth: 120 }} size="small">
+                    <InputLabel id="demo-select-small-label">Rating</InputLabel>
+                    <Select
+                        labelId="demo-select-small-label"
+                        id="demo-select-small"
+                        value={rating}
+                        label="Rating"
+                        onChange={handleSelectChange}
+                    >
+                        <MenuItem value="all">
+                            <em>Default</em>
+                        </MenuItem>
+                        <MenuItem value={'top'}>Top</MenuItem>
+                        <MenuItem value={'more than 4'}>4+ Rating</MenuItem>
+                    </Select>
+                </FormControl>
 
+            </div>
+            {/* {
+                dataLength===0?
+            } */}
             <InfiniteScroll
                 dataLength={dataLength}
                 hasMore={hasMore()}
                 next={fetchMore}
             >
                 <div className={style.restaurantList}>
-                    {data.map((item, index) => (<RestaurantModal key={index} item={item} />))}
+                    {dataLength === 0 ? (
+                        Array.from({ length: 8 }).map((_, index) => {
+                            return <Skeleton variant="rectangular" height={200} style={{
+                                maxWidth: "300px",
+                                margin: "1em",
+                                height: "400px"
+                            }} />
+                        })
+                    ) : (
+                        data.map((item, index) => (<RestaurantModal key={index} item={item} />))
+                    )
+                    }
                 </div>
 
-                { loading?<div className={style.Loader}><b>Loading</b><Loading /></div>:'' }
+                {loading ? <div className={style.Loader}><CircularProgress style={{ color: 'green' }} /></div> : ''}
+
             </InfiniteScroll>
         </div>
     )

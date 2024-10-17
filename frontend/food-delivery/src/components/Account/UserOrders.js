@@ -1,18 +1,21 @@
 import { useDispatch, useSelector } from 'react-redux';
 import PurchaseItemDesc from '../buy/purchaseItemDesc';
 import Style from '../../Styling/UserOrder.module.css';
-import { setOrderDetail, setOrderDetailModal } from '../../Redux/Detailing';
+import { setOrderDetail } from '../../Redux/Detailing';
+import { useNavigate } from 'react-router';
 
 
 export default function UserOrders() {
     const dispatch = useDispatch();
+    const navigate  = useNavigate();
     const orderedItems = useSelector(state => state.orderData.orderedItems)
-
+    // console.log("order details "+orderedItems)
 
 
     const handleClick = (item) => {
         dispatch(setOrderDetail(item));
-        dispatch(setOrderDetailModal(true));
+        navigate(`/userOrder?id=${item._id}`)
+        
     }
 
 
@@ -26,17 +29,20 @@ export default function UserOrders() {
 
     return (
         <div className={Style.orders}>
-            {orderedItems.map((item) => {
+            {orderedItems.length>0 && orderedItems.map((item) => {
+                
+                    // console.log(item);
+                
                 return (
                     <div className={Style.orderDescription} onClick={(e) => { e.preventDefault(); handleClick(item) }}>
                        
-                        <div className={Style.date}>
-                            Date - {item.date}
-                        </div>
 
                         <PurchaseItemDesc key={item.id} item={item.productDetail} />
 
-                        <div>
+                        <div className={Style.date}>
+                            Ordered On - <span>{item.date.split('T')[0]}</span>
+                        </div>
+                        <div className={Style.status}>
                             Delivery Status - <span style={{ color: item.delivery_status === 'processing' ? 'orangered' : 'green' }}>{item.delivery_status}</span>
                         </div>
                     </div>

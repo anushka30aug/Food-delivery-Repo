@@ -1,7 +1,7 @@
 .heading{
  text-align: center;
  color: orangered;
- text-shadow: 2px 2px gainsboro;
+ /* text-shadow: 2px 2px gainsboro; */
  padding:.5em
 }
 

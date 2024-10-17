@@ -17,14 +17,16 @@ export const sendOtp = createAsyncThunk('/verification/sendOtp',
     })
 
 export const verifyOtp = createAsyncThunk('/verification/verifyOtp',
-    async (enteredOtp) => {
+    async (enteredOtp,{getState}) => {
+        const state= getState();
+        const {email,name}=state.verification;
         const response = await fetch(`${host}/delivery/auth/verifyOtp`,
             {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
                 },
-                body : JSON.stringify({enteredOtp}),       
+                body : JSON.stringify({enteredOtp,email,name}),       
             })
         const data = await response.json();
         return data;
@@ -52,6 +54,8 @@ const verificationSlice = createSlice(
         name: 'verification',
         initialState: {
             loading: false,
+            name:null,
+            email:null,
             error: null,
             isRecovering:false
         },
@@ -59,6 +63,10 @@ const verificationSlice = createSlice(
           setRecovering(state,action)
           {
             state.isRecovering=action.payload
+          },
+          setDetails(state,action){
+            state.name=action.payload.name;
+            state.email = action.payload.email;
           }
         },
         extraReducers: (builder) => {
@@ -131,6 +139,6 @@ const verificationSlice = createSlice(
         }
     }
 )
-export const {setRecovering} = verificationSlice.actions;
+export const {setRecovering,setDetails} = verificationSlice.actions;
 export default verificationSlice.reducer;
 

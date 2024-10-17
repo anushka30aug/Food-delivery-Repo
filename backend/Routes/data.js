@@ -13,7 +13,6 @@ route.get('/fetchData', async (req, res) => {
             totalResults = await Product.countDocuments({ seller_Id: seller_Id });
         }
         else {
-
             if (filter === 'ascending') {
                 if (sub_category !== 'none') {
                     data = await Product.find({
@@ -108,7 +107,7 @@ route.get('/fetchData', async (req, res) => {
                     totalResults = await Product.countDocuments({
                         category: category, seller_City: { "$regex": city, "$options": "i" }, seller_State: { "$regex": state, "$options": "i" },
                     })
-                }
+                } 
             }
         }
 
@@ -172,6 +171,24 @@ route.get('/fetchRestaurant', async (req, res) => {
         console.log(err)
         res.status(400).send({ error: "Internal server error" })
     }
+
+})
+
+route.get('/fetchSingleProduct',async(req,res)=>{
+    try{
+        const{id}=req.query;
+        const objectId = new mongoose.Types.ObjectId(id);
+        const data = await Product.findById(objectId);
+        if(!data){
+            return res.status(404).send({ error: "No product found" });
+        }
+        res.status(200).send({data}); 
+    }
+
+    catch(error){
+        res.status(400).send({ error: "Internal server error" });
+    }
+
 
 })
 

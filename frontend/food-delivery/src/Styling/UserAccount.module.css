@@ -43,6 +43,12 @@
     padding: .1em;
 }
 
+
+.main{
+    ::-webkit-scrollbar{
+        display: none;
+    }
+}
 .mainMenu {
     display: flex;
     align-items: center;
@@ -54,6 +60,7 @@
     border-bottom: none;
     border-radius: .5em .5em 0 0;
     overflow: scroll;
+   
 }
 
 .mainMenu button {

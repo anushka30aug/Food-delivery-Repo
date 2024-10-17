@@ -22,15 +22,20 @@ padding: 1em;
 .main p{
  font-size: large;
  font-weight: bold;
- color: rgb(1, 145, 202);
+ color: rgba(255, 68, 0);
 }
 
 .main button{
-    border:1px solid rgb(1, 32, 61);
-    border-radius: .5em;
-    padding: .5em 1em;
-    background-color:rgb(224, 239, 244);
-    color: rgb(1, 32, 61);
+    border: none;
+    border-radius: .2em;
+    padding: 6px 16px;
+    background-color:rgba(255, 68, 0);
+    color: white;
     font-weight: bold;
-    
+    font-size: medium;
+    transition: transform .25s ease-in;
+}
+
+.main button:hover{
+    transform: scale(1.1);
 }

@@ -14,26 +14,30 @@
 }
 
 .searchbar {
-  text-align: center;
   max-width: 350px;
+  border: 1px solid rgb(194, 194, 194);
+  border-radius: .3em;
+}
+
+.search_form{
+  display: flex;
+  align-items: center;
+  justify-content: left;
+  margin:10.5px;
+}
+
+.search_form svg{
+  max-width: 25px;
+  max-height: 25px;
 }
 
 .searchbar input {
-  padding: 1em;
-  margin: .5em;
-  border: .1em solid rgb(20, 17, 57);
   border-radius: .5em;
-  width:50%;
-  min-width: 150px;
-}
-
-.searchbar button {
-  padding: 1em;
-  margin: .5em;
   border: none;
-  border-radius: .3em;
-  background-color: rgb(20, 17, 57);
-  color: white;
+  min-width: 150px;
+  margin: 0 2px;
+  outline: none;
+
 }
 
 .filter {
@@ -48,11 +52,12 @@
 
 
 .restaurantList {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-evenly;
-  max-width: 1500px;
-  margin: 0 auto;
+    max-width: 1500px;
+    margin: 0 auto;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+    margin-bottom:5em;
 }
 .Loader{
   display: flex;

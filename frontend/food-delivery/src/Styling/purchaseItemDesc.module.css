@@ -1,14 +1,18 @@
 .item {
     display: flex;
     align-items: center;
-    justify-content: space-evenly;
-    width: 100%;
+    /* justify-content: space-evenly; */
+    justify-content: flex-start;
+    /* width: 100%; */
+    word-break:normal;
+    word-wrap: break-word;
 }
 
 .differentCityItems{
     border-bottom: 1px solid red;
     margin: 1em auto;
     color:grey
+    
 }
 
 .differentCityItems h4{
@@ -16,15 +20,21 @@
 }
 
 .sameCityItems{
-    border-bottom: 1px solid black;
+    border-bottom: 1px solid rgb(179, 178, 178);
     margin: 1em auto;
 }
 
 .itemImage {
-    max-width: 10em;
-    max-height: 10em;
-    margin: .2em;
+    width: 8em;
+    height: 8em;
+    margin: .5em;
     object-fit: cover;
+    border-radius: 100em;
+    overflow:hidden;
+    object-fit: cover;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .itemImage img {
@@ -36,4 +46,5 @@
     text-align: left;
     padding: .3em;
     margin: .3em;
+    margin-left: 1em;
 }

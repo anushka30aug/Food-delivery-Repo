@@ -9,8 +9,9 @@
     margin: 1em;
     color: black;
     font-size: 1em;
-    box-shadow: .2em .2em .2em .2em rgb(141, 138, 138);
+    box-shadow: .07em .07em .07em .07em rgb(141, 138, 138);
     cursor: pointer;
+    border-radius: .5em;
 }
 
 .productImage {
@@ -20,10 +21,16 @@
     position: relative;
 }
 
+.productImage:hover img{
+    transform: scale(1.1);
+   }
+
 .productImage img {
     object-fit: cover;
     width: 100%;
     height: 100%;
+    transition: transform .25s ease-in-out;
+
 }
 
 .productImage button{

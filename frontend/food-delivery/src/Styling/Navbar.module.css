@@ -9,13 +9,12 @@ svg {
   align-items: center;
   padding: 0 0 0 1em;
   color: black;
-  background-color:rgb(228, 226, 226);
-  box-shadow: 0 0 .2em .2em rgb(235, 235, 235);
+  box-shadow: 0 2px 4px 0 rgba(0,0,0,.2);
   list-style-type: none;
   max-width: 1500px;
   margin: 0 auto;
   box-sizing: border-box;
-  /* border-bottom: 1px solid rgb(0, 0, 0); */
+  
 }
 
 .navbar h2 {
@@ -26,7 +25,7 @@ svg {
   font-family: 'Cinzel';
 }
 
-.navbar-activities {
+.navbar_activities {
   min-width: 40%;
   display: flex;
   justify-content: space-evenly;
@@ -56,13 +55,10 @@ svg {
   cursor: pointer;
 }
 
-.navbar-activities button {
+.navbar_activities button {
   font-size: larger;
   font-weight: 500;
   margin: 0 .5em;
-  background-color:rgb(228, 226, 226) ;
-  color: black;
-  border: none;
   cursor: pointer;
 }
 
@@ -72,22 +68,25 @@ svg {
 }
 
 
-.icons button{
- background-color:rgb(228, 226, 226);
- height: 40px;
+.profile{
+ background-color:rgb(255, 255, 255);
+ border: none;
+ /* height: 40px; */
 }
 
-.cart-container{
+.cart_container{
   position: static;
+  background-color:rgb(255, 255, 255);
+  border: none;
 }
 
-.icons button svg{
+/* .icons button svg{
  width: 30px;
  height: 30px;
  color: black;
-}
+} */
 
-.amount-container {
+/* .amount_container {
   position: relative;
   top: -30px;
   right: -30px;
@@ -97,6 +96,22 @@ svg {
   background-color: green;
   color: white; 
   text-align: center;
+} */
+
+.signup{
+  border: none;
+  border-radius: .2em;
+  padding:6px 16px;
+  background-color: rgba(255, 68, 0);
+  color: white;
+}
+
+.login{
+  border: 1px solid rgba(255, 68, 0);
+  border-radius: .2em;
+  padding:6px 16px;
+  background-color: transparent;
+  color: rgba(255, 68, 0);
 }
 
 
@@ -107,16 +122,13 @@ svg {
     justify-content: space-between;
     align-items: center;
     color: black;
-    background-color: rgb(228, 226, 226);
     list-style-type: none;
     padding: 0em 0em 0em 3em;
     max-width: 1500px;
     margin: 0 auto;
-    box-shadow: none;
-   
   }
 
-  .navbar-activities {
+  .navbar_activities {
     min-width: 20%;
     display: flex;
     justify-content: space-evenly;
@@ -125,13 +137,6 @@ svg {
     background-color: transparent;
   }
 
-  .navbar-activities button {
-    font-size: larger;
-    margin: 0 1em;
-    background-color: rgb(228, 226, 226);
-    color: black;
-    border: none;
-  }
   .icons{
     display:flex;
     align-items: center;

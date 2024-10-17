@@ -3,7 +3,7 @@ const {Schema}= mongoose;
 /* A Schema to temporarly store cart data for which online payment session is started
   this is done so that even if user makes any changes in their cart data (adding items or increasing quantity etc)
   the changes doesn't affect the data for which the payment is being started */
-const cartItems = new Schema(
+const cartItems = new Schema( 
     {
         _id: {
             type: mongoose.Schema.Types.ObjectId,

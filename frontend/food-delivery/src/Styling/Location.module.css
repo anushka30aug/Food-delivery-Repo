@@ -2,47 +2,59 @@
     min-height: 400px;
     max-width: 500px;
     margin: 1em auto;
-    padding: .5em;
+    padding: 1em;
     padding-top: 0;
     box-shadow: 0 0 1em 1px gainsboro;
     display: flex;
     align-items: normal;
     flex-direction: column;
     justify-content:space-evenly;
+    text-align: center;
+    box-sizing: border-box;
+    
+}
+
+.location_icon{
+    padding: 1em;
+}
+
+.location_icon svg{
+    height: 200px;
+}
+
+.form{
+    border: 1px solid rgb(158, 156, 156);
+    padding: 6px 14px;
+    margin: .5em 1em;
+    border-radius: .2em;
+    display: flex;
+    align-items: center;
+    justify-content: left;
+    box-sizing: border-box;
 }
 
 .form input {
-    width: 70%;
-    min-width: 200px;
-    padding: 1em;
-    margin-top: 0;
     border: none;
-    border-radius: .5em;
-    /* box-shadow: 0 0 1em 1px gainsboro; */
-    border:.2em double orange;
+    padding-left: 10px;
+    font-weight: bold;
+    box-sizing: border-box;
+    width: 100%;
     outline: none;
 }
 
-.form button {
-    width: 20%;
-    min-width: 70px;
-    max-width: 100px;
-    padding: 1em;
-    color: white;
-    background-color: rgb(235, 165, 36);
-    border:.2em double orange;
-    border-radius: .5em;
-    margin-left: .2em;
+.form svg{
+    height: 20px;
+    width: 20px;
+    color: gray;
+
 }
 
-.gps {
+.gps_button {
+    background-color: rgba(255, 68, 0);
+    padding: 7px 16px;
+    margin: 1em;
+    border: none;
+    border-radius: .2em;
+    color: white;
     font-size: large;
-    color: orange;
-    width: 70%;
-    max-width: 400px;
-    padding: .5em;
-    border-radius:.5em ;
-    box-sizing: border-box;
-    box-shadow: 0 4px 4px -2px gainsboro, 0 0 0 0 gainsboro, 4px 0 4px -2px gainsboro, -4px 0 4px -2px gainsboro;
-    margin-bottom: 1em;
 }

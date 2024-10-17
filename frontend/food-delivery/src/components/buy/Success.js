@@ -10,7 +10,7 @@ export default function Success(){
                 <img src={img} alt='delivery boy'/>
             </div>
             <div className={style.text}>
-                <h4>🎉your order placed successfully🎉</h4>
+                <div>🎉your order placed successfully🎉</div>
                 
                 <button onClick={()=>{
                    navigate('/')

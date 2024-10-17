@@ -6,11 +6,10 @@ import style from '../../Styling/RestaurantDetail.module.css'
 import { useEffect, useState } from "react";
 import ProductCart from '../product/productModal';
 import ProductDetail from "../product/ProductDetail";
-import { useNavigate } from 'react-router-dom';
+import { CircularProgress } from "@mui/material";
 
 
 export default function RestaurantDetail() {
-    const navigate = useNavigate();
     const detail = useSelector(state => state.Detail.restaurantDetail)
     const data = useSelector(state=>state.data.data);
     const showdetail=useSelector(state=>state.Detail.showdetail)
@@ -18,9 +17,7 @@ export default function RestaurantDetail() {
     const dispatch = useDispatch();
     useEffect(
         ()=>{
-            if (!localStorage.getItem('token') ) {
-                return navigate('/login')
-            }
+           
             setLoading(true);
             window.scrollTo({top: 0, left: 0, behavior: 'smooth'})
             dispatch(resetValues());
@@ -51,8 +48,8 @@ export default function RestaurantDetail() {
                 ))
                 
             }
-            { loading?<div className={style.Loader}><b>Loading</b><Loading /></div>:'' }
-        </div> 
+                {loading ? <div className={style.Loader}><CircularProgress  style={{color:'green'}}/></div> : ''}
+                </div> 
         </div>
 
     )

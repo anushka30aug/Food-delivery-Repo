@@ -5,7 +5,7 @@
     text-align: center;
     box-sizing: border-box;
     background-color: transparent;  
-    border: 1px solid gray;   
+    border-top: 1px solid gray;   
 }
 
 .contact_list{
@@ -27,4 +27,8 @@
 .contact_list li svg{
     width: 40px;
     height: 40px;
+}
+
+.contact_list li:hover{
+    transform: scale(1.1);
 }

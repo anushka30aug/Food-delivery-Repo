@@ -1,6 +1,6 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import toast from "react-hot-toast";
-import Home from "../components/Home";
+
 const host = process.env.REACT_APP_API_IP_ADDRESS;
 export const fetchData = createAsyncThunk(
     '/fetchData',
@@ -76,7 +76,7 @@ const dataSlice = createSlice({
             })
             .addCase(fetchData.fulfilled, (state, action) => {
                 if (action.payload.err) {
-                    toast.error(`${action.payload.err}`) 
+                    // toast.error(`${action.payload.err}`) 
                     return;
                 }
                 else if (action.payload.error) {

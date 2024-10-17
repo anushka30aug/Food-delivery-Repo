@@ -22,15 +22,18 @@
     text-align: center;
 }
 
-.text h4{
-    margin-top:0
+.text div{
+    margin:1em auto;
+    font-size: medium;
+    font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
 }
 
 .text button{
-    background-color: black;
-    padding:.5em 1em;
-    border:1px solid white;
-    border-radius: .5em;
+    background-color: green;
+    padding:6px 16px;
+    font-size: large;
+    border:none;
+    border-radius: .2em;
     color: white;
     margin: 0 auto;
 }

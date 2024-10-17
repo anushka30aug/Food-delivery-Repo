@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import { useNavigate } from 'react-router-dom';
 import InfiniteScroll from 'react-infinite-scroll-component';
 import { fetchData, resetValues } from "../../Redux/dataState";
 import { incrementPage } from "../../Redux/dataState";
@@ -7,14 +6,15 @@ import { useDispatch, useSelector } from "react-redux";
 import ProductCart from './productModal';
 import ProductDetail from "./ProductDetail";
 import style from '../../Styling/ProductList.module.css';
-import Skeleton from 'react-loading-skeleton'
 import 'react-loading-skeleton/dist/skeleton.css'
 import Footer from '../Footer';
-import { Loading } from "../Icon";
+import CircularProgress from '@mui/material/CircularProgress';
+import Skeleton from '@mui/material/Skeleton';
+
 
 export default function ProductList() {
     const dispatch = useDispatch();
-    const navigate = useNavigate();
+    // const navigate = useNavigate();
     const dataValue = useSelector((state) => state.data.data || []);
     const totalLength = useSelector((state) => state.data.totalResults);
     const dataLength = useSelector((state) => dataValue.length);
@@ -23,9 +23,6 @@ export default function ProductList() {
     const [loading, setLoading] = useState(false);
 
     useEffect(() => {
-        if (localStorage.getItem('token') === null || undefined) {
-            return navigate('/login');
-        }
         dispatch(resetValues());
         dispatch(fetchData()).then((data) => window.scrollTo({ top: 0, left: 0 }));
         setLoading(true);
@@ -64,9 +61,13 @@ export default function ProductList() {
             >
                 <div className={style.products}>
                     {dataLength === 0 ? (
-                        <div className={style.skeleton_Container}>
-                            <Skeleton className={style.skeleton} width='320px' count={5} />
-                        </div>
+                       Array.from({length:9}).map((_,index)=>{
+                        return <Skeleton variant="rectangular" width="100%" height={200} style = {{
+                            width: "450px",
+                            height: "12em",
+                            margin: "1em",
+                          }}/>
+                    }) 
                     ) : (
                         dataValue.map((item, index) => (
                             <ProductCart key={index} item={item} />
@@ -75,9 +76,8 @@ export default function ProductList() {
                         )
                     )}
                 </div>
-                {loading ? <div className={style.Loader}><b>Loading</b><Loading /></div> : ''}
-
-
+                {loading ? <div className={style.Loader}><CircularProgress  style={{color:'green'}}/></div> : ''}
+               
             </InfiniteScroll>
             <Footer />
         </div>
