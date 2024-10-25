@@ -1,6 +1,5 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import toast from "react-hot-toast";
-import { json } from "react-router";
 const host = process.env.REACT_APP_API_IP_ADDRESS;
 
 export const fetchData = createAsyncThunk(

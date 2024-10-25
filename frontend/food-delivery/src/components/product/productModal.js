@@ -1,13 +1,12 @@
 import style from '../../Styling/productModal.module.css';
 import { setProductDetail } from '../../Redux/Detailing';
-import { setModal } from '../../Redux/Detailing';
 import { useDispatch } from 'react-redux';
 import { calculateAmount, addToCart } from '../../Redux/cartSlice';
 import toast from 'react-hot-toast';
 import { useNavigate } from 'react-router';
 
 export default function ProductCart(prop) {
-  const dispatch = useDispatch();
+  const dispatch = useDispatch(); 
   const navigate = useNavigate();
 
   const showProduct = (e) => {

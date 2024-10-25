@@ -1,5 +1,5 @@
 import { useDispatch, useSelector } from "react-redux";
-import { Loading, Rating } from '../Icon';
+import {  Rating } from '../Icon';
 import {fetchData } from "../../Redux/dataState";
 import { resetValues,setSellerId } from "../../Redux/dataState";
 import style from '../../Styling/RestaurantDetail.module.css'
