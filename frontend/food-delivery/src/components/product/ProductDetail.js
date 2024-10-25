@@ -25,14 +25,14 @@ export default function ProductDetail() {
 
 
     useEffect(() => {
-        console.log(detail);
+        // console.log(detail);
         if (Object.keys(detail).length === 0) {
             const id = getQueryParam('id');
             if (id === undefined || id === null) {
                 toast.error("Product Id not found");
                 return;
             }
-            console.log("inside if", id)
+            // console.log("inside if", id)
             dispatch(fetchData(id));
         }
         //eslint-disable-next-line

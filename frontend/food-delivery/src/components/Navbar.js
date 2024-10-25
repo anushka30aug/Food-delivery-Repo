@@ -8,6 +8,7 @@ import IconButton from '@mui/material/IconButton';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import { resetTotal } from '../Redux/cartSlice';
+import { resetOrders } from '../Redux/OrdersState';
 
 const Navbar = () => {
     const location = useSelector(state => state.userCity.city)
@@ -27,7 +28,9 @@ const Navbar = () => {
 
     const logOutClick = () => {
         localStorage.removeItem('token');
+        sessionStorage.clear();
         dispatch(resetTotal());
+        dispatch(resetOrders());
         navigate('/sign-in');
     }
     const signInClick = () => {
@@ -73,7 +76,7 @@ const Navbar = () => {
                 </div>
             </nav>
             {
-                <div className={style.location} onClick={() => { console.log('navigating'); navigate('/location') }}>
+                <div className={style.location} onClick={() => { navigate('/location') }}>
                     <Position /> Delivery in {location}, {state}
                 </div>
             }

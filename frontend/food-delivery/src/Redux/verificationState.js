@@ -4,7 +4,7 @@ const host = process.env.REACT_APP_API_IP_ADDRESS;
 
 export const sendOtp = createAsyncThunk('/verification/sendOtp',
     async (email) => {
-        console.log(`sending otp at email ${email}`)
+        // console.log(`sending otp at email ${email}`)
         const response = await fetch (`${host}/delivery/auth/sendOtp?emailId=${email}`,
             {
                 method: 'GET',

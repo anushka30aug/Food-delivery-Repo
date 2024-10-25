@@ -6,7 +6,7 @@ const host = process.env.REACT_APP_API_IP_ADDRESS;
 export const fetchData = createAsyncThunk(
   '/fetch',
   async (id) => {
-    console.log("fetching data for id", id);
+    // console.log("fetching data for id", id);
     const response = await fetch(`${host}/delivery/data/fetchSingleProduct?id=${id}`,
       {
         method: 'GET',
@@ -67,7 +67,7 @@ const Detailing = createSlice(
 
         })
         .addCase(fetchData.fulfilled, (state, action) => {
-          console.log(action.payload.data)
+          // console.log(action.payload.data)
           if (action.payload.data)
             state.productDetail = action.payload.data;
           else {

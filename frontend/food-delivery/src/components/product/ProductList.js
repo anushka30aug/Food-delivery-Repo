@@ -62,7 +62,7 @@ export default function ProductList() {
                 <div className={style.products}>
                     {dataLength === 0 ? (
                        Array.from({length:9}).map((_,index)=>{
-                        return <Skeleton variant="rectangular" width="100%" height={200} style = {{
+                        return <Skeleton variant="rectangular" key={index} width="100%" height={200} style = {{
                             width: "450px",
                             height: "12em",
                             margin: "1em",

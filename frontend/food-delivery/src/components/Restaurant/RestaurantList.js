@@ -9,7 +9,7 @@ import Skeleton from '@mui/material/Skeleton';
 import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
-import Select, { SelectChangeEvent } from '@mui/material/Select';
+import Select from '@mui/material/Select';
 import { Search } from "../Icon";
 
 export default function RestaurantList() {
@@ -111,7 +111,7 @@ export default function RestaurantList() {
                 <div className={style.restaurantList}>
                     {dataLength === 0 ? (
                         Array.from({ length: 8 }).map((_, index) => {
-                            return <Skeleton variant="rectangular" height={200} style={{
+                            return <Skeleton variant="rectangular" key={index} height={200} style={{
                                 maxWidth: "300px",
                                 margin: "1em",
                                 height: "400px"
@@ -122,7 +122,7 @@ export default function RestaurantList() {
                     )
                     }
                 </div>
-
+                <br/>
                 {loading ? <div className={style.Loader}><CircularProgress style={{ color: 'green' }} /></div> : ''}
 
             </InfiniteScroll>

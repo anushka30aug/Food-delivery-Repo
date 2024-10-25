@@ -29,15 +29,15 @@ export default function UserOrders() {
 
     return (
         <div className={Style.orders}>
-            {orderedItems.length>0 && orderedItems.map((item) => {
+            {orderedItems.length>0 && orderedItems.map((item,index) => {
                 
                     // console.log(item);
                 
                 return (
-                    <div className={Style.orderDescription} onClick={(e) => { e.preventDefault(); handleClick(item) }}>
+                    <div className={Style.orderDescription} key={index} onClick={(e) => { e.preventDefault(); handleClick(item) }}>
                        
 
-                        <PurchaseItemDesc key={item.id} item={item.productDetail} />
+                        <PurchaseItemDesc key={index} item={item.productDetail} />
 
                         <div className={Style.date}>
                             Ordered On - <span>{item.date.split('T')[0]}</span>

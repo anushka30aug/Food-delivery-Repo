@@ -5,15 +5,15 @@ import { useEffect } from 'react';
 import { calculateAmount, fetchCartItems, removeFromCart } from '../../Redux/cartSlice';
 import ProductDetail from '../product/ProductDetail';
 import Footer from '../Footer';
-import { fetchuser } from '../../Redux/UserProfile';
+// import { fetchuser } from '../../Redux/UserProfile';
 import { useNavigate } from 'react-router';
 
 const CartContainer = () => {
   const navigate = useNavigate()
   const { cartItems, totalQuantity, amount } = useSelector((store) => store.cart);
   const showdetail = useSelector(state => state.Detail.showdetail)
-  const userCity = useSelector(state => state.userCity.city)
-  const userState = useSelector(state => state.userCity.state)
+  // const userCity = useSelector(state => state.userCity.city)
+  // const userState = useSelector(state => state.userCity.state)
   const dispatch = useDispatch()
   useEffect(() => {
     if (!localStorage.getItem('token') ) {
@@ -66,8 +66,8 @@ const CartContainer = () => {
         <h2>your Plate 😋</h2>
       </header>
       <div>
-        {cartItems.map((item) => {
-          return <CartItem key={item.id} item={item} />;
+        {cartItems.map((item,index) => {
+          return <CartItem key={index} item={item} />;
         })
         }
       </div>

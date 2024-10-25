@@ -34,8 +34,8 @@ const SignIn=()=>{
     return (<>    
         <form className="auth-form" onSubmit={handleLogin} disabled={loading}>
             <h2 className="auth-heading" >Sign-in</h2>
-            <input type="text" placeholder="Name" name="Name" id="Name" value={credentials.Name} onChange={handleChange} autocomplete="off" className="input" required/>
-            <input type="email" placeholder="Email ID" name="email" id="email" value={credentials.email} onChange={handleChange} autocomplete="off" className="input" required/>
+            <input type="text" placeholder="Name" name="Name" id="Name" value={credentials.Name} onChange={handleChange} autoComplete="off" className="input" required/>
+            <input type="email" placeholder="Email ID" name="email" id="email" value={credentials.email} onChange={handleChange} autoComplete="off" className="input" required/>
             <button type='submit' className='auth-button' disabled={loading}>{loading ? 'Loading...' : "Continue"}</button>
             <br/>
             <hr color="white" />

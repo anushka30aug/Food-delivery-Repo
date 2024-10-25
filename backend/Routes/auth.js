@@ -8,7 +8,7 @@ const transporter = require('../Helper/NodeMailer')
 const otp = require('otp-generator');
 const { body, validationResult } = require('express-validator');
 const emailExistence = require('email-existence');
-const s_key = process.env.JWT_SECRET_KEY;
+// const s_key = process.env.JWT_SECRET_KEY;
 
 
 route.get('/fetchUser', fetchUser, async (req, res) => {
@@ -19,7 +19,7 @@ route.get('/fetchUser', fetchUser, async (req, res) => {
             res.status(400).send({ not_found: "user not found" })
         }
         else {
-            console.log(user);
+            // console.log(user);
             res.status(200).send({ data: user })
         }
     }
@@ -69,7 +69,7 @@ route.get('/sendOtp', [body('emailId').isEmail().withMessage('enter valid email'
                 html: `<i>Sign-In OTP for your Trofi account: <h2>${getOtp}</h2> kindly do not share this OTP with anyone</i>`, // HTML body
             })
             .then(info => {
-                console.log(info);
+                // console.log(info);
                 res.status(200).json({ otp: 'OTP sent successfully' });
             })
             .catch(error => {

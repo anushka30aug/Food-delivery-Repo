@@ -17,7 +17,7 @@ export default function EditProfile() {
     const image = useSelector(state=>state.deliveryData.profilePicture);
     const [number, setNumber] = useState(userContact);
     const [name, setName] = useState(userName);
-    console.log(image)
+    // console.log(image)
     const handleImageClick = (e) => {
         inputref.current.click();
     }
@@ -79,11 +79,11 @@ export default function EditProfile() {
                 </div>
                 <div className={style.userName_container}>
                     <h4>User Name</h4>
-                    <input type="text" value={name} onChange={changeUserName} />
+                    <input type="text" value={name||''} onChange={changeUserName} />
                 </div>
                 <div className={style.number_container}>
                     <h4>Contact Number</h4>
-                    <input type="number" placeholder="--" value={number} onChange={changeNumber} />
+                    <input type="number" placeholder="--" value={number||''} onChange={changeNumber} />
                 </div>
                 <button onClick={handleClick}>Done</button>
             </main>

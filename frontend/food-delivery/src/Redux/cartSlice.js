@@ -75,6 +75,8 @@ const cartSlice = createSlice({
     resetTotal(state){
       // used when user log out bcz we can update the session storage due to redux persist 
       state.totalQuantity = 0;
+      state.amount=0;
+      state.cartItems=[];
     },
     increase: (state) => {
       state.updateSymbol = "+";
