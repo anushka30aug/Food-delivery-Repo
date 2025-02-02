@@ -22,7 +22,6 @@ export default function BuyProduct() {
     const contact = useSelector(state => state.deliveryData.contact)
     const cartItems = useSelector(state => state.cart.cartItems)
     const amount = useSelector(state => state.cart.amount);
-    
     useEffect(
         () => {
             if (!localStorage.getItem('token') ) {

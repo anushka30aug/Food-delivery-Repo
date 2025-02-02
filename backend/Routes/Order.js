@@ -11,26 +11,27 @@ const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY)
 
 route.post('/digitalPayment', fetchUser, async (req, res) => {
   try {
-    const { products,delivery_detail } = req.body;
-    // perform check to ensure that all the cartItems are deliverable to provided location
-    const deliverableProducts = products.map(product=>{
-      if(product.seller_City.toUpperCase() !== delivery_detail.city.toUpperCase() || product.seller_State.toUpperCase() !== delivery_detail.state.toUpperCase())
-      {
-        return undefined
-      }
-      else{
-        return product
-      }
-    }).filter(product=> product !== undefined)
+    const { products, delivery_detail } = req.body;
+
+    // Filter deliverable products
+    const deliverableProducts = products.filter(product =>
+      product.seller_City.toUpperCase() === delivery_detail.city.toUpperCase() &&
+      product.seller_State.toUpperCase() === delivery_detail.state.toUpperCase()
+    );
+
+    if (deliverableProducts.length === 0) {
+      return res.status(400).json({ error: "No deliverable products available for checkout." });
+    }
 
     const id = req.user.id;
-    key = id.toString() + Date();
-    // to store the customer checkOut cart items temporarily
-    CheckOut.create({
+    const key = id.toString() + Date();
+
+    // Store checkout items temporarily
+    await CheckOut.create({
       customerId: key,
       cartItems: deliverableProducts,
-      deliveryData:delivery_detail
-    })
+      deliveryData: delivery_detail
+    });
 
     const lineItems = deliverableProducts.map((product) => ({
       price_data: {
@@ -42,23 +43,27 @@ route.post('/digitalPayment', fetchUser, async (req, res) => {
         unit_amount: product.price * 100,
       },
       quantity: product.productQuantity,
-    }))
+    }));
 
     const session = await stripe.checkout.sessions.create({
       payment_method_types: ['card'],
       line_items: lineItems,
-
+      customer_email: delivery_detail.email || undefined,
+      shipping_address_collection: {
+        allowed_countries: ['IN'],
+      },
       metadata: {
         key: key,
         customerId: id
       },
       mode: 'payment',
       success_url: 'https://trofi-food.netlify.app/success',
-      cancel_url:  'https://trofi-food.netlify.app/failure',
+      cancel_url: 'https://trofi-food.netlify.app/failure',
     });
 
     res.json({ id: session.id });
   } catch (error) {
+    console.error(error);
     res.status(500).json({ error: 'Internal Server Error' });
   }
 });
